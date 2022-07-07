@@ -1,9 +1,18 @@
-Welcome to kernel-tour.org. The site is coming soon.
+Welcome to kernel-tour.org.
 
-You may visit my other projects: [lightbox](https://lightbox.kernel-tour.org)
+## init
 
-Cyrus Huang
+[initcall](init/initcall)
+
+## mm
+
+[pgtable](mm/pgtable)
+
+You may also visit my other projects: [lightbox](https://lightbox.kernel-tour.org)
+
 
 ---
 
-All right reserved, powered by github.com
+Author: Cyrus Huang | All right reserved.
+
+Powered by Github.com
