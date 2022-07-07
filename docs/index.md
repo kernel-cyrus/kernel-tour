@@ -1,4 +1,4 @@
-Welcome to kernel-tour.org.
+Welcome to kernel-tour.org
 
 ## init
 
@@ -8,11 +8,7 @@ Welcome to kernel-tour.org.
 
 [pgtable](mm/pgtable)
 
-You may also visit my other projects: [lightbox](https://lightbox.kernel-tour.org)
-
 
 ---
 
-Author: Cyrus Huang | All right reserved.
-
-Powered by Github.com
+All right reserved | Powered by Github.com
