@@ -11,4 +11,4 @@ Welcome to kernel-tour.org
 
 ---
 
-All right reserved | Powered by Github.com
+All right reserved. Powered by Github.com
