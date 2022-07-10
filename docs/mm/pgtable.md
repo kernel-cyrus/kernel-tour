@@ -4,7 +4,7 @@
 
 页表的内部结构和功能与arch强相关，ARM平台的页表结构可以参考ARMv8 MMU手册。
 
-## 源码文件
+## Files
 
 - /include/linux/pgtable.h
 - /arch/arm64/include/asm/pgtable.h
@@ -18,7 +18,7 @@
 
 这样，pgtable在不同平台上，对外封装了统一接口，操作页表只需要引用`linux/pgtable.h`即可。
 
-## 数据结构
+## Structures
 
 ### Page Table
 
@@ -26,7 +26,7 @@ Kernel包括以下几个Page Table，共不同启动阶段切换使用。
 
 其中，启动阶段页表主要用于MMU使能前后的PA到VA跳转，因为跳转时需要有一个页表来做VA=PA的一一映射。
 
-这些数据结构中保存了不同启动阶段使用的一级页表内容，而二三级页表都是在内存中动态申请的。
+这些数据结构中保存了不同启动阶段使用的一级页表内容，而二三级页表保存在物理内存尾部的？MB空间内。
 
 这些数据结构的基地址，就是设置到TTBRn_EL1页表寄存器的页表地址。
 
@@ -50,12 +50,12 @@ Page Table，由Page Table Entry组成。
 
 Entry的大小和内部结构由arch定义，以ARMv8为例，Kernel的Page Table Entry表示的是MMU中定义的Page Table Descriptor的结构。
 
-## 功能接口
+## Functions
 
 ### Common
 
 ```
-set_pxx		// set value to entry
+set_p**		// set value to entry
 p**_none	// check an entry is empty
 p**_clear	// clear an entry
 p**_bad		// check if the pages pmd refers to are inaccessable
@@ -102,21 +102,29 @@ pte_tagged
 
 ### Table Operations
 
+页表操作函数，主要提供了以下几类数据间的提取和转化，括号中是这类功能函数可能包括的关键字。
+
 ```
-pgd_index(addr)
-pgd_offset(mm, addr)
-pgd_offset_k(addr)
-pgd_page(pgd)
-pud_offset(pgd, addr)
-pud_page(pud)
-pmd_index(addr)
-pmd_offset(pud, addr)
-pmd_page(pmd)
+- p** entry		(_val)
+- p** entry va		(_offset)
+- p*** va in p** entry	(_page, _to_page, _page_vaddr)
+- p*** pa in p** entry	(_page_paddr, to_phys)
+```
+
+Table Entry中的PA=>VA是怎么完成的？
+
+整个Kernel的VA空间（划分见 `memory.h`），`PAGE_OFFSET` ~ `PAGE_END` 这段VA区间，对物理内存做了完整的一一映射，通过 `__va` 函数，可以将任何PA转换为VA。计算时，只需要计算PA在物理内存的内部偏移址，在PAGE_OFFSET基础上做同样偏移，就得到了VA地址。
+
+这个一一映射（direct mapping），使用了一个pgd：pgd[0]，在 `paging_init` / `map_mem` 过程中完成。
+
+```
+p**_val			// pte entry content
+p**_page		// return p***'s in pte entry
+p**_page_paddr		// next level pa in pte entry
+p**_index(addr)		// get p** index from addr
+p**_offset(addr)	// get p** va addr from addr
+p**_addr_end(addr)	// get va of p** mem range end
 mk_pte(p,prot)
-pte_index(addr)
-pte_offset_kernel(dir, addr)
-pte_offset_map(dir, addr)
-pte_page(x)
 pte_to_pgoff(pte)
 pgoff_to_pte(offset)
 ```
@@ -142,9 +150,9 @@ clear_page_range(mmu,start,end)
 ```
 pte_pfn
 pfn_pte
-pxx_pxx		// pgd <=> pud <=> pmd <=> pte
+p**_p**		// pgd <=> pud <=> pmd <=> pte
 ```
 
-## 代码测试
+## Module Test
 
-[test-pgdump](https://github.com/kernel-cyrus/test-modules/tree/master/test-pgtable)
+[test-pgtable](https://github.com/kernel-cyrus/test-modules/tree/master/test-pgtable)
