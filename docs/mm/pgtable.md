@@ -10,14 +10,6 @@
 - /arch/arm64/include/asm/pgtable.h
 - /mm/pgtable-generic.c
 
-与大多数arch相关的内核机制实现一样，整个pgtable的功能实现分为两层：
-- 第一层是在`linux/pgtable.h`中封装出了不同平台统一的页表操作接口。
-- 第二层是在`asm/pgtable.h`中实现了arch操作的具体功能。
-
-可以看到第一层所封装的接口，都是调用第二层中的接口来完成具体功能操作的。
-
-这样，pgtable在不同平台上，对外封装了统一接口，操作页表只需要引用`linux/pgtable.h`即可。
-
 ## Structures
 
 ### Page Table
