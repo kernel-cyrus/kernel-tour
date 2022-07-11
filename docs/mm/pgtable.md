@@ -52,25 +52,13 @@ Entry的大小和内部结构由arch定义，以ARMv8为例，Kernel的Page Tabl
 
 ## Functions
 
-### Common
+### Set VAL / BIT
 
 ```
-set_p**		// set value to entry
-p**_none	// check an entry is empty
-p**_clear	// clear an entry
-p**_bad		// check if the pages pmd refers to are inaccessable
-p**_present	// check if entry / page is allocated and read/write/executable by present bit in entry
-pte_same	// check if two pte point to same PA
-pmd_large	// check if pmd refers to a large memory block
-```
-
-### Set PTE、PMD
-
-```
-clear_pte_bit
+set_pte
+pte_clear
 set_pte_bit
-clear_pmd_bit
-set_pmd_bit
+clear_pte_bit
 pte_mkwrite
 pte_mkclean
 pte_mkdirty
@@ -81,15 +69,18 @@ pte_mkspecial
 pte_mkcont
 pte_mknoncont
 pte_mkpresent
-pmd_mkcont
 pte_mkdevmap
-set_pte
 ```
 
-### Check PTE、PMD
+### Check VAL / BIT
 
 ```
-pte_present
+pte_none		// check an entry is empty
+pte_bad			// check if the pages pmd refers to are inaccessable
+pte_same		// check if two pte point to same PA
+pte_dirty
+pte_valid
+pte_present		// check if entry / page is allocated and read/write/executable by present bit in entry
 pte_young
 pte_special
 pte_write
@@ -100,57 +91,34 @@ pte_devmap
 pte_tagged	
 ```
 
-### Table Operations
-
-页表操作函数，主要提供了以下几类数据间的提取和转化，括号中是这类功能函数可能包括的关键字。
+### Entry Translation
 
 ```
-- p** entry		(_val)
-- p** entry va		(_offset)
-- p*** va in p** entry	(_page, _to_page, _page_vaddr)
-- p*** pa in p** entry	(_page_paddr, to_phys)
+pxx_page_paddr		// pa in pxx entry
+pxx_page_vaddr		// va of the pa in pxx entry
+__pxx_to_phys		// pa in pxx entry
+__phys_to_pxx_val	// convert pa to pxx entry which contain pa
+pxx_val			// pxx.pxx, real pxx entry value
+pxx_pfn / pfn_pxx	// pxx <=> pfn convert
+pxx_page		// pxx <=> page struct convert
+pxx_pXX			// pxx <=> pXX convert
+pxx_pgtable(pXX)	// va of the pa in pxx entry (pxx table pointer)
+pxx_index(addr)		// parse pxx entry from vaddr, return pxx index in its table
+pxx_offset(pXX, addr)	// parse pxx entry from vaddr, return pxx entry va pointer
 ```
 
-Table Entry中的PA=>VA是怎么完成的？
-
-整个Kernel的VA空间（划分见 `memory.h`），`PAGE_OFFSET` ~ `PAGE_END` 这段VA区间，对物理内存做了完整的一一映射，通过 `__va` 函数，可以将任何PA转换为VA。计算时，只需要计算PA在物理内存的内部偏移址，在PAGE_OFFSET基础上做同样偏移，就得到了VA地址。
-
-这个一一映射（direct mapping），使用了一个pgd：pgd[0]，在 `paging_init` / `map_mem` 过程中完成。
+### Entry Fixmap
 
 ```
-p**_val			// pte entry content
-p**_page		// return p***'s in pte entry
-p**_page_paddr		// next level pa in pte entry
-p**_index(addr)		// get p** index from addr
-p**_offset(addr)	// get p** va addr from addr
-p**_addr_end(addr)	// get va of p** mem range end
-mk_pte(p,prot)
-pte_to_pgoff(pte)
-pgoff_to_pte(offset)
+pxx_set_fixmap(addr)			// create fix address mapping for p-addr, return pxx table va pointer
+pxx_set_fixmap_offset(pXX, addr)	// call pxx_set_fixmap with v-addr (va backend pxx table va pointer)
 ```
 
 ### Entry Allocation
 
 ```
-pgd_alloc(mm)
-pgd_free( pgd)
-pud_alloc(mm, pgd, addr)
-pud_free(x)
-pmd_alloc(mm, pud, addr)
-pmd_free(x )
-pte_alloc_map(mm, pmd, addr)
-pte_alloc_kernel(mm, pmd,addr)
-pte_free( pte)
-pte_free_kernel(pte)
-clear_page_range(mmu,start,end)
-```
-
-### Entry Translate
-
-```
-pte_pfn
-pfn_pte
-p**_p**		// pgd <=> pud <=> pmd <=> pte
+pxx_alloc(mm, pXX, addr)
+pxx_free(x)
 ```
 
 ## Module Test

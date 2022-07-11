@@ -8,12 +8,12 @@ Welcome to kernel-tour.org
 
 [pgtable](mm/pgtable)
 
-[ptdump](mm/ptdump) (pagewalk)
+[pagewalk](mm/pagewalk) (ptdump)
 
 <br>
 
 ---
 
-Cyrus Huang | Github: [kernel-cyrus](https://github.com/kernel-cyrus) \| All right reserved.
+Cyrus Huang \| Github: [kernel-cyrus](https://github.com/kernel-cyrus) \| All right reserved.
 
 Powered by [Github.com](https://github.com)

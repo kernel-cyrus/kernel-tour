@@ -1,4 +1,4 @@
-# ptdump (pagewalk)
+# pagewalk (ptdump)
 
 pagewalk会遍历整个VA空间，遍历每级页表Entry。
 
