@@ -91,9 +91,9 @@ pxx_page_vaddr		// va of the pa in pxx entry
 __pxx_to_phys		// pa in pxx entry
 __phys_to_pxx_val	// convert pa to pxx entry which contain pa
 pxx_val			// pxx.pxx, real pxx entry value
-pxx_pfn / pfn_pxx	// pxx <=> pfn convert
-pxx_page		// pxx <=> page struct convert
-pxx_pXX			// pxx <=> pXX convert
+pxx_pfn / pfn_pxx	// pa in pxx to pfn
+pxx_page		// pa in pxx to page struct convert
+pxx_pXX			// pxx to pXX convert
 pxx_pgtable(pXX)	// va of the pa in pxx entry (pxx table pointer)
 pxx_index(addr)		// parse pxx entry from vaddr, return pxx index in its table
 pxx_offset(pXX, addr)	// parse pxx entry from vaddr, return pxx entry va pointer
