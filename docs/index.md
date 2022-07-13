@@ -10,6 +10,8 @@ Welcome to kernel-tour.org
 
 [pagewalk / ptdump](mm/pagewalk)
 
+[fixmap](mm/fixmap)
+
 <br>
 
 ---
