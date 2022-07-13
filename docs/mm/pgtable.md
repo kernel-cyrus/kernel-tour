@@ -115,4 +115,4 @@ pxx_free(x)
 
 ## Module Test
 
-[test-pgtable](https://github.com/kernel-cyrus/kernel-tour/tree/master/test-pgtable)
+[test-pgtable](https://github.com/kernel-cyrus/kernel-tour/tree/master/tests/test-pgtable)

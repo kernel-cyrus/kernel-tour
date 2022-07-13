@@ -1,7 +1,7 @@
 #include <linux/init.h>
 #include <linux/module.h>
 
-#include "../test-modules.h"
+#include "../include/test-modules.h"
 
 static int test_hello_init(void) {
 
