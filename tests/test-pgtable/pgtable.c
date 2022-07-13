@@ -6,8 +6,8 @@
 
 #include "../include/test-modules.h"
 
-static int test_pgtable_init(void) {
-
+static int test_pgtable_init(void)
+{
 	int i;
 	pgd_t pgd;
 
@@ -33,16 +33,14 @@ static int test_pgtable_init(void) {
 	return 0;
 }
 
-static void test_pgtable_exit(void){
-
+static void test_pgtable_exit(void)
+{
 	pr_tour("Module exit: test-pgtable");
 	
 	return;
 }
 
 late_initcall(test_pgtable_init);
-// initcall will be compiled to module_init when build as ko.
-// module_init(hello_init);
 module_exit(test_pgtable_exit);
 
 MODULE_LICENSE("GPL v2");

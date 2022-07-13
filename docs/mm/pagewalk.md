@@ -1,4 +1,4 @@
-# pagewalk (ptdump)
+# pagewalk / ptdump
 
 pagewalk会遍历整个VA空间，遍历每级页表entry。
 
@@ -6,7 +6,7 @@ pagewalk允许传入 `mm_walk` 结构体，在各级entry遍历过程中插入�
 
 ptdump利用pagewalk，实现了ptdump的framwork，允许调用者注册一个entry回调函数用来解析和显示entry。
 
-arm64 ptdump作为ptdump framework的调用者，在调用ptdump时实现了自己的entry解析和显示回调，并在debugfs提供了一个文件节点。
+arm64 ptdump作为ptdump framework的调用者，在调用ptdump时实现了自己的entry解析和显示回调，并在debugfs提供了文件节点。
 
 ## Files
 
