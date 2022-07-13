@@ -6,7 +6,7 @@ fixmap在使用前，需要预定的一个访问IDX，fixmap会为每个IDX预�
 
 fixmap在映射各个IDX区域到PA时，使用pgd[507]及编译时被预留在.bss段的bm_pmd, bm_pud, bm_pte作为页表。
 
-# Files
+## Files
 
 ```
 - include/asm-generic/fixmap.h		# Fixmap interfaces declearation
@@ -14,15 +14,15 @@ fixmap在映射各个IDX区域到PA时，使用pgd[507]及编译时被预留在.
 - arch/arm64/mm/mmu.c			# Fixmap mapping implementation
 ```
 
-# Structures
+## Structures
 
 `enum fixed_address`
 
 定义fixmap访问ID，fixmap会为每个在这里定义的ID预留出一块固定的4K VA地址区间。
 
-# Functions
+## Functions
 
-## Interface
+### Interface
 
 `fix_to_virt`
 
@@ -48,7 +48,7 @@ fixmap在映射各个IDX区域到PA时，使用pgd[507]及编译时被预留在.
 
 同 set_fixmap, set_fixmap_offset, 将PA映射为none cachable
 
-## Implementation
+### Implementation
 
 `__set_fixmap`
 
@@ -64,6 +64,6 @@ fixmap在映射各个IDX区域到PA时，使用pgd[507]及编译时被预留在.
 
 在early boot结束后，`paging_init` 会在swapper_pg_dir建立新的页表，fixmap的页表会在这个过程中以memblock的形式被迁移过去。
 
-# Module Test
+## Module Test
 
 [test-fixmap](https://github.com/kernel-cyrus/kernel-tour/tree/master/tests/test-fixmap)

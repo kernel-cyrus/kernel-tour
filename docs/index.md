@@ -12,6 +12,8 @@ Welcome to kernel-tour.org
 
 [fixmap](mm/fixmap)
 
+[memblock](mm/memblock)
+
 <br>
 
 ---
