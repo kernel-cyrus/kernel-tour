@@ -98,4 +98,4 @@ cat /proc/<id>/mem
 
 ## Module Test
 
-[test-pagewalk](https://github.com/kernel-cyrus/test-modules/tree/master/test-pagewalk)
+[test-pagewalk](https://github.com/kernel-cyrus/kernel-tour/tree/master/tests/test-pagewalk)

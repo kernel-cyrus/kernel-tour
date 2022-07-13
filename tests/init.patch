@@ -1,0 +1,21 @@
+diff --git a/build.sh b/build.sh
+new file mode 100644
+index 000000000000..2057e25c795e
+--- /dev/null
++++ b/build.sh
+@@ -0,0 +1,2 @@
++ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- make lightbox_defconfig
++ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- SKIP_MRPROPER=1 CONFIG_TEST_MODULES=y make -j8 Image
+diff --git a/drivers/Makefile b/drivers/Makefile
+index 9a30842b22c5..1a6d7a80a153 100644
+--- a/drivers/Makefile
++++ b/drivers/Makefile
+@@ -6,6 +6,8 @@
+ # Rewritten to use lists instead of if-statements.
+ #
+ 
++obj-y				+= tests/
++
+ obj-y				+= irqchip/
+ obj-y				+= bus/
+ 
