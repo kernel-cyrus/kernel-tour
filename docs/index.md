@@ -15,11 +15,3 @@ Welcome to kernel-tour.org
 [fixmap](mm/fixmap)
 
 [memblock](mm/memblock)
-
-<br>
-
----
-
-Cyrus Huang \| Github: [kernel-cyrus](https://github.com/kernel-cyrus) / [kernel-tour](https://github.com/kernel-cyrus/kernel-tour) \| All right reserved.
-
-Powered by [Github.com](https://github.com)
