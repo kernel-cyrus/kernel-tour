@@ -1,5 +1,3 @@
-Tiny simple things inside the kernel.
-
 ### init
 
 [initcall](init/initcall)
