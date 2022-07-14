@@ -1,22 +1,60 @@
 #include <linux/init.h>
 #include <linux/module.h>
+#include <linux/memblock.h>
+#include <linux/cache.h>
 
 #include "../include/test-modules.h"
+#include "memblock.h"
 
-static int test_memblock_init(void)
+/*
+ *  To run this test:
+ *  1. Apply the patch to kernel source
+ *  2. Append "memblock=debug memtest" to bootargs
+ */
+
+void __init test_memblock(void)
 {
-	pr_tour("Module init: test-memblock");
-	return 0;
+	test_memblock_alloc();
+
+	test_memblock_loopper();
+
+	test_memblock_dump();
+
+	test_memblock_memtest();
 }
 
-static void test_memblock_exit(void)
+static void __init test_memblock_alloc(void)
 {
-	pr_tour("Module exit: test-memblock");
-	return;
+	char *buf;
+
+	buf = memblock_alloc(64, SMP_CACHE_BYTES);
+	if (WARN_ON(!buf))
+		return;
+	sprintf(buf, "Hello memblock~");
+	pr_tour("test-memblock: buf: %p %s", (void*)buf, buf);
 }
 
-late_initcall(test_memblock_init);
-module_exit(test_memblock_exit);
+static void __init test_memblock_loopper(void)
+{
+	u64 i;
+	phys_addr_t start, end;
 
-MODULE_LICENSE("GPL v2");
-MODULE_AUTHOR("Cyrus Huang");
+	for_each_reserved_mem_range(i, &start, &end)
+		pr_tour("Reserved: %llx~%llx", start, end);
+}
+
+static void __init test_memblock_dump(void)
+{
+	memblock_dump_all();
+}
+
+static void __init test_memblock_memtest(void)
+{
+	phys_addr_t start, end;
+
+	start = memblock_start_of_DRAM();
+	end = memblock_end_of_DRAM();
+
+	parse_memtest(NULL);
+	early_memtest(start, end);
+}

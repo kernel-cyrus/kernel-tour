@@ -1,0 +1,22 @@
+diff --git a/init/main.c b/init/main.c
+index 0ee39cdcfcac..7106581ff864 100644
+--- a/init/main.c
++++ b/init/main.c
+@@ -112,6 +112,8 @@
+ 
+ #include <kunit/test.h>
+ 
++#include <../drivers/tests/test-memblock/memblock.h>
++
+ static int kernel_init(void *);
+ 
+ extern void init_IRQ(void);
+@@ -975,6 +977,8 @@ asmlinkage __visible void __init __no_sanitize_address start_kernel(void)
+ 		parse_args("Setting extra init args", extra_init_args,
+ 			   NULL, 0, -1, -1, NULL, set_init_arg);
+ 
++	test_memblock();
++
+ 	/*
+ 	 * These use large bootmem allocations and must precede
+ 	 * kmem_cache_init()
