@@ -1,4 +1,4 @@
-Welcome to kernel-tour.org
+Tiny simple things inside the kernel.
 
 ### init
 
