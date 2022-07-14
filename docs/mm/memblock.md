@@ -106,29 +106,27 @@ memblock_bottom_up				// 返回alloc时，从顶开始分配还是从底开始�
 
 ### Other Functions
 
-`memblock_dump_all`
-
-打印整个memblock layout，需要在cmdline传入“memblock=debug”
-
-`early_memtest`
-
-测试内存区域，需要在cmdline传入“memtest”
-
-`memblock_free_all`
-
-Release all free pages to buddy system
+```
+early_memtest		// Test all free mem area
+memblock_dump_all	// Dump memblock layout to console
+memblock_free_all	// Release all free pages to buddy system
+```
 
 ## Usage Test
 
-### Enable memblock debug print
+**Enable memblock debug print**
 
 cmdline传入"memblock=debug"，会在log中打印将所有memblock操作
 
-### Dump memblock layout from sysfs
+**Enable bootmem test**
+
+cmdline传入“memtest”，会在启动时遍历所有memblock free area，做读写测试
+
+**Dump memblock layout from sysfs**
 
 ```
-/sys/kernel/debug/memblock/memory
-/sys/kernel/debug/memblock/reserved
+/sys/kernel/debug/memblock/memory	// Dump all memory regions
+/sys/kernel/debug/memblock/reserved	// Dump all reserved regions
 ```
 
 ## Module Test
