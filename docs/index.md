@@ -4,6 +4,8 @@ Welcome to kernel-tour.org
 
 [initcall](init/initcall)
 
+[params](init/params)
+
 ### mm
 
 [pgtable](mm/pgtable)

@@ -9,7 +9,7 @@
 /*
  *  To run this test:
  *  1. Apply the patch to kernel source
- *  2. Append "memblock=debug memtest" to bootargs
+ *  2. Append "memblock=debug memtest" to cmdline
  */
 
 void __init test_memblock(void)
@@ -55,6 +55,5 @@ static void __init test_memblock_memtest(void)
 	start = memblock_start_of_DRAM();
 	end = memblock_end_of_DRAM();
 
-	parse_memtest(NULL);
 	early_memtest(start, end);
 }

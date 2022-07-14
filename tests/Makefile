@@ -7,3 +7,5 @@ obj-$(CONFIG_TEST_PAGEWALK)	+= test-pagewalk/pagewalk.o
 obj-$(CONFIG_TEST_FIXMAP)	+= test-fixmap/fixmap.o
 
 obj-$(CONFIG_TEST_MEMBLOCK)	+= test-memblock/memblock.o
+
+obj-$(CONFIG_TEST_PARAMS)	+= test-params/params.o
