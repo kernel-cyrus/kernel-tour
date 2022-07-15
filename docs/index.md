@@ -6,7 +6,7 @@
 
 ### kernel
 
-[oops](kernel/oops)
+[oops, panic](kernel/oops)
 
 ### mm
 
