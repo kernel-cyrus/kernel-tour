@@ -4,11 +4,15 @@
 
 [params](init/params)
 
+### kernel
+
+[oops](kernel/oops)
+
 ### mm
 
 [pgtable](mm/pgtable)
 
-[pagewalk / ptdump](mm/pagewalk)
+[pagewalk, ptdump](mm/pagewalk)
 
 [fixmap](mm/fixmap)
 

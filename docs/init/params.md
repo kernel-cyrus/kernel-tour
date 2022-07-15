@@ -31,7 +31,7 @@ module的启动参数，可以使用 `module_param` 来定义，每个参数被�
 
 `module_param` 同时会在 `/sys/module/<module>/parameters` 下创建文件节点供用户查看和修改。
 
-文件节点的权限由 `module_param` 最后一个perm参数传入，见 `/include/linux/stat.h`
+文件节点的读写访问权限，由 `module_param` 最后一个perm参数传入，见 `/include/linux/stat.h`
 
 ### core_param
 
