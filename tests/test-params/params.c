@@ -1,15 +1,17 @@
 #include <linux/init.h>
 #include <linux/module.h>
 #include <linux/string.h>
+#include <linux/stat.h>
 
 #include "../include/test-modules.h"
 
 /*
  *  To run this test
  *  Append "test_bootargs=hello params.test_int=1 params.test_string=hello    \
- *  params.test_array=1,2,3,4" to cmdline
+ *  params.test_array=1,2,3,4 test_core=100" to cmdline
  */
 
+static int test_core;
 static int test_int;
 static int test_array[4];
 static char *test_string;
@@ -25,6 +27,7 @@ static int test_params_init(void)
 	pr_tour("test-params: int: %d, string: %s", test_int, test_string);
 	for (i = 0; i < 3 && i < num; i++)
 		pr_tour("test-params: array[%d]: %d", i, test_array[i]);
+	pr_tour("test-params: core: %d", test_core);
 	return 0;
 }
 
@@ -42,9 +45,11 @@ static int parse_test_bootargs_param(char *str)
 
 early_param("test_bootargs", parse_test_bootargs_param);
 
-module_param(test_int, int, 0);
-module_param(test_string, charp, 0);
-module_param_array(test_array, int, &num, 0);
+core_param(test_core, test_core, int, S_IRUSR | S_IWUSR);
+
+module_param(test_int, int, S_IRUSR | S_IWUSR);
+module_param(test_string, charp, S_IRUSR | S_IWUSR);
+module_param_array(test_array, int, &num, S_IRUSR | S_IWUSR);
 
 late_initcall(test_params_init);
 module_exit(test_params_exit);
