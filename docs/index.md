@@ -8,6 +8,8 @@
 
 [oops, panic](kernel/oops)
 
+[rwonce](kernel/rwonce)
+
 ### mm
 
 [pgtable](mm/pgtable)
