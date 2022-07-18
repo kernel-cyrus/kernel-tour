@@ -38,7 +38,7 @@ Linear Mapping，使用了一个pgd：pgd[0]，在 `paging_init` `map_mem` 过�
 
 ### virt <-> phys - page - pfn（Linar Mapping）
 
-`virt_to_phys` `phys_to_virt` `__virt_to_phys` `__phys_to_virt` `__va` `__pa`
+`virt_to_phys` `phys_to_virt` `__virt_to_phys` `__phys_to_virt` `__va` `__pa` `__pa_symbol`
 
 虚拟地址与物理地址通过Linear Mapping转换。
 
@@ -52,6 +52,10 @@ Linear Mapping，使用了一个pgd：pgd[0]，在 `paging_init` `map_mem` 过�
 `virt_addr_valid` `__is_lm_address`
 
 要检查一个vaddr是否属于Linear Mapping的范围，可以使用这类接口。
+
+`__pa_symbol`
+
+用于kernel image符号转换为物理地址
 
 ### virt <-> phys - page - pfn（Kernel Symbol）
 
@@ -96,14 +100,6 @@ Kernel镜像内符号的虚拟地址与物理地址转换（Buildtime VA <=> Run
 ### to pgd pud pmd pte
 
 页表的访问和修改，见 [mm/pgtable]([pgtable](/mm/pgtable))
-
-### symbols
-
-`__pa_symbol` `__phys_addr_symbol` `sym_to_pfn`
-
-### other
-
-`pfn_to_kaddr`
 
 ## Usage Test
 
