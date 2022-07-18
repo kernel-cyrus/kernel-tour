@@ -109,8 +109,8 @@ Kernel镜像内符号的虚拟地址与物理地址转换（Buildtime VA <=> Run
 
 ## Module Test
 
-[test-mmconv](https://github.com/kernel-cyrus/kernel-tour/tree/master/tests/test-mmconv)
+[test-memconv](https://github.com/kernel-cyrus/kernel-tour/tree/master/tests/test-memconv)
 
 ## Reference
 
-https://www.cnblogs.com/liuhailong0112/p/14465697.html
+<https://www.cnblogs.com/liuhailong0112/p/14465697.html>
