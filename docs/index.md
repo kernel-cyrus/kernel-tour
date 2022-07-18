@@ -18,6 +18,6 @@
 
 [fixmap](/mm/fixmap)
 
-[convert](/mm/convert)
+[memconv](/mm/memconv)
 
 [memblock](/mm/memblock)

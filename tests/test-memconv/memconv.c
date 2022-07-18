@@ -8,31 +8,31 @@
 
 #include "../include/test-modules.h"
 
-#include "mmconv.h"
+#include "memconv.h"
 
-static int test_mmconv_init(void)
+static int test_memconv_init(void)
 {
-	pr_tour("Module init: test-mmconv");
+	pr_tour("Module init: test-memconv");
 
 	print_vm_layout();
 
-	test_mmconv();
+	test_memconv();
 
 	return 0;
 }
 
-static void test_mmconv_exit(void)
+static void test_memconv_exit(void)
 {
-	pr_tour("Module exit: test-mmconv");
+	pr_tour("Module exit: test-memconv");
 	return;
 }
 
-static void test_mmconv(void)
+static void test_memconv(void)
 {
 	phys_addr_t phys = virt_to_phys(&swapper_pg_dir);
 	void *p_linear = phys_to_virt(phys);
 	struct page* p_page = virt_to_page(p_linear);
-	
+
 	// Buildtime virtual address of a symbol in kernel image.
 	pr_tour("vaddr: %p", &swapper_pg_dir);
 
@@ -81,8 +81,8 @@ static void print_vm_layout(void)
 	pr_tour("vmemmap:        %lx ~ %lx", VMEMMAP_START, VMEMMAP_START + VMEMMAP_SIZE);
 }
 
-late_initcall(test_mmconv_init);
-module_exit(test_mmconv_exit);
+late_initcall(test_memconv_init);
+module_exit(test_memconv_exit);
 
 MODULE_LICENSE("GPL v2");
 MODULE_AUTHOR("Cyrus Huang");
