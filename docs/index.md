@@ -14,6 +14,8 @@
 
 [pgtable](/mm/pgtable)
 
+[mmu](/mm/mmu)
+
 [pagewalk, ptdump](/mm/pagewalk)
 
 [fixmap](/mm/fixmap)

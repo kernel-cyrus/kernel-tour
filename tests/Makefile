@@ -13,3 +13,5 @@ obj-$(CONFIG_TEST_PARAMS)	+= test-params/params.o
 obj-$(CONFIG_TEST_OOPS)		+= test-oops/oops.o
 
 obj-$(CONFIG_TEST_MEMCONV)	+= test-memconv/memconv.o
+
+obj-$(CONFIG_TEST_MMU)		+= test-mmu/mmu.o
