@@ -1,4 +1,4 @@
-# convert
+# memconv
 
 内核中一个内存页对应了几个基本概念：
 
@@ -47,7 +47,7 @@ Linear Mapping，使用了一个pgd：pgd[0]，在 `paging_init` `map_mem` 过�
 - Linear Mapping的VA范围（PAGE_OFFSET ~ PAGE_END）
 - Kernel Image的VA范围（KERNEL_START ~ KERNEL_END）
 
-在开启CONFIG_DEBUG_VIRTUAL的情况下，传入Kernel Image符号VA会导致WARNING，所以不建议使用这些接口转化内核符号地址。
+在开启CONFIG_DEBUG_VIRTUAL的情况下，传入Kernel Image符号VA会打印WARNING，所以不建议使用这些接口转化内核符号地址。
 
 `virt_addr_valid` `__is_lm_address`
 
@@ -103,9 +103,9 @@ Kernel镜像内符号的虚拟地址与物理地址转换（Buildtime VA <=> Run
 
 ## Usage Test
 
-CONFIG_DEBUG_VIRTUAL
+`CONFIG_DEBUG_VIRTUAL`
 
-CONFIG_DEBUG_VM
+启用VA地址参数是否在Linear Mapping范围的监测，传入了不在范围内的addr会报oops warning。
 
 ## Module Test
 
