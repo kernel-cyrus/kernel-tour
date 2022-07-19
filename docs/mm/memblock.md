@@ -51,7 +51,7 @@ memblock_trim_memory		// Align each memory region in memory list
 memblock_overlaps_region	// Check if region has overlaps with region in type mem list
 memblock_mark_hotplug		// mark region as hotplug mem
 memblock_mark_mirror		// mark region as mirror mem
-memblock_mark_nomap		// mark region as nomap (not be added to kernel direct mapping)
+memblock_mark_nomap		// mark region as nomap (not be added to linear mapping)
 ```
 
 ### Loop Iterators
