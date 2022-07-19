@@ -8,6 +8,8 @@
 
 [oops, panic](/kernel/oops)
 
+[kallsyms, stacktrace](/kernel/kallsyms)
+
 [rwonce](/kernel/rwonce)
 
 ### mm
