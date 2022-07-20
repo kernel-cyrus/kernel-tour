@@ -8,7 +8,7 @@ Linux内核中没有线程概念，或者说没有任何线程相关的数据结
 
 ### Running State
 
-进程在运行状态保存在 `tsk->state` 中，在 `sched.h` 文件中定义
+进程的运行状态保存在 `tsk->state` 中，在 `sched.h` 文件中定义
 
 **(R) Running or Runnable (TASK_RUNNING)**
 
@@ -126,4 +126,5 @@ fg <id>		// 将进程切换回前台
 ```
 
 Reference:
+
 <https://www.digitalocean.com/community/tutorials/how-to-use-bash-s-job-control-to-manage-foreground-and-background-processes>
