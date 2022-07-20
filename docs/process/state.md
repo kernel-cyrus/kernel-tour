@@ -10,11 +10,11 @@ Linux内核中没有线程概念，或者说没有任何线程相关的数据结
 
 进程的运行状态保存在 `tsk->state` 中，在 `sched.h` 文件中定义
 
-`(R) Running or Runnable (TASK_RUNNING)`
+#### (R) Running or Runnable (TASK_RUNNING)
 
 进程创建时被设置为RUNNING，不论是否在进程队列中ready to run，还是真正正在RUNNING，都标识为TASK_RUNNING
 
-`(D) Uninterruptible Sleep (TASK_UNINTERRUPTIBLE)`
+#### (D) Uninterruptible Sleep (TASK_UNINTERRUPTIBLE)
 
 进程运行过程中，可能需要等待IO操作完成，这时需要放弃CPU运行，在等待操作完成前，进程被设置为TASK_UNINTERRUPTIBLE。
 
@@ -22,7 +22,7 @@ Linux内核中没有线程概念，或者说没有任何线程相关的数据结
 
 \* (D)表示Disk Sleep
 
-`(S) Interruptable Sleep (TASK_INTERRUPTIBLE)`
+#### (S) Interruptable Sleep (TASK_INTERRUPTIBLE)
 
 与(D)类似，但是(S)可以被SIGNAL唤醒。
 
@@ -30,13 +30,13 @@ Linux内核中没有线程概念，或者说没有任何线程相关的数据结
 
 \* (S)表示Sleep
 
-`(T) Stopped (TASK_STOPPED)`
+#### (T) Stopped (TASK_STOPPED)
 
 被暂停的进程。
 
 通过SIGSTOP信号来暂停进程运行，暂停的进程可以通过SIGCONT来重新继续运行。
 
-`(t) Traced (TASK_TRACED)`
+#### (t) Traced (TASK_TRACED)
 
 进程正在被debugger调试，比如ptrace。
 
@@ -44,11 +44,11 @@ Linux内核中没有线程概念，或者说没有任何线程相关的数据结
 
 进程退出态保存在 `tsk->exit_state` 中，在 `sched.h` 文件中定义
 
-`(X) Dead (EXIT_DEAD)`
+#### (X) Dead (EXIT_DEAD)
 
 进程正常退出，ps工具中应该永远看不到这个状态，因为进程已经退出了。
 
-`(Z) Zombie (EXIT_ZOMBIE)`
+#### (Z) Zombie (EXIT_ZOMBIE)
 
 子进程已经退出，但是父进程没有处理子进程退出的signal。
 
