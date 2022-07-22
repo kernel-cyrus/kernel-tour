@@ -15,3 +15,5 @@ obj-$(CONFIG_TEST_OOPS)		+= test-oops/oops.o
 obj-$(CONFIG_TEST_MEMCONV)	+= test-memconv/memconv.o
 
 obj-$(CONFIG_TEST_KALLSYMS)	+= test-kallsyms/kallsyms.o
+
+obj-$(CONFIG_TEST_FILESYSTEM)	+= test-filesystem/filesystem.o
