@@ -35,3 +35,5 @@
 ### fs
 
 [filesystem](/fs/filesystem)
+
+[super](/fs/super)
