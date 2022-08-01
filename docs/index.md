@@ -37,3 +37,7 @@
 [filesystem](/fs/filesystem)
 
 [super](/fs/super)
+
+[inode](/fs/inode)
+
+[dentry](/fs/dentry)
