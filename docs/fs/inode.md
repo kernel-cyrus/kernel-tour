@@ -24,6 +24,14 @@ inode在VFS中，通过dentry进行索引和操作。shell的文件访问命令�
 
 inode的operation通过传入的dentry和父目录inode，访问和操作出dentry对应的inode，最后通过 `d_instantiate` 将操作后的inode重新绑定到dentry中，完成一次文件操作。
 
+## Files
+
+```
+- /include/linux/fs.h
+- /fs/inode.c
+- /fs/libfs.c			// inode generic operations
+```
+
 ## Structures
 
 inode结构体很大，但是并非所有property都被使用，使用哪些property取决于文件系统的实现。
