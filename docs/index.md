@@ -12,6 +12,8 @@
 
 [rwonce](/kernel/rwonce)
 
+[rcu](/kernel/rcu)
+
 ### mm
 
 [pgtable](/mm/pgtable)
