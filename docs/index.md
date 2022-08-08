@@ -43,3 +43,5 @@
 [inode](/fs/inode)
 
 [dentry](/fs/dentry)
+
+[ramfs, tmpfs](/fs/ramfs)
