@@ -45,3 +45,5 @@
 [dentry](/fs/dentry)
 
 [ramfs, tmpfs](/fs/ramfs)
+
+[devtmpfs](/fs/devtmpfs)
