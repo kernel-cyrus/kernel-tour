@@ -47,3 +47,5 @@
 [ramfs, tmpfs](/fs/ramfs)
 
 [devtmpfs](/fs/devtmpfs)
+
+[procfs](/fs/procfs)

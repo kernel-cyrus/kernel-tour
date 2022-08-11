@@ -19,3 +19,5 @@ obj-$(CONFIG_TEST_KALLSYMS)	+= test-kallsyms/kallsyms.o
 obj-$(CONFIG_TEST_FILESYSTEM)	+= test-filesystem/filesystem.o
 
 obj-$(CONFIG_TEST_RCU)		+= test-rcu/rcu.o
+
+obj-$(CONFIG_TEST_PROCFS)	+= test-procfs/procfs.o
