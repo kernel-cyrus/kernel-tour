@@ -42,19 +42,29 @@ procfs初始化函数，负责注册procfs filesystem，初始化出root节点�
 
 `proc_create`
 
-创建文件节点
+创建文件节点，手动指定proc_ops, 可以创建接受用户输入的节点。
 
 `proc_create_single`
 
-创建只读文件节点（只有show函数）
+创建文件节点，使用proc_single_ops，只需要指定show函数（不适合输出量较大或者复杂的过程）
+
+mode代表节点权限，data代表用户数据
 
 `proc_create_seq`
 
+创建文件节点，使用proc_seq_ops，需要传入：start, next, stop, show
 
+这种个方法适合输出规模较大的链表类的数据，调用流程为start-show-next-show-next-stop
+
+这些回调函数中，p代表前一级函数的返回指针，一般为list node的指针。
 
 `proc_mkdir`
 
+创建目录
+
 `proc_symlink`
+
+创建软链接
 
 ## Usage Test
 
