@@ -23,3 +23,5 @@ obj-$(CONFIG_TEST_RCU)		+= test-rcu/rcu.o
 obj-$(CONFIG_TEST_PROCFS)	+= test-procfs/procfs.o
 
 obj-$(CONFIG_TEST_DEBUGFS)	+= test-debugfs/debugfs.o
+
+obj-$(CONFIG_TEST_SYSFS)	+= test-sysfs/sysfs.o

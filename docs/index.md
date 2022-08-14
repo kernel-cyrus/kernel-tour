@@ -53,3 +53,9 @@
 [procfs](/fs/procfs)
 
 [debugfs](/fs/debugfs)
+
+[sysfs](/fs/sysfs)
+
+### device
+
+[kobject, ktype, kset, kref](/device/kobject)

@@ -8,6 +8,14 @@ debugfs用于给用户空间提供内核信息及调试接口。
 
 debugfs完全没有任何约束规则，并且封装了各种内核数据类型的接口，利用这些接口，你可以更加轻松创建出某个类型变量对应的文件节点，再使用这些节点轻松dump出这些变量或者修改他们。
 
+## Files
+
+```
+- /include/linux/debugfs.h		// interface
+- /fs/debugfs/file.c			// various data-type file operations
+- /fs/debugfs/inode.c			// filesystem, super block, inode
+```
+
 ## Interfaces
 
 `debugfs_create_dir`
