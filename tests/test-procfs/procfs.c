@@ -71,26 +71,34 @@ static DEFINE_SPINLOCK(test_write_lock);
 /* pos is file pin */
 static ssize_t mywrite(struct file *file, const char __user *ubuf, size_t ubuf_size, loff_t *ppos) 
 {
-	spin_lock(&test_write_lock);
+	unsigned long err;
 	if(ubuf_size > 32)
 		return -EFAULT;
-	if(copy_from_user(write_buf, ubuf, sizeof(write_buf)))
+	spin_lock(&test_write_lock);	// FIXME: should not use spinlock around copy_from/to_user
+	err = copy_from_user(write_buf, ubuf, ubuf_size);
+	spin_unlock(&test_write_lock);
+	if(err)
 		return -EFAULT;
 	*ppos = strlen(write_buf);
-	spin_unlock(&test_write_lock);
 	return *ppos;
 }
 
 static ssize_t myread(struct file *file, char __user *ubuf, size_t ubuf_size, loff_t *ppos) 
 {
-	spin_lock(&test_write_lock);
+	unsigned long err;
+	unsigned long count;
+	if (*ppos)		// cause infinit loop when removed
+		return 0;
 	if(ubuf_size < 32)
 		return -EFAULT;
-	if(copy_to_user(ubuf, write_buf, sizeof(write_buf)))
-		return -EFAULT;
-	*ppos = strlen(write_buf);
+	count = strlen(write_buf);
+	spin_lock(&test_write_lock);	// FIXME: should not use spinlock around copy_from/to_user
+	err = copy_to_user(ubuf, write_buf, count);
 	spin_unlock(&test_write_lock);
-	return *ppos;
+	if(err)
+		return -EFAULT;
+	*ppos = count;		// cause infinit loop when removed
+	return count;
 }
 
 static struct proc_ops write_ops = 
@@ -115,7 +123,7 @@ static int test_procfs_init(void)
 	list_add(&p_data->list, &test_list);
 	proc_create_seq("test_seq", S_IWUGO, pde, &seq_ops);
 	/* node for input */
-	proc_create("test_input", S_IALLUGO, pde, &write_ops);	// FIXME: not working.
+	proc_create("test_input", S_IALLUGO, pde, &write_ops);
 	return 0;
 }
 
