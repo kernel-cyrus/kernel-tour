@@ -66,9 +66,6 @@ mode代表节点权限，data代表用户数据
 
 创建软链接
 
-## Usage Test
-
-
 ## Module Test
 
 [test-procfs](https://github.com/kernel-cyrus/kernel-tour/tree/master/tests/test-procfs)

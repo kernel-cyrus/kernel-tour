@@ -44,8 +44,12 @@
 
 [dentry](/fs/dentry)
 
+[filemode](/fs/filemode)
+
 [ramfs, tmpfs](/fs/ramfs)
 
 [devtmpfs](/fs/devtmpfs)
 
 [procfs](/fs/procfs)
+
+[debugfs](/fs/debugfs)
