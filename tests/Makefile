@@ -25,3 +25,5 @@ obj-$(CONFIG_TEST_PROCFS)	+= test-procfs/procfs.o
 obj-$(CONFIG_TEST_DEBUGFS)	+= test-debugfs/debugfs.o
 
 obj-$(CONFIG_TEST_SYSFS)	+= test-sysfs/sysfs.o
+
+obj-$(CONFIG_TEST_KOBJECT)	+= test-kobject/kobject.o
