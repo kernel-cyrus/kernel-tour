@@ -1,6 +1,8 @@
 # sysfs
 
-sysfs: kobject fs
+> sysfs is a filesystem for exporting kernel objects(kobject)
+
+
 
 # Files
 

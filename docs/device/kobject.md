@@ -58,3 +58,7 @@ kobject基类的好处，就是可以将系统中各种各样类别的设备组�
 ## Module Test
 
 [test-kobject](https://github.com/kernel-cyrus/kernel-tour/tree/master/tests/test-kobject)
+
+## Reference
+
+<https://www.bilibili.com/read/mobile?id=16494023&share_from=article&share_medium=android&share_plat=android&share_session_id=3353d765-b262-4eb3-89a4-9b139345ed81&share_source=COPY&share_tag=s_i&timestamp=1660491094&unique_k=SOYhDYu>
