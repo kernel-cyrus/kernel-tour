@@ -12,7 +12,7 @@ ktype定义了kobject基类的虚函数接口，这些虚函数由子类来实�
 
 kset是一个kobject的集合，kset可以将kobject平行组织，kset自身也是一个kobject（通过内嵌kobject实现的子类），kobject可以通过parent指针来纵向组织，这样kobject及kset实现了一个树状结构。
 
-sysfs通过文件系统，将kset（实际也是一种kobject）、kobject组成的拓扑结构展示了出来，并提供了对各类kobject进行操作的接口。需要注意的是，kobject并不会自动创建出对应的sysfs节点，kobject在sysfs中的节点，是调用sysfs接口为其创建的，这不过这类创建过程被类似device框架封装了。
+sysfs通过文件系统，将kset（实际也是一种kobject）、kobject组成的拓扑结构展示了出来，并提供了对各类kobject进行操作的接口。
 
 kobject基类的好处，就是可以将系统中各种各样类别的设备组织在一起，并将所有object公共的功能，分层实现在继承链路中各级基类中，比如我们看到的sysfs、ref count、uevent等功能。
 
