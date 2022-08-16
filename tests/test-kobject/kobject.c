@@ -56,6 +56,10 @@ static int test_kobject_init(void)
 	if (!test_kobj)
 		goto kobj_err;
 
+	ret = sysfs_create_group(test_kobj, &attr_group);
+	if (ret)
+		goto kobj_err;
+
 	return 0;
 
  kobj_err:
