@@ -63,3 +63,5 @@
 ### lib
 
 [sprintf](/lib/sprintf)
+
+[string](/lib/string)
