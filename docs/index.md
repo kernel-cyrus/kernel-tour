@@ -59,3 +59,7 @@
 ### device
 
 [kobject, ktype, kset, kref](/device/kobject)
+
+### lib
+
+[sprintf](/lib/sprintf)
