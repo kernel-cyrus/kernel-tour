@@ -60,6 +60,10 @@
 
 [kobject, ktype, kset, kref](/device/kobject)
 
+### block
+
+[zram](/block/zram)
+
 ### lib
 
 [sprintf](/lib/sprintf)
