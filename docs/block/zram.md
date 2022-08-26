@@ -1,6 +1,12 @@
 # zram
 
+zram是一个ram based block device，可以创建出/dev/zram\<id\>设备。写入这个内存磁盘设备的数据，会被自动压缩。可以使用这个设备作为swap backend或者/var中其他缓存文件的后备储存。
+
+整个zram的包括三部分，一个是ram block device，一个是compressor负责压缩，最后是提供给用户空间的操作节点，如控制device的大小、压缩方法等。
+
 **zram block device**
+
+...
 
 **zram compressor**
 
@@ -20,7 +26,28 @@ zram的压缩算法定义在zcomp的显式list中，这导致增加算法必须�
 
 这个feature会增加block_state节点，可以dump出zram block device中，每个block的状态。
 
+## Files
+
+```
+- /drivers/block/zram/zram_drv.c	# zram block device
+- /drivers/block/zram/zcomp.c		# zram compress function
+```
+
 ## Usage Test
+
+使能zram需要开启以下依赖：
+
+```
+CONFIG_ZRAM
+depends on BLOCK && SYSFS && MMU
+depends on CRYPTO_LZO || CRYPTO_ZSTD || CRYPTO_LZ4 || CRYPTO_LZ4HC || CRYPTO_842
+```
+
+通过num_devices来传入要创建的zram device数量
+
+```
+modprobe zram num_devices=4
+```
 
 动态添加、删除zram磁盘
 
