@@ -30,6 +30,8 @@
 
 [tlb](/mm/tlb)
 
+[percpu](/mm/percpu)
+
 ### process
 
 [state](/process/state)
