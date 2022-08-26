@@ -27,3 +27,5 @@ obj-$(CONFIG_TEST_DEBUGFS)	+= test-debugfs/debugfs.o
 obj-$(CONFIG_TEST_SYSFS)	+= test-sysfs/sysfs.o
 
 obj-$(CONFIG_TEST_KOBJECT)	+= test-kobject/kobject.o
+
+obj-$(CONFIG_TEST_STRING)	+= test-string/string.o
