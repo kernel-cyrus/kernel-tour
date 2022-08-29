@@ -14,6 +14,12 @@
 
 [rcu](/kernel/rcu)
 
+### locking
+
+[spinlock](/locking/spinlock)
+
+[mutex](/locking/mutex)
+
 ### mm
 
 [pgtable](/mm/pgtable)
