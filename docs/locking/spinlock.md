@@ -60,13 +60,15 @@ spinlock需要考虑的核心问题，是锁竞争问题，即一个锁lock后�
 
 比如已经preempt disable的情况下，就不能再让出调度，否则就无法再调度回来。
 
-**spinlock, raw_spinlock**
+**spinlock, raw_spinlock, arch_spin_lock**
 
 raw_spinlock的历史，主要源于spinlock在CONFIG_PREEMPT_RT特性的和入，RT特性允许将linux作为实时操作系统使用。
 
 RT模式下，spin_lock被修改为了可睡眠锁，但是有些spinlock锁在内核位置，在RT模式下也不允许抢占核睡眠，就将这些绝对需要禁止抢占核睡眠的spinlock写做raw_spin_lock
 
 在非RT模式下，这两个锁的实现是完全一致的，一般情况下使用spin_lock即可，在绝对不允许被抢占和睡眠的地方，使用raw_spin_lock。
+
+arch_spin_lock是对应的硬件平台底层实现。
 
 **rw_lock**
 
@@ -93,6 +95,7 @@ spin_lock_bh 使用场景
 ```
 - /include/linux/spinlock.h
 - /kernel/locking/spinlock.c
+- /kernel/locking/spinlock_debug.c
 ```
 
 ## Interface
@@ -125,9 +128,36 @@ spin_lock_bh 使用场景
 
 检查一把锁是否被占用。
 
-## Debug Test
+## Debug Configs
 
-CONFIG_INLINE_SPIN_LOCK
+`CONFIG_DEBUG_SPINLOCK`
+
+启用spinlock的debug功能，这个开关会将spinlock的初始化、lock、unlock函数替换为带有debug检查的实现(spinlock_debug.c)，会增加lock owner(process)，lock owner cpu信息，对重复锁，重复释放，锁/释放CPU不一致，锁/释放进程不一致等情况做检查，并将inline spinlock接口编译为非inline。打断点时，可以断 `_raw_spin_lock` 函数。
+
+`CONFIG_DEBUG_LOCK_ALLOC`
+
+初始化一把锁时，对锁是否已被使用做检查。
+
+`CONFIG_INLINE_SPIN_LOCK`
+
+定义在/kernel/Kconfig.locks，默认情况下就是关闭的，只有RT-Linux会将spinlock编译为inline
+
+```
+CONFIG_PROVE_LOCKING
+CONFIG_DEBUG_LOCK_ALLOC
+CONFIG_DEBUG_LOCKDEP
+CONFIG_LOCK_STAT
+CONFIG_DEBUG_LOCKING_API_SELFTESTS
+CONFIG_LOCKUP_DETECTOR
+CONFIG_HARDLOCKUP_DETECTOR_OTHER_CPU
+CONFIG_HARDLOCKUP_DETECTOR
+CONFIG_DEBUG_ATOMIC_SLEEP
+```
+死锁检测，见：[locking/lockdep](/locking/lockdep)
+
+## Module Test
+
+[test-spinlock](https://github.com/kernel-cyrus/kernel-tour/tree/master/tests/test-spinlock)
 
 ## Reference
 

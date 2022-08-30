@@ -20,6 +20,8 @@
 
 [mutex](/locking/mutex)
 
+[lockdep](/locking/lockdep)
+
 ### mm
 
 [pgtable](/mm/pgtable)
