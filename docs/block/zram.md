@@ -12,7 +12,7 @@ zram是一个ram based block device，可以创建出/dev/zram\<id\>设备。写
 
 zram的compressor在每个cpu有独立stream object，每个核可以独立并行处理压缩过程。
 
-zram的压缩算法定义在zcomp的显式list中，这导致增加算法必须要修改这个静态列表。
+zram的压缩算法定义在zcomp的显式list中，除了这个静态压缩算法列表，仍然可以设置crypto中存在的其他算法。
 
 **write back**
 
