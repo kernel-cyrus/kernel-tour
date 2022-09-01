@@ -22,6 +22,8 @@
 
 [lockdep](/locking/lockdep)
 
+[lockstat](/locking/lockstat)
+
 ### mm
 
 [pgtable](/mm/pgtable)
