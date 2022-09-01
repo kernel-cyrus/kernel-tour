@@ -107,7 +107,7 @@ CONFIG_DEBUG_ATOMIC_SLEEP=y
 
 **Lock status**
 
-https://www.kernel.org/doc/html/latest/locking/lockdep-design.html#state
+<https://www.kernel.org/doc/html/latest/locking/lockdep-design.html#state>
 
 一个锁类的使用历史，可以归纳到 4n + 1 种使用情况：
 
