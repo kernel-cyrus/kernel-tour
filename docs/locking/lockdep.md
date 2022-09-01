@@ -107,18 +107,16 @@ CONFIG_DEBUG_ATOMIC_SLEEP=y
 
 **Lock status**
 
-锁类有 4n + 1 种状态：
+https://www.kernel.org/doc/html/latest/locking/lockdep-design.html#state
+
+一个锁类的使用历史，可以归纳到 4n + 1 种使用情况：
 
 ```
-- 'ever held in STATE context'
-- 'ever held as readlock in STATE context'
-- 'ever held with STATE enabled'
-- 'ever held as readlock with STATE enabled'
-*
-- hardirq context
-- softirq context
-+
-- 'ever used' [ == !unused        ]
+- 'ever held in [hardirq or softirq] context'			（2）
+- 'ever held as readlock in [hardirq or softirq] context'	（2）
+- 'ever held with [hardirq or softirq] enabled'			（2）
+- 'ever held as readlock with [hardirq or softirq] enabled'	（2）
+- 'ever used' [ == !unused        ]				（1）
 ```
 
 比如：
@@ -127,10 +125,12 @@ CONFIG_DEBUG_ATOMIC_SLEEP=y
 (&sio_locks[i].lock){-.-.}, at: [<c02867fd>] mutex_lock+0x21/0x24
                      ||||
                      ||| \-> softirq disabled and not in softirq context	(softirq read lock)
-                     || \--> acquired in softirq context			(softirq)
+                     || \--> ever acquired in softirq context			(softirq)
                      | \---> hardirq disabled and not in hardirq context	(hardirq read lock)
-                      \----> acquired in hardirq context			(hardirq)
+                      \----> ever acquired in hardirq context			(hardirq)
 ```
+
+大括号反映了这个锁的持锁历史，每个bit分别代表：hardirq，hardirq-read，softirq，softirq-read
 
 各个字符代表的含义分别如下：
 
@@ -149,7 +149,7 @@ ever in irq	‘?’		‘-’
 never in irq	‘+’		‘.’
 ```
 
-（还是不太理解。）
+上面样例中，两个“-”代表在softirq、hardirq都有出现过，并且当时是irq disable的状态。（不确定理解是否正确。）
 
 **Deplock checking rules**
 
