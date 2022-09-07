@@ -2,6 +2,12 @@
 
 lockstat 提供了全局的lock统计信息，可以对全系统的所有锁类竞争情况，持锁情况进行统计。
 
+## Files
+
+```
+- /kernel/locking/lockdep.c             // CONFIG_LOCK_STAT
+```
+
 ## Usage Test
 
 1、使能
