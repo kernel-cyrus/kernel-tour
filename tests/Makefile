@@ -33,3 +33,5 @@ obj-$(CONFIG_TEST_STRING)	+= test-string/string.o
 obj-$(CONFIG_TEST_PERCPU)	+= test-percpu/percpu.o
 
 obj-$(CONFIG_TEST_SPINLOCK)	+= test-spinlock/spinlock.o
+
+obj-$(CONFIG_TEST_MUTEX)	+= test-mutex/mutex.o
