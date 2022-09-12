@@ -20,6 +20,8 @@
 
 [mutex](/locking/mutex)
 
+[semaphore](/locking/semaphore)
+
 [lockdep](/locking/lockdep)
 
 [lockstat](/locking/lockstat)
