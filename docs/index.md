@@ -22,6 +22,8 @@
 
 [semaphore](/locking/semaphore)
 
+[rwsem](/locking/rwsem)
+
 [lockdep](/locking/lockdep)
 
 [lockstat](/locking/lockstat)
