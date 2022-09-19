@@ -23,26 +23,43 @@ rwsem与semaphore一样，只用于进程上下文，等锁进程会进入睡眠
 
 `DECLARE_RWSEM`
 
+静态定义初始化
+
 `init_rwsem`
 
+动态初始化
 
 `down_read`
 
+获取信号量（-1）,如果write lock，则睡眠
+
 `down_read_interruptible`
+
+同上，如果睡眠过程中被signal唤醒，则返回-EINTR，正常等到up唤醒返回0
 
 `down_read_killable`
 
+同上，不允许普通signal唤醒，如果睡眠过程中被faltal signal唤醒，则返回-EINTR，正常等到up唤醒返回0
+
 `down_read_trylock`
+
+获取成功返回0，没申请到不睡眠，直接返回1
 
 `down_write`
 
+获取信号量（-1）,如果有read / write lock，则睡眠
+
 `down_write_killable`
+
+同上，不允许普通signal唤醒，如果睡眠过程中被faltal signal唤醒，则返回-EINTR，正常等到up唤醒返回0
 
 `down_write_trylock`
 
-`up_read`
+获取成功返回0，没申请到不睡眠，直接返回1
 
-`up_write`
+`up_read` `up_write`
+
+释放信号量（+1），并唤醒信号量等待进程队列中的第一个进程。
 
 ## Module Test
 
