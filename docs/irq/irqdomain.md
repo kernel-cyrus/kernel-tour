@@ -1,12 +1,8 @@
 # irqdomain
 
-irqdomain就是一个interrupt controller对象
+irqdomain就是一个interrupt controller对象，主要的功能是对hwirq和virq创建映射
 
 在中断控制器驱动中（如gicv3），通过 `irq_domain_create` 来创建出一个irqdomain，并通过irq_domain_ops来绑定这个中断控制器的控制接口，如virq<->hwirq，activate irq，deactivate irq等操作。
-
-### irqdesc
-
-irqdesc表示保存一路中断相关信息，中断号，回调函数。
 
 ### irqdomain virq <->hwirq mapping
 
@@ -170,3 +166,7 @@ ARM平台大多数中断，中断号在DTS中定义，在驱动初始化时，�
 **Dump all irqdomain from debugfs**
 
 /debug/domains/中可以dump所有irqdomain，cat可以显示每个domain的name、size、mapcount。
+
+## Reference
+
+<https://blog.csdn.net/weixin_41028621/article/details/101448227>

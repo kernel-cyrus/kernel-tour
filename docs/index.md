@@ -32,6 +32,8 @@
 
 [irqdomain](/irq/irqdomain)
 
+[irqdesc](/irq/irqdesc)
+
 ### mm
 
 [pgtable](/mm/pgtable)
