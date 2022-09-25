@@ -28,6 +28,10 @@
 
 [lockstat](/locking/lockstat)
 
+### irq
+
+[irqdomain](/irq/irqdomain)
+
 ### mm
 
 [pgtable](/mm/pgtable)
