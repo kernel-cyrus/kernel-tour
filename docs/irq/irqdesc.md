@@ -50,6 +50,8 @@ sysfs
 
 kstat_irqs
 
+CONFIG_GENERIC_IRQ_DEBUGFS
+
 ## Refernece
 
 <https://blog.csdn.net/weixin_41028621/article/details/101753159>
