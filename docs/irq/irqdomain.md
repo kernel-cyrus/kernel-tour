@@ -55,7 +55,7 @@ struct irq_domain_ops
 	map
 	unmap
 -------- hierarchy support --------
-	alloc		map a virq to fwspec
+	alloc		map a virq to fwspec, init virq desc
 	free
 	activate	activate irq
 	deactivate	deactivate irq
