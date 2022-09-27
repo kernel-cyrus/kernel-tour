@@ -34,6 +34,18 @@
 
 [irqdesc](/irq/irqdesc)
 
+[irqchip](/irq/irqchip)
+
+[manage](/irq/manage)
+
+[proc, debug](/irq/proc)
+
+[tasklet](/irq/tasklet)
+
+[softirq](/irq/softirq)
+
+[workqueue](/irq/workqueue)
+
 ### mm
 
 [pgtable](/mm/pgtable)
