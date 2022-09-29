@@ -36,15 +36,19 @@
 
 [irqchip](/irq/irqchip)
 
-[manage](/irq/manage)
+manage
 
-[proc, debug](/irq/proc)
+proc, debug
 
-[tasklet](/irq/tasklet)
+tasklet
 
-[softirq](/irq/softirq)
+softirq
 
-[workqueue](/irq/workqueue)
+workqueue
+
+### time
+
+[arch_timer](/time/arch_timer)
 
 ### mm
 
