@@ -36,7 +36,7 @@
 
 [irqchip](/irq/irqchip)
 
-manage
+[manage](/irq/manage)
 
 proc, debug
 
