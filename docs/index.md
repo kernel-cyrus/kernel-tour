@@ -38,7 +38,7 @@
 
 [manage](/irq/manage)
 
-proc, debug
+[procfs, debugfs, sysfs](/irq/sysfs)
 
 tasklet
 
