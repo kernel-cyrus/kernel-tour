@@ -42,7 +42,7 @@
 
 [softirq](/irq/softirq)
 
-tasklet
+[tasklet](/irq/tasklet)
 
 workqueue
 

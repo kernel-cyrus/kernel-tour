@@ -48,10 +48,6 @@ percpu pending变量，记录当前核的pending softirq。这个变量提供了
 
 ## Functions
 
-`softirq_init`
-
-初始化两个tasklet链表
-
 `open_softirq`
 
 将回调函数绑定到某路softirq上
