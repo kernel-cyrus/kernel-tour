@@ -22,13 +22,29 @@ manage包括了request（注册）、enable（使能）、affinity（绑核）�
 
 设置某路中断绑核。affinity系函数中，除了可以设置硬中断的affinity，还可以设置中断处理线程的affinity。
 
-`enable_irq`
+`enable_irq`, `disable_irq`
 
-使能某路中断
+使能/禁用某路中断，等待所有中断处理结束（包括中断及中断处理线程）
 
-`disable_irq`
+调用的是irq chip的底层回调，操作的是gic寄存器，屏蔽了某路中断。
 
-禁用某路中断，等待所有中断处理结束（包括中断及中断处理线程）
+`enable_percpu_irq`, `disable_percpu_irq`
+
+使能/禁用percpu申请的中断，与上面函数类似，屏蔽的是gic某路中断。
+
+`disable_irq_nosync`
+
+与上面函数类似，但是不等待所有中断处理结束。
+
+`local_irq_enable`, `local_irq_disable` (irqflags.h)
+
+禁用当前CPU中断，操作的是本CPU的daif寄存器，屏蔽了中断响应，但是并没有屏蔽GIC的中断发送，新来的中断还是会发送给PE，并且PENDING住。
+
+这组接口就是直接的开关，并不会记录嵌套层级。
+
+`local_irq_save`, `local_irq_restore` (irqflags.h)
+
+与上面接口类似，但是会记录嵌套层级，在最后的restore时，才会打开中断响应。
 
 `disable_irq_hardirq`
 
@@ -50,8 +66,12 @@ manage包括了request（注册）、enable（使能）、affinity（绑核）�
 
 `request_percpu_irq`
 
-中断申请接口，为local中断（本CPU中断）绑定回调函数。
+percpu中断申请接口（PPI），为local中断（本CPU中断）绑定回调函数。
 
 `__setup_irq`
 
 底层中断绑定接口，各种request申请接口都使用此接口做最后的安装和绑定
+
+## Reference
+
+关于禁中断的接口比较：<http://books.gigatux.nl/mirror/kerneldevelopment/0672327201/ch06lev1sec7.html>

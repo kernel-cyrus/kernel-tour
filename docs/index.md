@@ -40,9 +40,9 @@
 
 [procfs, debugfs, sysfs](/irq/sysfs)
 
-tasklet
+[softirq](/irq/softirq)
 
-softirq
+tasklet
 
 workqueue
 
