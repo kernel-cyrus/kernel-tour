@@ -6,9 +6,15 @@ percpu提供静态定义和动态分配两种私有变量的定义方法，静�
 
 两种方式都会定义出NR_CPU个变量（每个cpu一个），所以percpu提供的定义或者alloc接口，实际分配出的是一个数组(CPU Number)。在访问某个CPU对应的私有变量时，通过percpu变量的基地址+cpu的offset，最终得到该CPU对应的变量。percpu提供了接口来访问各自CPU私有数据。
 
-最后，percpu分配的变量，一般是CPU的私有数据，一般情况不应该跨CPU访问其他CPU的私有变量，所以自己访问自己的变量是不需要加锁的，因为不会有其他核发生并发访问，但是需要在操作时禁用抢占（preempt），防止获得CPU X的变量后，被调度到CPU Y上，出现CPU Y修改CPU X变量的情况。
+最后，percpu分配的变量，一般是CPU的私有数据，一般情况不应该跨CPU访问其他CPU的私有变量，所以自己访问自己的变量是不需要加锁的，因为不会有其他核发生并发访问，但是需要在操作时禁用抢占（preempt），防止Thread A获得变量后，被Thread B抢占，出现Thread B修改Thread A正在使用的变量的情况。
 
 所幸，percpu提供了get/put的标准流程，来操作percpu定义的变量，get会关闭抢占，put则会打开抢占，这就需要get/put中间的操作过程足够简洁，避免长时间禁用抢占。
+
+**Preempt disable**
+
+这里关于抢占(preempt_disable)，多说一句，关闭抢占，是关闭本核的抢占，防止本核正在运行的线程被高优先级线程抢占掉，并不会关闭中断，也不会关闭调度，更不会影响到其他核，所有做的事情，仅仅是不允许高优先级线程抢占掉当前正在运行的线程。
+
+参考： [preempt_disable](http://books.gigatux.nl/mirror/kerneldevelopment/0672327201/ch09lev1sec9.html)
 
 ## Files
 
@@ -31,6 +37,10 @@ percpu提供静态定义和动态分配两种私有变量的定义方法，静�
 `DECLARE_PER_CPU(type, var)`
 
 外部引用声明。
+
+`get_cpu` `put_cpu`
+
+获取当前CPU ID并关闭抢占，put打开抢占
 
 `get_cpu_var(var)` `put_cpu_var(var)`
 
