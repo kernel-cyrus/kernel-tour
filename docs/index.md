@@ -44,7 +44,7 @@
 
 [tasklet](/irq/tasklet)
 
-workqueue
+[workqueue](/irq/workqueue)
 
 ### time
 
