@@ -38,6 +38,8 @@
 
 [manage](/irq/manage)
 
+[exception, fault, traps](/irq/exception)
+
 [procfs, debugfs, sysfs](/irq/sysfs)
 
 [softirq](/irq/softirq)
