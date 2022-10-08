@@ -50,6 +50,20 @@
 
 ### time
 
+[clocksource](/time/clocksource)
+
+clockevents
+
+tickdevice
+
+timer
+
+hrtimer
+
+jiffies
+
+time
+
 [arch_timer](/time/arch_timer)
 
 ### mm
