@@ -2,7 +2,7 @@
 
 ARM的每个EL有四类Exception：
 
-- Sync（WFE/WFI，SVC/HVC/SMC，Data Abort，Inligal Instruction...）
+- Sync（WFE/WFI，SVC/HVC/SMC，Data Abort，Undef Instruction...）
 - IRQ（PPI、SPI、SGI）
 - FIQ（Secure、Non-Secure Transfer）
 - SERROR（Hardware Error，Bus Error）
@@ -43,7 +43,7 @@ sync类型异常主要包括以下几类：（见traps.c:esr_class_str）
 
 各个EL层面发生Sync Exception后的处理方式并不相同，大体上，EL0发生的Sync，会最终转为Signal发送给用户进程，如果用户进程没有绑定Handle函数，则会导致进程异常退出。如果是EL1内核层发生的Sync，大概率会直接转为Panic。这个在Sync Handler中，会判断当前是否为user space。
 
-除此之外，traps机制还为各种traps类型提供了hook，允许其他机制监控和处理各类异常。
+除此之外，traps机制还为各种traps类型提供了hook，允许其他机制监控和处理各类异常，或在异常发生时打印出额外信息。
 
 ## Files
 
