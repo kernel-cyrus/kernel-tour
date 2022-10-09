@@ -52,6 +52,8 @@
 
 [clocksource](/time/clocksource)
 
+timekeeping
+
 clockevents
 
 tickdevice
