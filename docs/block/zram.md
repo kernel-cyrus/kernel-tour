@@ -86,6 +86,7 @@ swapoff /dev/zram0
 
 ```
 mkfs.ext4 /dev/zram1
+mke2fs -b 4096 -T ext4 /dev/zram1 (busybox)
 mount /dev/zram1 /tmp
 umount /dev/zram1
 ```
