@@ -52,7 +52,7 @@
 
 [clocksource](/time/clocksource)
 
-timekeeping
+[timekeeping](/time/timekeeping)
 
 clockevents
 
