@@ -58,11 +58,13 @@
 
 [clockevents](/time/clockevents)
 
-tickdevice
+[tickdevice](/time/tickdevice)
 
 [jiffies](/time/jiffies)
 
-timer, hrtimer
+timer
+
+hrtimer
 
 time
 

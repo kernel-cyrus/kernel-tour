@@ -4,7 +4,7 @@
 
 clockevent封装了hardware timer driver，并提供了设置下次event和event回调函数的功能。
 
-上层机制，通过clockevent device来访问hardware timer功能，并通过封装自己的event handler和set_next_event，从而实现出自己的功能机制（tick device）
+上层机制，通过clockevent device来访问hardware timer功能，并通过封装自己的event handler和set_next_event，从而实现出自己的功能机制（tick device，hrtimer）
 
 **hardware timer**
 
@@ -68,3 +68,5 @@ clockevent device suspend / resume
 ## Reference
 
 <https://www.kernel.org/doc/Documentation/timers/timekeeping.txt>
+
+<https://www.youtube.com/watch?v=Puv4mW55bF8&ab_channel=TheLinuxFoundation>
