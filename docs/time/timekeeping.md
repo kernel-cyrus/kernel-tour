@@ -240,6 +240,14 @@ suspend时，会通过rtc，以及clocksource的suspend clocksource来记录睡�
 
 tick回调函数，更新jiffies，update tk_core到最新时间。
 
+## Debug Test
+
+timekeeping提供了自己sleep time的debug信息，如果pm_debug_messages_on被打开，则在每次suspend/resume时，会打印出睡眠时间。
+
+`/debugfs/sleep_time`
+
+debugfs中也提供了文件节点，可以记录最近32次的睡眠时间
+
 ## Reference
 
 <https://docs.kernel.org/core-api/timekeeping.html>
