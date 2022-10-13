@@ -46,6 +46,8 @@ clocksource会向上层timekeeping提供服务，只会有一个精度最高的c
 
 系统启动初始化阶段，会先使用jiffies作为默认clocksource，启动过程中，如果有新的clocksource注册进来，则会调用`clocksource_select`，重新选择出高精度clocksource，然后调用`timekeeping_notify`通知timekeeping系统更新clocksource。
 
+timekeeping系统使用的clocksource中，除了cur_clocksource，还会有一个suspend_clocksource，这个clocksource可以在系统下电后继续运行，专门用于记录睡眠时间，
+
 ## Fiels
 
 ```

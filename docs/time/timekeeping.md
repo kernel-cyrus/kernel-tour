@@ -2,6 +2,8 @@
 
 timekeeping系统为linux提供各类时间及获取函数。
 
+timekeeping从persistent clock(rtc)获得初始时间，然后绑定clocksource，后面时间获取将通过clocksource + 各类时间的offset完成。
+
 ## Files
 
 ```
@@ -11,7 +13,7 @@ timekeeping系统为linux提供各类时间及获取函数。
 - /include/linux/ktime.h			# ktime_t convertion
 ```
 
-## Functions
+## Interfaces
 
 ### Time Clocks
 
@@ -181,6 +183,62 @@ struct timekeeper {
 	ktime_t			offs_boot;		// CLOCK_MONOTONIC + this = CLOCK_BOOTTIME
 };
 ```
+
+## Functions
+
+### Timekeep init
+
+`timekeeping_init`
+
+1. 读取persistent time（rtc），并初始化boot offset，后面再获取时间时就不再从rtc读取。
+2. 通过clocksource_default_clock获取并初始化timekeeping使用的clocksource
+3. 初始化tk_core
+
+### Timekeep suspend / resume
+
+timekeeping在syscore中注册了suspend/resume接口，用于保存suspend/resume时间。
+
+suspend时，会通过rtc，以及clocksource的suspend clocksource来记录睡眠和唤醒时间，更新到tk_core的sleep time相关数据中。
+
+`timekeeping_init_ops`
+
+向syscore注册suspend、resume接口
+
+`timekeeping_suspend`
+
+分别获取睡眠时的persistent clock、clocksource counter，保存到timekeeping_suspend_time、suspend_start。
+
+`timekeeping_resume`
+
+再次获取唤醒时的persistent clock、clocksource counter，计算出睡眠时间，更新到tk_core的sleep相关数据中。
+
+`read_persistent_clock64`
+
+获取persistent clock值
+
+`clocksource_start_suspend_timing`
+
+记录clocksource counter到suspend_start变量
+
+`clocksource_stop_suspend_timing`
+
+获取suspend_start，并计算出睡眠sec返回
+
+`__timekeeping_inject_sleeptime`
+
+更新tk_core中的sleep相关成员。
+
+### Timekeep update
+
+细粒度接口的time数据，会从clocksource读取计算，粗粒度接口time数据会直接从tk_core中取得。tk_core的数据会在每个tick中得到更新。
+
+`update_wall_time`
+
+每个tick触发，从clocksource重新获取数据，并更新tk_core到最新。
+
+`tick_do_update_jiffies64`
+
+tick回调函数，更新jiffies，update tk_core到最新时间。
 
 ## Reference
 
