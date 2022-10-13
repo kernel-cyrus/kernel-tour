@@ -174,7 +174,9 @@ struct timekeeper {
 		xtime_nsec				// all clock offset (count by clocksource)
 							// the value is shifted, should >> shift
 		base					// CLOCK_MONOTONIC base
+							// this + xtime_nesec >> shift = CLOCK_MONOTONIC
 		base_real				// CLOCK_REALTIME base
+							// this + xtime_nesec >> shift = CLOCK_REALTIME
 	u64			xtime_sec;		// CLOCK_REALTIME (s)
 	unsigned long		ktime_sec;		// CLOCK_MONOTONIC (s)
 	struct timespec64	wall_to_monotonic;	// CLOCK_REALTIME + this = CLOCK_MONOTONIC
@@ -255,3 +257,5 @@ debugfs中也提供了文件节点，可以记录最近32次的睡眠时间
 <https://www.cnblogs.com/arnoldlu/p/7078241.html>
 
 <https://www.cnblogs.com/arnoldlu/p/7078250.html>
+
+<https://www.youtube.com/watch?v=Puv4mW55bF8&ab_channel=TheLinuxFoundation>

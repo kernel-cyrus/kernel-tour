@@ -1,6 +1,36 @@
 # arch_timer
 
-arch timer大致包括两部分内容，一部分是timer硬件的初始化，中断注册，另一部分是时间子系统的注册（clock_event_device，clock_source，time_counter）。
+**Arch Timer Hardware**
+
+ARM Arch Timer，也叫ARM Generic Timer，是ARM核中的Timer。
+
+Arch Timer硬件上包括两部分，一个是system counter（最终实现为clocksource），一个是processor timer（最终实现为clockevents）
+
+ARM在所有核的前端提供了一个System Counter，System Counter与SOC实现相关，需要在启动阶段对其进行初始化后才能工作。
+
+System Counter的基础上，ARM为每个核提供了四个Timer，这些Timer由System Counter驱动，可以为各个Core产生PPI中断。
+
+**Arch Timer Driver**
+
+Arch Timer Driver实现的功能包括：
+
+1、硬件初始化
+2、提供system counter操作接口（注册clocksource）
+3、提供processor timer操作接口（并注册clockevent device）
+
+## Files
+
+```
+- /drivers/clocksource/arm_arch_timer.c
+```
+
+## Variables
+
+`struct clock_event_device __percpu *arch_timer_evt;`
+
+每个核一个的clock event device，arch timer的feature支持持oneshot模式。
+
+## Functions
 
 ```
 arch_timer_init
@@ -30,7 +60,7 @@ arch_timer_init
         request_percpu_irq
 
         # 完成硬件配置
-        arch_timer_setup(clock_event_device)
+        __arch_timer_setup(clock_event_device)
 
             # 初始化clock_event_device
             clk = ...
@@ -40,8 +70,9 @@ arch_timer_init
 
             # 使能中断（per_cpu）
             enable_percpu_irq
+```
 
-
+```
 timer_handler（中断处理函数）
 
     # 读写TIMER_CTRL寄存器

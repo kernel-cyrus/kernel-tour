@@ -50,23 +50,23 @@
 
 ### time
 
+[arch_timer](/time/arch_timer)
+
 [clocksource](/time/clocksource)
 
 [timekeeping](/time/timekeeping)
 
-clockevents
+[clockevents](/time/clockevents)
 
 tickdevice
 
-timer
+[jiffies](/time/jiffies)
 
-hrtimer
-
-jiffies
+timer, hrtimer
 
 time
 
-[arch_timer](/time/arch_timer)
+posix
 
 ### mm
 

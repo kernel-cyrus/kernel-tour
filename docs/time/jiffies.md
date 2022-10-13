@@ -33,3 +33,7 @@ Searching 39355 files for "jiffies_64 +=" (case sensitive)
 2 matches across 2 files
 
 --------------------
+
+jiffies clocksource
+
+default clocksource
