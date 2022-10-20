@@ -60,7 +60,7 @@
 
 [tickdevice](/time/tickdevice)
 
-[tickless](/time/tickless)
+[nohz](/time/nohz)
 
 [jiffies](/time/jiffies)
 

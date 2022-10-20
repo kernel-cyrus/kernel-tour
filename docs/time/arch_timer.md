@@ -81,3 +81,9 @@ timer_handler（中断处理函数）
     # 执行clock_event_device的回调函数（时间子系统回调）
     evt->event_handler (tick_handle_periodic)
 ```
+
+```
+arch_timer_select_ppi
+
+# 选择使用arch timer的哪个PPI中断作为clockevent device的中断源。
+```
