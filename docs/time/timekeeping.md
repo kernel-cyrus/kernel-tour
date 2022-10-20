@@ -230,6 +230,10 @@ suspend时，会通过rtc，以及clocksource的suspend clocksource来记录睡�
 
 更新tk_core中的sleep相关成员。
 
+`update_wall_time` / `timekeeping_advance`
+
+更新tk_core到最新时间
+
 ### Timekeep update
 
 细粒度接口的time数据，会从clocksource读取计算，粗粒度接口time数据会直接从tk_core中取得。tk_core的数据会在每个tick中得到更新。

@@ -49,6 +49,8 @@ clockevent的freq，就是在oneshot的硬件feature下，实现perioidic功能�
 
 将clockevent device注册到clockevent devices链表上。
 
+注册后会使用刚注册的clockevent device初始化当前核的tickdevice。
+
 `clockevents_config_and_register`
 
 上面两个函数的叠加
@@ -59,11 +61,24 @@ clockevent的freq，就是在oneshot的硬件feature下，实现perioidic功能�
 
 `clockevents_switch_state`
 
-设置clockevent device的模式
+设置clockevent device的模式（ONESHOT，PERIODIC）
 
 `clockevents_suspend / resume`
 
 clockevent device suspend / resume
+
+## Sysfs
+
+Clockevent会创建出clockevent subsystem（bus type），并在这个bus下挂上各个核的clockevent设备。
+
+`/sys/devices/clockevents/clockevents<cpu>`
+
+- current_device：当前tickdevice使用的clock eventdevice
+- unbound_device：remove
+
+`/sys/devices/clockevents/broadcast`
+
+- current_device：tick broadcast device使用的clock eventdevice
 
 ## Reference
 

@@ -60,6 +60,8 @@
 
 [tickdevice](/time/tickdevice)
 
+[tickless](/time/tickless)
+
 [jiffies](/time/jiffies)
 
 timer

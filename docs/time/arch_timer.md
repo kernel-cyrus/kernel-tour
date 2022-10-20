@@ -65,7 +65,7 @@ arch_timer_init
             # 初始化clock_event_device
             clk = ...
 
-            # 注册clock_event_device（时间子系统注册）
+            # 注册clock_event_device，tick_device（时间子系统注册）
             clockevents_config_and_register
 
             # 使能中断（per_cpu）
