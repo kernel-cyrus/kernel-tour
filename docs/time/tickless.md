@@ -1,4 +1,4 @@
-# nohz
+# tickless(nohz)
 
 peroid tick会按照固定周期触发到期中断，中断或者唤醒cpu来处理tick流程（处理timer、处理调度等等）。如果没有到期timer需要处理，或者没有任务需要切换，那么这个tick中断实际是可以避免的，从而节省功耗，并提高性能。
 
