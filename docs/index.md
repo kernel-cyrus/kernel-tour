@@ -60,13 +60,13 @@
 
 [tickdevice](/time/tickdevice)
 
-[tickless](/time/tickless)
+[tickless 50%](/time/tickless)
 
-[jiffies](/time/jiffies)
+[jiffies 50%](/time/jiffies)
 
 tickbroadcast
 
-timer
+[timer](/time/timer)
 
 hrtimer
 
