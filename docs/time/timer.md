@@ -119,3 +119,14 @@ timer软中断处理函数，会调用 `__run_timers`，通过当前jiffies(time
 
 ## Debugfs
 
+`CONFIG_DEBUG_OBJECTS_TIMERS`
+
+使能timer生命周期debug，会track timer的init、alloc、free，如果发现问题则报error。
+
+commit c6f3a97f86a5c97be0ca255976110bb9c3cfe669
+
+**关于Object生命周期Debug**
+
+<https://www.kernel.org/doc/html/latest/core-api/debug-objects.html>
+
+这个机制非常适用于，kernel提供机制，对用户提供init、alloc、free接口后，对用户使用行为的BUG预防检测。
