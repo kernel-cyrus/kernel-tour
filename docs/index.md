@@ -68,7 +68,7 @@ tickbroadcast
 
 [timer](/time/timer)
 
-hrtimer
+[hrtimer](/time/hrtimer)
 
 time
 
@@ -131,3 +131,5 @@ posix
 [sprintf](/lib/sprintf)
 
 [string](/lib/string)
+
+[debugobject](/lib/debugobject)
