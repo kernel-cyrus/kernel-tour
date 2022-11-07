@@ -2,7 +2,7 @@
 
 低精度timer，如其名，是不保证精度的timer。
 
-低精度timer主要提供了msleep的接口，用来做毫秒级定时。
+低精度timer主要提供了msleep、ssleep、usleep_range等接口，用来做毫秒级定时。
 
 低精度timer基于jiffies的，也就是说，其内部的定时和触发都是使用jiffies来计数的。timer在tick device触发的tick中断的后半部分（softirq）中执行。
 

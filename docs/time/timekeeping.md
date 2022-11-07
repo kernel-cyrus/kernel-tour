@@ -19,7 +19,7 @@ timekeeping从persistent clock(rtc)获得初始时间，然后绑定clocksource�
 
 Timekeeping系统提供了多种clock，每种clock有对应接口来获得各类时间，以下接口均返回ktime_t纳秒时间。
 
-除了纳秒，ktime可以转换成各种时间格式，接口在ktime.h中定义
+除了纳秒，ktime可以转换成各种时间格式，或者进行比较和计算，接口在ktime.h中定义
 
 **CLOCK_MONOTONIC**
 
