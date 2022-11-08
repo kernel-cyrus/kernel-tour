@@ -49,12 +49,11 @@ CPU0
 
 `tick_setup_device`
 
-绑定clockevent device，并将tick的回调 `tick_setup_periodic` 设置给clockevent device，然后根据clockevent device的mode，来设置周期触发。如果clockevent device只支持ONESHOT（arch timer），则通过 `tick_next_period` 周期性设置下次触发时间。
-
+绑定clockevent device，并将tick的回调 `tick_handle_periodic` 设置给clockevent device，然后根据clockevent device的mode，来设置周期触发。如果clockevent device只支持ONESHOT（arch timer），则通过 `tick_next_period` 周期性设置下次触发时间。
 
 `tick_handle_periodic`
 
-周期tick handler。timer loop框架，调用clockevent设置接口，周期性设置下次触发。
+周期tick handler。timer loop框架，调用 `tick_periodic` 执行操作，并使用clockevent接口，在handle完这个tick后，设置下次触发，从而实现timer loop。
 
 `tick_periodic`
 

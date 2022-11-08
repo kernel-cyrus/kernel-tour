@@ -113,9 +113,22 @@ percpu timer_base，每个核上的timer管理全局变量。
 
 **Timer 到期**
 
+timer到期执行分两部:
+
+第一部分是在tick device的tick handler里（tick_handle_periodic / tick_periodic / update_process_times / run_local_timers）raise TIMER_SOFTIRQ
+
+第二部分是在下半部，执行timer softirq，处理所有到期timer。
+
 `run_timer_softirq`
 
 timer软中断处理函数，会调用 `__run_timers`，通过当前jiffies(timer_base->clk)，使用 `collect_expired_timers` 取出每个level到期的vector，然后执行这些vector中的timer。
+
+---------------------
+切换hres模式后，原有的tick handler被hrtimer_interrupt接管，
+
+切换hres后后在哪执行？
+----------------------
+
 
 ## Debugfs
 
