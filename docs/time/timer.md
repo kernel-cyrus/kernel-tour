@@ -123,12 +123,9 @@ timer到期执行分两部:
 
 timer软中断处理函数，会调用 `__run_timers`，通过当前jiffies(timer_base->clk)，使用 `collect_expired_timers` 取出每个level到期的vector，然后执行这些vector中的timer。
 
----------------------
-切换hres模式后，原有的tick handler被hrtimer_interrupt接管，
+**hres后**
 
-切换hres后后在哪执行？
-----------------------
-
+切换hres模式后，原有的tick handler被hrtimer_interrupt接管，tick被sched_timer取代，原有在tick handler中执行的update_process_times，转到sched timer的tick_sched_handle中被调用。第一部分的raise softirq的动作在这里触发。在中断处理的下半部，执行run_timer_softirq处理到期的低精度timer
 
 ## Debugfs
 

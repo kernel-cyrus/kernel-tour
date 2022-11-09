@@ -10,7 +10,7 @@ hrtimer提供了两种timer执行上下文：hard irq、soft irq
 
 与低精度timer使用的哈希链表不同，hrtimer内部使用红黑树（timerqueue）来管理timer队列，hrtimer机制用自己的tick中断回调替换了原有的perioidic tick，原有的tick被实现为一个hrtimer(sched timer)注册到hrtimer队列，这样hrtimer实现了timer的精准到期控制，同时将tick纳入到了自己的timer loop中。
 
-hrtimer的使能需要系统满足一些条件，正常情况下，在arch timer初始化结束后，会从low res切换到hres，同时替换tick中断处理函数，由hres完全接管tick。
+hrtimer的使能需要系统满足一些条件，正常情况下，在arch timer初始化结束后，会从low res切换到hres，同时替换tick中断处理函数，由hres完全接管tick。原来的tick功能由一个新的hrtimer（sched timer）来实现。
 
 hrtimer也实现了debug object，可以对用户申请释放过程做预防监控。
 
@@ -148,6 +148,10 @@ tick_sched_timer		# new sched tick handler
 tick_sched_do_timer
 tick_do_update_jiffies64	# update jiffies
 ```
+
+**who legacy timer working after hres**
+
+切换hres后，低精度timer raise timer softirq的动作在tick_sched_timer中触发，timer softirq在中断下半部被处理。
 
 `hrtimer_interrupt`
 
