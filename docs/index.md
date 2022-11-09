@@ -60,19 +60,19 @@
 
 [tickdevice](/time/tickdevice)
 
-[tickless 50%](/time/tickless)
-
 [jiffies 50%](/time/jiffies)
-
-tickbroadcast
 
 [timer](/time/timer)
 
 [hrtimer](/time/hrtimer)
 
-time
+[tickless 50%](/time/tickless)
 
-posix
+tickbroadcast
+
+[delay](/time/delay)
+
+[timer_list](/time/timer_list)
 
 ### mm
 

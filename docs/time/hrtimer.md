@@ -158,3 +158,9 @@ tick_do_update_jiffies64	# update jiffies
 hrtimer提供的tick device handler，切换到hres后，替换掉原来的tick_handle_periodic回调。
 
 会从timerqueue中取出timer运行，运行后根据timer到期时间设置下次tick时间。
+
+## Reference
+
+<https://lwn.net/Articles/167897/>
+
+<https://blog.csdn.net/wangquan1992/article/details/122997220>
