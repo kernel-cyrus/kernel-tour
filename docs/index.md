@@ -66,7 +66,7 @@
 
 [hrtimer](/time/hrtimer)
 
-[tickless 50%](/time/tickless)
+[tickless](/time/tickless)
 
 tickbroadcast
 

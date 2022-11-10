@@ -8,7 +8,7 @@ tick有三种工作模式：periodic，nohz idle，nohz full
 
 1、periodic（CONFIG_NO_HZ=n，CONFIG_HZ_PERIODIC=y）
 
-周期性tick。（Old Kernel）
+周期性tick。
 
 2、nohz idle（CONFIG_NO_HZ=y，CONFIG_NO_HZ_IDLE=y）
 
@@ -83,4 +83,48 @@ NO_HZ_FULL		# nohz full feature
 
 `tick_cpu_sched`
 
-Percpu tick_sched 全局变量。
+Percpu tick_sched 全局变量，保存了tick相关counter及sched_timer，用来做nohz管理。
+
+## Functions
+
+因为nohz_full的情况一般不使用，这里只关注nohz_idle的实现。
+
+**sched timer**
+
+hres模式切换后tick被sched timer接管，nohz的实现就是在idle时，阶段性停掉sched timer。
+
+sched timer及nohz的实现，就是在 `tick-sched.c` 中实现。
+
+`hrtimer_switch_to_hres`
+
+low res切换high res
+
+`tick_setup_sched_timer`
+
+注册sched timer
+
+`tick_sched_timer`
+
+sched timer handler（tick处理函数）
+
+**nohz idle**
+
+在进入idle的 `do_idle` 函数中，会主要调用nohz的以下函数
+
+```
+tick_nohz_idle_enter		# prepare for entering idle on the current CPU
+
+tick_nohz_idle_stop_tick	# stop the idle tick from the idle task
+
+arch_cpu_idle_enter		# idle prepare
+
+cpuidle_idle_call		# idle
+
+arch_cpu_idle_exit		# idle exit
+
+tick_nohz_idle_exit		# restart the idle tick from the idle task
+```
+
+## Bootargs
+
+通过nohz=动态开启关闭nohz模式
