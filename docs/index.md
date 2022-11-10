@@ -60,7 +60,7 @@
 
 [tickdevice](/time/tickdevice)
 
-[jiffies 50%](/time/jiffies)
+[jiffies](/time/jiffies)
 
 [timer](/time/timer)
 
