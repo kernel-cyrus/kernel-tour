@@ -86,6 +86,29 @@ tickbroadcast
 
 [dw-axi-dma](/dma/dw-axi-dma)
 
+### iommu
+
+iommu
+
+arm-smmu
+
+### virtio
+
+...
+
+### remoteproc
+
+...
+
+### rpmsg
+
+...
+
+### kvm
+
+...
+
+
 ### mm
 
 [pgtable](/mm/pgtable)
@@ -96,7 +119,7 @@ tickbroadcast
 
 [fixmap](/mm/fixmap)
 
-[memconv](/mm/memconv)
+[convert](/mm/convert)
 
 [memblock](/mm/memblock)
 
@@ -104,9 +127,53 @@ tickbroadcast
 
 [percpu](/mm/percpu)
 
+### power
+
+cpuidle
+
+cpufreq
+
+devfreq
+
+energy_model
+
+qos
+
+suspend
+
+reset
+
 ### process
 
 [state](/process/state)
+
+### sched
+
+stop
+
+deadline
+
+rt
+
+fair
+
+idle
+
+cpufreq
+
+pelt / walt
+
+eas
+
+isolate
+
+### cgroup
+
+cgroup
+
+cpuset
+
+memcontrol
 
 ### fs
 
