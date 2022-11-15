@@ -76,7 +76,15 @@ tickbroadcast
 
 ### dma
 
+[dma-engine](/dma/dma-engine)
 
+[dma-mapping](/dma/dma-mapping)
+
+[dma-pool](/dma/dma-pool)
+
+[8250-dma](/dma/8250-dma)
+
+[dw-axi-dma](/dma/dw-axi-dma)
 
 ### mm
 
