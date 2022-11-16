@@ -1,7 +1,18 @@
+## DMA Engine
 
-**DMA Engine Framework**
+DMA Engine可以表示两个概念，第一，一个DMA Engine实际就是一个硬件DMA设备的驱动（DMA Engine Device）。第二，DMA Engine在内核中是一个DMA设备驱动的通用框架（DMA Engine Framework）。
 
 DMA Engine Framework跟大多数内核设备框架一样，DMA Engine Driver需要根据其硬件特性填充dma device结构体，并基于其硬件实现功能接口，注册到DMA Engine框架，由DMA Engine Framework向外提供统一功能接口。
+
+通常DMA的使用者包括三类人：
+
+1、DMA Engine Developer，开发DMA设备驱动，向系统注册DMA Engine Device，为系统提供DMA的搬运服务，比如dw-axi-dma。
+
+2、DMA Client Developer，比如UART、USB、UFS的driver开发者，调用DMA Engine Framework提供的通用DMA操作接口，帮助其完成DMA搬运服务。
+
+3、DMA Mapping User，利用DMA Alloc时可以建立SMMU页表的功能，创建用于与其他子系统共享的内存Buffer。
+
+本文主要介绍前两种情况。
 
 **DMA Engine Device**
 
@@ -56,6 +67,24 @@ Reference: <https://www.kernel.org/doc/html/latest/driver-api/dmaengine/client.h
 - /drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c	# dma engine device driver
 ```
 
+## Structure
+
+```
+struct dma_device
+```
+
+## Variable
+
+`dma_device_list`
+
+dma engine device全局链表
+
+## Functions
+
+`dma_bus_init`
+
+初始化unmap pool，debugfs节点，sysfs节点
+
 ## Interface（for DMA Engine）
 
 \* Reference Driver: dw-axi-dma
@@ -103,3 +132,35 @@ Reference: <https://www.kernel.org/doc/html/latest/driver-api/dmaengine/client.h
 `dmaengine_terminate_async`
 
 `dmaengine_terminate_sync`
+
+## Debugfs
+
+`dmaengine/summary`
+
+打印出DMA设备列表，每个DMA设备的channel数，是否正在使用。
+
+`dmaengine/<dma_device>/`
+
+调用每个DMA设备自己的dump功能打印
+
+## Sysfs
+
+`/sys/devices/system/dma/<dma_device>`
+
+- memcpy_count
+- bytes_transferred
+- in_use：chanels in use
+
+## Reference
+
+How to implement a dma engine device driver:
+
+<https://docs.kernel.org/driver-api/dmaengine/provider.html>
+
+How to use dma in dma client device driver:
+
+<https://docs.kernel.org/driver-api/dmaengine/client.html>
+
+How to test dma client device with dmatest:
+
+https://docs.kernel.org/driver-api/dmaengine/dmatest.html<>

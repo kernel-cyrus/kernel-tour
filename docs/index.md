@@ -80,6 +80,8 @@ tickbroadcast
 
 [dma-mapping](/dma/dma-mapping)
 
+[dma-buf](/dma-dmabuf)
+
 [dma-pool](/dma/dma-pool)
 
 [8250-dma](/dma/8250-dma)
