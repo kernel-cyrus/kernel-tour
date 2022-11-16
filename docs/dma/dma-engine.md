@@ -63,13 +63,13 @@ Slave Device Driver在使用DMA Engine做搬移时，一般包括下面几个步
 
 2. Config the channel for transfer
 
-构造 `dma_slave_config`，通过 `dmaengine_slave_config` 配置chanel
+构造 `dma_slave_config`，通过 `dmaengine_slave_config` 配置chanel，设置搬运方向，原地址，地址位宽。
 
 3. Prepare the transaction descriptor (desc)
 
 根据待传输的数据类型，调用 `dmaengine_prep_xxx` 接口，获得传输使用的 `dma_async_tx_descriptor`。
 
-设置desc的传输方向、callback等信息。这时，desc中包含了所有transfer的信息，包括地址、方向、大小、传输方式、callback等信息。
+设置desc的callback信息。这时，desc中包含了所有transfer的信息，包括使用的channel（源地址）、目标地址、方向、大小、传输方式、callback等信息。
 
 4. Submit transaction
 
