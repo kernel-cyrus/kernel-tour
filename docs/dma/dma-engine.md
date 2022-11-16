@@ -6,11 +6,11 @@ DMA Engine Framework跟大多数内核设备框架一样，DMA Engine Driver需�
 
 通常DMA的使用者包括三类人：
 
-1、DMA Engine Developer，开发DMA设备驱动，向系统注册DMA Engine Device，为系统提供DMA的搬运服务，比如dw-axi-dma。
+1. DMA Engine Developer，开发DMA设备驱动，向系统注册DMA Engine Device，为系统提供DMA的搬运服务，比如dw-axi-dma。
 
-2、DMA Client Developer，比如UART、USB、UFS的driver开发者，调用DMA Engine Framework提供的通用DMA操作接口，帮助其完成DMA搬运服务。
+2. DMA Client Developer，比如UART、USB、UFS的driver开发者，调用DMA Engine Framework提供的通用DMA操作接口，帮助其完成DMA搬运服务。
 
-3、DMA Mapping User，利用DMA Alloc时可以建立SMMU页表的功能，创建用于与其他子系统共享的内存Buffer。
+3. DMA Mapping User，利用DMA Alloc时可以建立SMMU页表的功能，创建用于与其他子系统共享的内存Buffer。
 
 本文主要介绍前两种情况。
 
@@ -51,11 +51,43 @@ device_prep_dma_cyclic		# get cyclic operation desc
 
 Reference: <https://www.kernel.org/doc/html/latest/driver-api/dmaengine/provider.html>
 
+Reference Code: `dw-axi-dmac-platform.c`
+
 **DMA Engine Client**
 
+Slave Device Driver在使用DMA Engine做搬移时，一般包括下面几个步骤：
 
+1. Alloc a channel
+
+通过调用 `dma_request_chan` 得到一个chanel结构体
+
+2. Config the channel for transfer
+
+构造 `dma_slave_config`，通过 `dmaengine_slave_config` 配置chanel
+
+3. Prepare the transaction descriptor (desc)
+
+根据待传输的数据类型，调用 `dmaengine_prep_xxx` 接口，获得传输使用的 `dma_async_tx_descriptor`。
+
+设置desc的传输方向、callback等信息。这时，desc中包含了所有transfer的信息，包括地址、方向、大小、传输方式、callback等信息。
+
+4. Submit transaction
+
+调用 `dmaengine_submit` 将获取并准备好的desc提交。
+
+提交后的dma desc并不会直接开始传输，只是加入到pending队列。
+
+5. Issue pending requests
+
+调用 `dma_async_issue_pending` 开始chanel request队列的异步传输。
+
+6. Wait and handle the callback event
+
+当每个desc传输完成后，会通过tasklet回调callback。
 
 Reference: <https://www.kernel.org/doc/html/latest/driver-api/dmaengine/client.html>
+
+Reference Code: `8250_dma.c`
 
 ## Files
 
@@ -69,9 +101,19 @@ Reference: <https://www.kernel.org/doc/html/latest/driver-api/dmaengine/client.h
 
 ## Structure
 
-```
-struct dma_device
-```
+`struct dma_device`
+
+dma device，在注册前初始化，前面已经有描述
+
+`struct dma_chan`
+
+dma channel，指向所属的dma device，被使用的slave device。
+
+每个channel还对应一个供sysfs使用的dma_chan_dev结构体，在sysfs中暴露节点。（channel本身也被注册为一个device）
+
+`struct dma_slave_config`
+
+供slave device配置chanel使用的config结构体，用来为传输配置channel。
 
 ## Variable
 
@@ -89,15 +131,25 @@ dma engine device全局链表
 
 \* Reference Driver: dw-axi-dma
 
+dma_async_device_register
+
+DMA Engine Device注册，会将device注册到全局device链表，并注册device的每个channel
+
 ## Interface（for DMA Client）
 
 \* Reference Driver: 8250_dma
 
 **Request a channel**
 
+`dma_request_chan`
+
+根据dts配置拿到对应dma设备的chanel，或动态分配一个channel（调用find_candidate找一个合适channel）
+
 `dma_request_slave_channel_compat`
 
 `dma_release_channel`
+
+释放一个channel
 
 **Get channel's device caps**
 
@@ -111,7 +163,11 @@ dma engine device全局链表
 
 `dmaengine_pause`
 
+暂停channel传输
+
 `dmaengine_resume`
+
+恢复channel传输
 
 **Prepare dma transfer descripter**
 
@@ -121,17 +177,37 @@ dma engine device全局链表
 
 `dmaengine_prep_dma_cyclic`
 
-**Do the transfer**
+**Submit the transfer**
 
 `dmaengine_submit`
 
+提交传输desc到channel的pending队列，返回cookie（desc的传输句柄）
+
+**Issue pending request and wait for callback**
+
 `dma_async_issue_pending`
+
+开始channel的队列传输。
+
+**Check transaction finish**
+
+`dma_async_is_tx_complete`
+
+通过cookie来判断submit的desc传输有没有完成
 
 **Terminate all transfer**
 
 `dmaengine_terminate_async`
 
+停止channel的所有传输，异步方式
+
 `dmaengine_terminate_sync`
+
+停止channel的所有传输，同步等待
+
+`dmaengine_synchronize`
+
+如果使用async接口停止传输，可以用这个接口进入等待
 
 ## Debugfs
 
