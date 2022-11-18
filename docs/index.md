@@ -78,6 +78,14 @@ tickbroadcast
 
 [dma-engine](/dma/dma-engine)
 
+[coherent](/dma/coherent)
+
+[direct](/dma/direct)
+
+[pool](/dma/pool)
+
+[contiguous](/dma/contiguous)
+
 [dma-mapping](/dma/dma-mapping)
 
 [dma-buf](/dma-dmabuf)
