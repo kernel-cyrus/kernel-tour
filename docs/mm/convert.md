@@ -5,7 +5,7 @@
 - 虚拟地址（virt）：页表转化前的虚拟地址
 - 物理地址（phys）：页表转化后的物理地址
 - page frame（pfn）：每个物理页(4k page)，有一个ID，这个ID就是pfn
-- page struct（page）：每个物理页(4k page)，对应了一个page struct数据结构，内核用来管理和描述这个物理页的状态
+- page struct（page）：每个物理页(4k page)，对应了一个page struct数据结构，内核用来管理和描述这个物理页的状态，page alloc就是分配pfn和page struct的过程。
 - page table entry：这个物理页对应的各级页表Entry（pgd pud pmd pte）
 
 这些数据的地址间，可以互相转化和访问。

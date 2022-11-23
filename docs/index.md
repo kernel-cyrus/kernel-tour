@@ -78,14 +78,6 @@ tickbroadcast
 
 [dma-engine](/dma/dma-engine)
 
-[dma-mapping\*](/dma/dma-mapping)
-
-[dma-pool\*](/dma/dma-pool)
-
-[dma-buf\*](/dma/dma-buf)
-
-[dma-heap\*](/dma/dma-heap)
-
 [coherent](/dma/coherent)
 
 [direct](/dma/direct)
@@ -93,6 +85,14 @@ tickbroadcast
 [pool\*](/dma/pool)
 
 [contiguous\*](/dma/contiguous)
+
+[dma-mapping\*](/dma/dma-mapping)
+
+[dma-pool\*](/dma/dma-pool)
+
+[dma-buf\*](/dma/dma-buf)
+
+[dma-heap\*](/dma/dma-heap)
 
 ### iommu
 
