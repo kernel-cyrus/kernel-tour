@@ -1,6 +1,10 @@
 # dma-mapping
 
-dma mapping用来从dma pool中申请
+DMA Buffer是一块供DMA Slave Device使用的Buffer。这块通过DMA Engine搬运使用的DDR Buffer。这个Buffer在CPU侧映射出了VA，可以写入或读取里面数据，同时通过
+
+dma mapping用来从dma pool中申请或者map出dma buffer。
+
+
 
 **coherent framwork**
 
@@ -16,6 +20,8 @@ dma_alloc_coherent（dma_alloc_attrs）
 
 	# 如果Device绑定了Reserved Memory		（Device Coherent Pool）
 	dma_alloc_from_dev_coherent
+	* Device Memory一定不经过IOMMU，不会被IOMMU映射
+	* 或者说使用IOMMU映射一定不能绑定Device Memory，因为Page是动态申请的
 
 	# 如果Device没有绑定Reserved Memory，则从Global Pool/Memory申请
 
