@@ -1,15 +1,17 @@
 # Pool
 
-postcore阶段，通过dma_atomic_pool_init，根据bootarg：coherent_pool，创建出三个dma pool（dma, dma32, kernel），每个pool有一个全局变量指针（atomic_pool_xxx），和一个全局变量size
+coherent_pool动态创建机制（Global Atomic Pool）。
 
-每个pool的原始内存（物理页，这里还没有做va映射，只是从物理内存管理中分配了物理内存及对应的page struct），通过atomic_pool_expand，从cma或者直接通过alloc_pages从buddy申请。
+允许通过启动参数：coherent_pool=<size>，在启动阶段动态创建出三个Global DMA Pool（dma, dma32, kernel）
 
-申请后，通过dma_common_contiguous_remap（调用vmap）为page分配出va
+每个pool由一个全局变量指针（atomic_pool_xxx），和一个全局变量保存size。
 
-pool使用generic mem pool分配器来管理（genalloc）
+整个机制提供了dma_alloc_from_pool，可以通过传入gfp来决定从哪个pool分配内存。
 
-每个pool在debugfs中提供了一个节点，来打印size
+Atomic Pool的内部，使用generic mem pool分配器来管理（genalloc）
 
------------
+每个pool的原始内存，通过调用atomic_pool_expand，从cma或者直接通过alloc_pages从buddy申请。
 
-pool创建好后，就可以提供通用的pool分配内存接口：dma_alloc_from_pool，根据gfp，从三个pool中选择一个分配物理页
+Pool在初始化时，只申请了物理页，还没有做va映射。在device从pool中申请内存时，才通过dma_common_contiguous_remap（调用vmap）为page分map出va。这个map的内存也是non-cache或者说coherent的。
+
+在debugfs中，提供了dma_pools目录来dump三个pool的size

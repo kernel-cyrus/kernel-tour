@@ -27,6 +27,20 @@ direct情况的通用DMA内存申请接口
 
 函数详细流程见dma-mapping
 
+```
+dma_direct_alloc
+	
+	# For non-coherent device
+	dma_alloc_from_global_coherent	（Global Coherent Pool）
+		alloc from global dma pool
+	dma_direct_alloc_from_pool	（Global Atomic Pool）
+		alloc from 3 dynamic pool
+
+	# For coherent device
+	__dma_direct_alloc_pages	（Global CMA Pool）
+		alloc from cma
+```
+
 `dma_direct_alloc_pages`、`dma_direct_free_pages`
 
 direct情况的通用DMA物理页申请接口

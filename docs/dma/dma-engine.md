@@ -18,6 +18,32 @@ DMA Engine Framework跟大多数内核设备框架一样，DMA Engine Driver需�
 
 DMA硬件是一个可以脱离CPU，独立在Memory与IO Device间做数据搬运的设备。
 
+```
+               CPU                  CPU                  Bus
+             Virtual              Physical             Address
+             Address              Address               Space
+              Space                Space
+
+            +-------+             +------+             +------+
+            |       |             |MMIO  |   Offset    |      |
+            |       |  Virtual    |Space |   applied   |      |
+          C +-------+ --------> B +------+ ----------> +------+ A
+            |       |  mapping    |      |   by host   |      |
+  +-----+   |       |             |      |   bridge    |      |   +--------+
+  |     |   |       |             +------+             |      |   |        |
+  | CPU |   |       |             | RAM  |             |      |   | Device |
+  |     |   |       |             |      |             |      |   |        |
+  +-----+   +-------+             +------+             +------+   +--------+
+            |       |  Virtual    |Buffer|   Mapping   |      |
+          X +-------+ --------> Y +------+ <---------- +------+ Z
+            |       |  mapping    | RAM  |   by IOMMU
+            |       |             |      |
+            |       |             |      |
+            +-------+             +------+
+```
+
+如图所示，DMA设备所在的BUS上有两类设备，一类是IO设备，一类是主存（DDR），DMA设备只能看到自己所在的Bus Address（ba），访问IO设备，直接使用ba，访问DDR，可能会有一个offset转换或者经过iommu的转换。也就是说，CPU这边读写DDR，是通过VA，而DMA engine device访问DDR，使用的是ba，或者叫iova（translate ba=>pa）。内核中ba用dma_addr_t类型表示。
+
 一个DMA硬件由多条Channel，Channel的数量由硬件决定，需要在DMA Device注册时填入到DMA Device结构体中。
 
 DMA的搬运操作由DMA Request发起，DMA Request是一个软件虚拟概念，对应到硬件上，是一组寄存器配置操作。
@@ -26,7 +52,7 @@ DMA做搬运时，支持多种方向（direction）：MEM_TO_DEV、DEV_TO_MEM、
 
 搬运时，硬件支持多种搬运模式（transaction_type or cap），以dw-axi-dmac为例，该DMA Device支持DMA_MEMCPY（从连续内存搬运）、DMA_SLAVE（使用scatter-gather list搬运非连续内存）、DMA_CYCLIC（搬运ringbuffer）三种搬运模式。这些硬件支持的搬运类型，在DMA Device初始化时，使用dma_cap_set来配置。（详细见provider.rst）
 
-DMA支持的地址，不一定是64bit，所以在device注册时，需要指定src addr、dst addr的地址位宽。
+DMA支持的地址，不一定是64bit，所以在device注册时，需要指定src addr、dst addr的地址位宽（mask）。由于一般情况下DMA Device支持的物理地址位宽为32位，所以内核将DDR 32bit范围内的部分做成了一个DMA zone，用于给DMA设备分配可映射访问的buffer。
 
 一次搬运操作支持的read或write字符数，叫做transfer width，但是一般DMA会支持将多次访问合并为一个burst（read、write operation collection），burst中支持合并多少个独立transfer操作，叫做burst的length，或者max_burst，同样在device初始化时需要定义。
 
@@ -54,6 +80,8 @@ Reference: <https://www.kernel.org/doc/html/latest/driver-api/dmaengine/provider
 Reference Code: `dw-axi-dmac-platform.c`
 
 **DMA Engine Client**
+
+DMA Engine Client是使用DMA Engine帮其从主存搬运数据的IO设备。这些设备包括支持dma的uart、pcie、usb、ufs、wifi（挂在pcie总线上）、modem（挂在pcie总线上）
 
 Slave Device Driver在使用DMA Engine做搬移时，一般包括下面几个步骤：
 
@@ -239,4 +267,4 @@ How to use dma in dma client device driver:
 
 How to test dma client device with dmatest:
 
-https://docs.kernel.org/driver-api/dmaengine/dmatest.html<>
+<https://docs.kernel.org/driver-api/dmaengine/dmatest.html>

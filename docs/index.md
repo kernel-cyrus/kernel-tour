@@ -82,7 +82,7 @@ tickbroadcast
 
 [direct](/dma/direct)
 
-[pool\*](/dma/pool)
+[atomic pool](/dma/pool)
 
 [contiguous\*](/dma/contiguous)
 
