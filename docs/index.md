@@ -1,3 +1,5 @@
+黄登登大笨蛋
+
 ### init
 
 [initcall](/init/initcall)
