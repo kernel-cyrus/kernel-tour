@@ -86,11 +86,9 @@ tickbroadcast
 
 [direct](/dma/direct) - for no iommu: direct_alloc
 
-[reserved-memory](/dma/reserved-memory)
+[dma-mapping](/dma/dma-mapping) - main dma allocation interface
 
-[dma-mapping\*](/dma/dma-mapping)
-
-[dma-pool\*](/dma/dma-pool)
+[dma-pool](/dma/dma-pool) - create a pool for small dma buffers
 
 [dma-buf\*](/dma/dma-buf)
 

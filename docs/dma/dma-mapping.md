@@ -12,6 +12,10 @@ DMA Buffer就是一块供IO Device使用的Buffer。
 
 DMA Mapping，就是从dma pool中申请或者为已申请内存map出dma buffer。
 
+DMA Mapping包括两类功能，一个是提供出DMA Buffer的通用申请接口"dma_alloc_coherent"，这个接口会根据device的coherent的类型，device是否绑定了dma pool，global dma pool的情况，选择出合适的DMA Buffer申请通路，返回DMA Buffer。另一个功能是为已有的Page提供出DMA Buffer的Map接口，将已申请Page映射为DMA Buffer。
+
+不论是哪类功能，在申请或映射DMA Buffer时，都会自动调用IOMMU（如果Device有绑定IOMMU），完成IOVA的映射。
+
 **DMA Pools**
 
 DMA提供了几个DMA Buffer Pool。根据Device是否coherent（自己能保证cache一致性），是否有iommu，静态reserve还是启动后分配这几个属性，用户可以选择使用哪个Pool提供的接口，或者由Alloc接口来自动选择从哪个Pool进行分配。
@@ -46,9 +50,19 @@ DMA提供了几个DMA Buffer Pool。根据Device是否coherent（自己能保证
 
 **Coherent or Non-Coherent**
 
-for coherent device（direct）
+Coherent Device在硬件上自己可以保证cache一致性，DTS的device节点通过"dma-coherent"来将一个设备声明为Coherent Device。
 
-for non-coherent devices（coherent）
+Non-coherent Devices硬件无法保证一致性，需要将DMA Buffer映射为Non-Chaceable。
+
+内存申请时，会根据Device是否能够自己保证Cache一致性来选取不同的申请路径和Pool。
+
+## Files
+
+```
+- /include/linux/dma-mapping.h		# DMA Allocation & Mapping Interface
+- /kernel/dma/mapping.c			# DMA Mapping top implementation
+
+```
 
 ## Functions
 
