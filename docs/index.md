@@ -1,5 +1,3 @@
-黄登登 `^_^`
-
 ### init
 
 [initcall](/init/initcall)
@@ -80,13 +78,15 @@ tickbroadcast
 
 [dma-engine](/dma/dma-engine)
 
-[coherent](/dma/coherent)
+[coherent](/dma/coherent) - for non-coherent device: global dma pool & device dma pool
 
-[direct](/dma/direct)
+[contiguous](/dma/contiguous) - global cma pool & device cma pool
 
-[atomic pool](/dma/pool)
+[atomic pool](/dma/pool) - dynamic global dma pool
 
-[contiguous\*](/dma/contiguous)
+[direct](/dma/direct) - for no iommu: direct_alloc
+
+[reserved-memory](/dma/reserved-memory)
 
 [dma-mapping\*](/dma/dma-mapping)
 

@@ -9,19 +9,21 @@
 
 coherent模块就为这些non-coherent的DMA设备提供了两类pool，一个device pool，一个global pool，两个pool的内存在分配时都会被映射成non-cache的。
 
-**Device Pool**
+**Device DMA Pool**
 
-Device Pool是绑定在device上的DMA buffer pool，保存在device->dma_mem中。
+Device DMA Pool是绑定在device上的独占DMA buffer pool
 
-给device绑定了DMA mem后，dma_alloc_coherent会优先从这个pool中分配内存。
+在给device绑定了DMA mem后，dma_alloc_coherent会优先从这个pool中分配内存。
 
 有两种方式可以为device绑定dma memory：
 
-1、Device Pool的Memory在DTS中reserve，在reserve-memory中预留，并在节点中通过配置compatible:"shared-dma-pool"来声明这块reserve memory是为device预留的dma buffer pool memory，在device初始化时，dts中通过memory-region引入这类reserve-memory，会将这块物理内存绑定到device->dma_mem上。
+1、Device Pool的Memory在DTS中reserve，在reserve-memory中预留，并在节点中通过配置compatible:"shared-dma-pool"+"no-map"来声明这块reserve memory是为device预留的dma buffer pool memory，在device初始化时，dts中通过memory-region引入这类reserve-memory，会将这块物理内存绑定到device->dma_mem上。
 
 2、可以通过dma_declare_coherent_memory为一块物理内存建立non-cache映射，并直接绑定到device->dma_mem上。
 
-**Global Pool**
+\* dts中如果将"shared-dma-pool"声明为"reusable"，则会创建出device cma pool，详见contiguous。
+
+**Global DMA Pool**
 
 除了支持为每个device绑定上reserved dma memory，coherent还支持建立默认的global dma coherent pool。
 
@@ -39,11 +41,13 @@ dts中命名为"linux,dma-default"的reserve memory会被识别成默认global d
 
 `RESERVEDMEM_OF_DECLARE(dma, "shared-dma-pool", rmem_dma_setup);`
 
-声明在reserve-memory中，定义为complatible:"shared-dma-pool"的处理函数
+声明在reserve-memory中，定义为complatible:"shared-dma-pool"的处理函数。
+
+这个compatible有两个处理函数，一个将"no-map"的初始化为device独占，contigious中的将定义了"reusabe"的初始化为device cma。
 
 `rmem_dma_setup`
 
-对设置为complatible:"shared-dma-pool"的reserve memory进行初始化，为这个mem node绑定device回调
+对设置为complatible:"shared-dma-pool"+"no-map"的reserve memory进行初始化，为这个mem node绑定device回调
 
 `rmem_dma_device_init`
 
@@ -73,3 +77,11 @@ dts中命名为"linux,dma-default"的reserve memory会被识别成默认global d
 `dma_init_coherent_memory`
 
 将一块物理内存初始化为coherent，会用MEMREMAP_WC做remap，这个flag会将内存映射为non-cacheable
+
+## Reference
+
+Reserved Memory
+
+<https://www.kernel.org/doc/Documentation/devicetree/bindings/reserved-memory/reserved-memory.yaml>
+
+<https://www.kernel.org/doc/Documentation/devicetree/bindings/reserved-memory/shared-dma-pool.yaml>
