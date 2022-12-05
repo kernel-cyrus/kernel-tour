@@ -12,6 +12,8 @@ dma-buf在使用后，通过dma-buf自己的release归还给DMA Pool。
 
 \* 这里的DMA Pool不是mm/dmapool，指的是通常意义上的一块DMA内存，或分配器。
 
+封装DMA Heap，需要实现两件事，一个是将DMA Pool封装为dma heap并注册（实现dma-heap），一个是实现其产生的dma-buf的(类)操作（实现dma-buf）
+
 ## Files
 
 ```
@@ -59,7 +61,7 @@ dma heap的dma buf alloc接口
 
 在/sys/class/dma_heap/创建出这个heap的device节点
 
-为节点绑定dma_heap_fops file operation
+在/dev/dma_heap/创建出device操作节点，为节点绑定dma_heap_fops file operation
 
 `dma_heap_open`
 
@@ -79,8 +81,8 @@ heap get接口
 
 **system heap**
 
-system heap用来给用户控件提供出从Buddy System申请dma-buf的操作节点
+system heap用来给用户控件提供出从Buddy System申请dma-buf的操作节点，实现其生成的dma-buf。
 
 **cma heap**
 
-cma heap用来给用户空间提供出从Default CMA Pool申请dma-buf的操作节点
+cma heap用来给用户空间提供出从Default CMA Pool申请dma-buf的操作节点，实现其生成的dma-buf。
