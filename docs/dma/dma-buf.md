@@ -6,6 +6,10 @@ dma heap, 从dma heap alloc dma buf
 
 dma buf是一块允许sharing的buffer，除了提供dma buf的操作回调接口，用来控制dma buf的owner转移，并实现刷cache操作，还提供了fd供用户空间操作和共享。
 
+dma-buf实际是一个抽象类，只定义了接口，和使用流程，内部的数据结构，都是抽象的。也就是说dma-buf ops，可以理解为针对与"dma-buf"的操作，但是这个"dma-buf"是个什么数据结构，由exporter来实现。exporter实现后，只要提供出给importer使用的各种importer关心的数据类型的转化接口就可以，至于内部数据结构，只保存在private_data里，由exporter自己适配处理，外部没人关心。
+
+理解dma-buf的抽象，需要先了解清楚这种抽象提供给importer后，设计目标是让其如何使用。
+
 ## Reference
 
 </https://docs.kernel.org/driver-api/dma-buf.html#shared-dma-buffers>

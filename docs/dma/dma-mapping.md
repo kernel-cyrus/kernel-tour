@@ -103,7 +103,11 @@ dma_map_single
 
 dma_map_page
 
-dma_map_sg
+dma_map_sg - sg is used to map list of page to iova
+
+dma_sync_single_for_cpu() / dma_sync_single_for_device()
+
+dma_sync_sg_for_cpu() / dma_sync_sg_for_device()
 
 ## Reference
 
@@ -114,3 +118,7 @@ DMA Mapping
 DMA Mapping API
 
 <https://www.kernel.org/doc/Documentation/DMA-API.txt>
+
+
+API
+<https://blog.csdn.net/jasonchen_gbd/article/details/79462064>
