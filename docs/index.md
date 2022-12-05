@@ -90,9 +90,9 @@ tickbroadcast
 
 [dma-pool](/dma/dma-pool) - create a pool for small dma buffers
 
-[dma-buf\*](/dma/dma-buf)
+[dma-heap](/dma/dma-heap) - framework for userspace to alloc dma-buf form kernel dma pools
 
-[dma-heap\*](/dma/dma-heap)
+[dma-buf\*](/dma/dma-buf)
 
 ### iommu
 
