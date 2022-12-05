@@ -220,3 +220,33 @@ memcontrol
 [string](/lib/string)
 
 [debugobject](/lib/debugobject)
+
+### tracing
+
+[tracepoint](/tracing/tracepoint)
+
+[trace_event](/tracing/trace_event)
+
+[ftrace](/tracing/ftrace)
+
+kprobe
+
+fprobe
+
+uprobe
+
+perf
+
+ebpf
+
+coresight
+
+### tools
+
+perfetto
+
+kernelshark
+
+flamechart
+
+simpleperf
