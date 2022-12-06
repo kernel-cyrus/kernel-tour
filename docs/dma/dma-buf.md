@@ -17,3 +17,5 @@ dma-buf实际是一个抽象类，只定义了接口，和使用流程，内部�
 <https://blog.csdn.net/hexiaolong2009/article/details/102596744>
 
 <https://lwn.net/Articles/474819/>
+
+<https://blog.csdn.net/Linux_Everything/article/details/96472705>
