@@ -184,6 +184,19 @@ echo <function> > set_ftrace_filter	# 务必设置，否则要打印的栈太多
 echo 1 > options/func_stack_trace
 ```
 
+**设置filter（不成功）**
+
+```
+echo '<function>:traceoff:5' > set_ftrace_filter	# 打印五次后关闭
+```
+
+**Snapshot（不成功）**
+
+```
+echo '<function>:snapshot' > set_ftrace_filter
+echo '<function>:snapshot:1' > set_ftrace_filter	# 只保存一次
+```
+
 ### Function Graph Tracer
 
 功能与fucntion tracer相同，通过图形树显示整个函数执行过程，及每个函数执行时间
