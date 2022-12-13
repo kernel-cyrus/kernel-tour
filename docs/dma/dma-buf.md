@@ -2,7 +2,7 @@
 
 Dma buffer是一块允许在CPU和其他子系统或IO设备间sharing的buffer。
 
-Dma-buf是这个buffer的描述和使用框架。
+Dma-buf是这个buffer的描述和使用框架。框架提供了对dma-buffer的描述结构体，和基于file的dma-buf使用接口，同时完成了操作时刷cache的动作。
 
 dma-buf框架实现了一个dma-buf的文件系统(filesystem)，这个文件系统直接通过调用挂载接口挂载到了内核（没有提供挂载节点），每个dma-buf实例，会在文件系统中创建出inode及file，并将fd返回给调用者。调用者通过对file的ioctrl、map等操作，来操作dma-buf。
 
