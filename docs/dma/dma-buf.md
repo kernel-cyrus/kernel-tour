@@ -116,7 +116,7 @@ dma_buf_vmap
 
 5、importer驱动通过调用dma_buf_get(fd)获取dma_buf对象。（应用获取buf对象）
 
-6、importer驱动调用dma_buf_attach()和dma_buf_map_attachment()获取共享缓存的信息。（应用通过attach得到最终dma buffer指针）
+6、importer驱动调用dma_buf_attach()和dma_buf_map_attachment()获取共享缓存的信息。（应用通过attach得到最终dma buffer指针，sg_table: table of dma buffer）
 
 7、importer操作这块dma buffer。
 
