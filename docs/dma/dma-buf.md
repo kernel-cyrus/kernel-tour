@@ -1,16 +1,12 @@
 # dma-buf
 
-dma heap, 从dma heap alloc dma buf
+Dma buf是一块允许在CPU和其他子系统或IO设备间sharing的buffer
 
-将一个dma pool或者一大块dma buffer注册成一个dma heap，并实现这个heap的alloc接口，注册后heap会暴露一个文件节点，供用户空间申请dma buf。heap框架实现了标准ioctrl流程，和dma buf的创建流程，用户通过ioctrl可以直接从fd中申请到dma buf，并获得dma buf的fd。
-
-dma buf是一块允许sharing的buffer，除了提供dma buf的操作回调接口，用来控制dma buf的owner转移，并实现刷cache操作，还提供了fd供用户空间操作和共享。
+dma-buf框架实现了一个dma-buf的文件系统(filesystem)，这个文件系统直接通过调用挂载接口挂载到了内核（没有提供挂载节点），每个dma-buf实例，会在文件系统中创建出inode及file，并将fd返回给调用者。调用者通过对file的ioctrl、map等操作，来操作dma-buf。
 
 dma-buf实际是一个抽象类，只定义了接口，和使用流程，内部的数据结构，都是抽象的。也就是说dma-buf ops，可以理解为针对与"dma-buf"的操作，但是这个"dma-buf"是个什么数据结构，由exporter来实现。exporter实现后，只要提供出给importer使用的各种importer关心的数据类型的转化接口就可以，至于内部数据结构，只保存在private_data里，由exporter自己适配处理，外部没人关心。
 
 理解dma-buf的抽象，需要先了解清楚这种抽象提供给importer后，设计目标是让其如何使用。
-
-dma-buf框架实现了一个dma-buf的文件系统(filesystem)，这个文件系统直接通过调用挂载接口挂载到了内核（没有提供挂载节点），每个dma-buf实例，会在文件系统中创建出inode及file，并将file实例返回给调用者。调用者通过对file的ioctrl、map等操作，来操作dma-buf。
 
 ## Files
 
@@ -136,4 +132,4 @@ enable CONFIG_DMABUF_SYSFS_STATS
 
 <https://blog.csdn.net/Linux_Everything/article/details/96472705>
 
-https://blog.csdn.net/u013554213/article/details/84100852
+<https://blog.csdn.net/u013554213/article/details/84100852>
