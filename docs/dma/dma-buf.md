@@ -1,8 +1,12 @@
 # dma-buf
 
-Dma buf是一块允许在CPU和其他子系统或IO设备间sharing的buffer
+Dma buffer是一块允许在CPU和其他子系统或IO设备间sharing的buffer。
+
+Dma-buf是这个buffer的描述和使用框架。
 
 dma-buf框架实现了一个dma-buf的文件系统(filesystem)，这个文件系统直接通过调用挂载接口挂载到了内核（没有提供挂载节点），每个dma-buf实例，会在文件系统中创建出inode及file，并将fd返回给调用者。调用者通过对file的ioctrl、map等操作，来操作dma-buf。
+
+dma-buf框架有两个概念，exporter（dma-buf的生产者，比如一个dma-heap），importer（dma-buf的使用者，比如上层应用）
 
 dma-buf实际是一个抽象类，只定义了接口，和使用流程，内部的数据结构，都是抽象的。也就是说dma-buf ops，可以理解为针对与"dma-buf"的操作，但是这个"dma-buf"是个什么数据结构，由exporter来实现。exporter实现后，只要提供出给importer使用的各种importer关心的数据类型的转化接口就可以，至于内部数据结构，只保存在private_data里，由exporter自己适配处理，外部没人关心。
 
@@ -100,13 +104,21 @@ dma_buf_vmap
 
 通过dma-buf直接调用其method
 
-## Use DMA-BUF from Kernel
+## Use dma-buf
 
-...（待完成）
+1、exporter驱动申请或者引用导入的待共享访问的内存。（申请dma内存）
 
-## Use DMA-BUF from Userspace
+2、exporter驱动调用dma_buf_export()创建dma_buf对象，同时将自定义的struct dma_buf_ops方法集和步骤1中的内存挂载到dma_buf对象中。（生成dma-buf）
 
-...（待完成）
+3、exporter驱动调用dma_buf_fd()将步骤2中创建的dma_buf对象关联到全局可见的文件描述符fd，同时通过ioctl方法将fd传递给应用层。（通过ioctrl返回dma-buf的fd）
+
+4、应用层将fd传递给importer驱动程序。（应用得到fd）
+
+5、importer驱动通过调用dma_buf_get(fd)获取dma_buf对象。（应用获取buf对象）
+
+6、importer驱动调用dma_buf_attach()和dma_buf_map_attachment()获取共享缓存的信息。（应用通过attach得到最终dma buffer指针）
+
+7、importer操作这块dma buffer。
 
 ## Debugfs
 
