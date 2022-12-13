@@ -12,6 +12,8 @@ dma-buf实际是一个抽象类，只定义了接口，和使用流程，内部�
 
 理解dma-buf的抽象，需要先了解清楚这种抽象提供给importer后，设计目标是让其如何使用。
 
+dma-buf只是提供了dma buffer的管理使用规范化的通用访问接口框架，使用者可以通过框架来使用dma buffer（读取、写入、修改buffer数据），只要按照框架规范的操作流程来操作，框架会保证cache一致性。这个框架并不设计DMA搬运的事，只负责buffer的使用和操作。buffer修改好后，如果需要做DMA搬运，使用DMA engine接口搬运即可。（dma-mapping is for sharing，dma-engine is for copying）
+
 ## Files
 
 ```
