@@ -104,7 +104,28 @@ dma_buf_vmap
 
 通过dma-buf直接调用其method
 
-## Use dma-buf
+## Use dma-buf from kernel space
+
+1、准备访问
+
+处理器在内核空间打算访问dma_buf对象前，需要通知生产者。
+
+`dma_buf_begin_cpu_access`
+
+生产者可以确保处理器可以访问这些内存缓冲区，生产者也需要确定处理器在指定区域及指定方向的访问是一致性的。
+
+2、使用DMA Buffer
+
+`dma_buf_kmap`、`dma_buf_kunmap`
+`dma_buf_kmap_atomic`、`dma_buf_kunmap_atomic`
+
+3、结束访问
+
+`dma_buf_end_cpu_access`
+
+当importer完成对begin_cpu_access指定范围内的缓冲区访问，需要通知生产者（刷新cache，同步数据集释放资源）。
+
+## Use dma-buf from user space
 
 1、exporter驱动申请或者引用导入的待共享访问的内存。（申请dma内存）
 
