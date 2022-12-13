@@ -8,6 +8,8 @@ DMA Heap创建后，会自动在用户空间创建这个Heap的节点，并提�
 
 用户空间可以使用这个节点，通过IOCTRL从DMA Pool中申请出dma-buf。
 
+dma-buf由dma-heap来实现（dma-buf是一个抽象类），也就是说一个dma-heap可以创建出其对应类型的dma-buf。
+
 dma-buf在使用后，通过dma-buf自己的release归还给DMA Pool。
 
 \* 这里的DMA Pool不是mm/dmapool，指的是通常意义上的一块DMA内存，或分配器。

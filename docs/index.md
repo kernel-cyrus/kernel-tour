@@ -92,7 +92,7 @@ tickbroadcast
 
 [dma-heap](/dma/dma-heap) - framework for userspace to alloc dma-buf form kernel dma pools
 
-[dma-buf\*](/dma/dma-buf)
+[dma-buf](/dma/dma-buf)
 
 ### iommu
 
