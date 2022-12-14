@@ -98,7 +98,7 @@ tickbroadcast
 
 iommu
 
-arm-smmu
+[smmu](/iommu/smmu)
 
 ### virtio
 
