@@ -268,6 +268,12 @@ trace_options=sym-addr trace_event=initcall:* tp_printk trace_buf_size=1M ftrace
 
 更多配置可以参考：<https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html#kernelparameters>（搜索“FTRACE”）
 
+## Dump ftrace
+
+1、调用ftrace_dump接口dump ftrace，或者在panic时触发dump。
+
+2、查看global_trace全局变量的head_page，应该就是ftrace ringbuffer链表。
+
 ## Reference
 
 ftrace

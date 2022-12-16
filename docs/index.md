@@ -96,7 +96,7 @@ tickbroadcast
 
 ### iommu
 
-iommu
+[iommu](/iommu/iommu)
 
 [smmu](/iommu/smmu)
 
