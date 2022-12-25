@@ -1,3 +1,17 @@
+<style>
+.markdown-body p {
+    position: relative;
+}
+
+label {
+    position: absolute;
+    padding-top: 2px;
+    left: 150px;
+    font-size: 14px;
+    color: gray;
+}
+</style>
+
 ### init
 
 [initcall](/init/initcall)
@@ -78,19 +92,26 @@ tickbroadcast
 
 [dma-engine](/dma/dma-engine)
 
-[coherent](/dma/coherent) - for non-coherent device: global dma pool & device dma pool
+[coherent](/dma/coherent)
+<label>for non-coherent device: global dma pool & device dma pool</label>
 
-[contiguous](/dma/contiguous) - global cma pool & device cma pool
+[contiguous](/dma/contiguous)
+<label>global cma pool & device cma pool</label>
 
-[atomic pool](/dma/pool) - dynamic global dma pool
+[atomic pool](/dma/pool)
+<label>dynamic global dma pool</label>
 
-[direct](/dma/direct) - for no iommu: direct_alloc
+[direct](/dma/direct)
+<label>for no iommu, direct_alloc</label>
 
-[dma-mapping](/dma/dma-mapping) - main dma allocation interface
+[dma-mapping](/dma/dma-mapping)
+<label>main dma allocation interface</label>
 
-[dma-pool](/dma/dma-pool) - create a pool for small dma buffers
+[dma-pool](/dma/dma-pool)
+<label>create a pool for small dma buffers</label>
 
-[dma-heap](/dma/dma-heap) - framework for userspace to alloc dma-buf form kernel dma pools
+[dma-heap](/dma/dma-heap)
+<label>framework for userspace to alloc dma-buf form kernel dma pools</label>
 
 [dma-buf](/dma/dma-buf)
 
@@ -115,8 +136,13 @@ tickbroadcast
 ### kvm
 
 [kvm](/kvm/kvm)
+<label>kernel virtual machine and it's arm implementation</label>
 
-pkvm
+[vhe](/kvm/vhe)
+<label></label>
+
+[pkvm](/kvm/pkvm)
+<label></label>
 
 ### mm
 
