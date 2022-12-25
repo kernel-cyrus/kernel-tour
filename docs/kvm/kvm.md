@@ -18,6 +18,8 @@ nVHE vs VHE
 Google PKVM
 
 
+# kvm
+
 
 
 
@@ -75,32 +77,25 @@ hyp init
 选择是否进入VHE / nVHE模式
 
 
--------------------------------------------------
 
-vhe的hyp，nvhe的hyp不一样，是两个hyp实现。
-以前的nvhe模式下，kernel在el1，hyp在el2，vm在el1，每次切换需要经过hyp切换
-vhe允许kernel运行在el2，hyp也在el2，vm在el1，大幅提高了性能。？
 
-to el2 and beyond, Linaro
-https://www.youtube.com/watch?v=j0bp4fnO98w&ab_channel=KVMForum
-http://events17.linuxfoundation.org/sites/events/files/slides/To%20EL2%20and%20Beyond_0.pdf
+
 
 
 pkvm
 ===============
 
-lwn:https://blog.csdn.net/Linux_Everything/article/details/109881719
-youtube:https://www.youtube.com/watch?v=edqJSzsDRxk&ab_channel=KVMForum
-slides:https://mirrors.edge.kernel.org/pub/linux/kernel/people/will/slides/kvmforum-2020-edited.pdf
+https://blog.csdn.net/Linux_Everything/article/details/109881719
+https://www.youtube.com/watch?v=edqJSzsDRxk
+https://mirrors.edge.kernel.org/pub/linux/kernel/people/will/slides/kvmforum-2020-edited.pdf
 
 
 kvm!
 ================
 https://zhuanlan.zhihu.com/p/528599297
 
-https://www.youtube.com/watch?v=cuXyGkZRUKU&t=154s&ab_channel=KVMForum
-https://www.youtube.com/watch?v=oF8ydWwEuBI&ab_channel=DREAMS%28DistributedREal-TimeArchitectureforMixedCriticalitySystems%29
-https://www.youtube.com/watch?v=jZNXtqFJpuc&ab_channel=GlobalLogicUkraine
+https://www.youtube.com/watch?v=cuXyGkZRUKU
+https://www.youtube.com/watch?v=oF8ydWwEuBI
 
 
 ```
@@ -179,3 +174,8 @@ lots of kvm operations called from arm
 memragion and memslot
 
 io bus
+
+
+KVM Forum
+---------------------
+https://www.youtube.com/@kvmforum6546

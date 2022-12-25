@@ -1,12 +1,6 @@
 <style>
-.markdown-body p {
-    position: relative;
-}
-
 label {
-    position: absolute;
-    padding-top: 2px;
-    left: 150px;
+    margin-left: 15px;
     font-size: 14px;
     color: gray;
 }
@@ -93,25 +87,25 @@ tickbroadcast
 [dma-engine](/dma/dma-engine)
 
 [coherent](/dma/coherent)
-<label>for non-coherent device: global dma pool & device dma pool</label>
+<label>(for non-coherent device: global dma pool & device dma pool)</label>
 
 [contiguous](/dma/contiguous)
-<label>global cma pool & device cma pool</label>
+<label>(global cma pool & device cma pool)</label>
 
 [atomic pool](/dma/pool)
-<label>dynamic global dma pool</label>
+<label>(dynamic global dma pool)</label>
 
 [direct](/dma/direct)
-<label>for no iommu, direct_alloc</label>
+<label>(for no iommu, direct_alloc)</label>
 
 [dma-mapping](/dma/dma-mapping)
-<label>main dma allocation interface</label>
+<label>(main dma allocation interface)</label>
 
 [dma-pool](/dma/dma-pool)
-<label>create a pool for small dma buffers</label>
+<label>(create a pool for small dma buffers)</label>
 
 [dma-heap](/dma/dma-heap)
-<label>framework for userspace to alloc dma-buf form kernel dma pools</label>
+<label>(framework for userspace to alloc dma-buf form kernel dma pools)</label>
 
 [dma-buf](/dma/dma-buf)
 
@@ -121,28 +115,28 @@ tickbroadcast
 
 [smmu](/iommu/smmu)
 
-### virtio
-
-...
-
-### remoteproc
-
-...
-
-### rpmsg
-
-...
-
 ### kvm
 
 [kvm](/kvm/kvm)
-<label>kernel virtual machine and it's arm implementation</label>
+<label>(kernel virtual machine and it's arm implementation)</label>
 
 [vhe](/kvm/vhe)
-<label></label>
+<label>(move kernel and hyp to el2 to optimize vm performance)</label>
 
 [pkvm](/kvm/pkvm)
-<label></label>
+<label>(enable kvm and virtual machine on android)</label>
+
+### virtio
+
+virtio
+
+virtio_ring
+
+### amp
+
+remoteproc
+
+rpmsg
 
 ### mm
 
