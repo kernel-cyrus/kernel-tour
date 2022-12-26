@@ -66,7 +66,7 @@ VHE和nVHE在不同的地方可能有不同的含义。
 
 开启了VHE特性，并将Kernel和KVM放入EL2，KVM使用VHE的实现，叫做VHE模式。
 
-不开启VHE特性，或者在不支持VHE特性的ARM平台上，以传统Split的方式运行Kernel和KVM，KVM使用独立的Hyp实现并与Kernel通过EL切换的方式进行通信，叫做nVHE模式。
+不开启VHE特性，或者在不支持VHE特性的ARM平台上，以传统Split的方式运行Kernel和KVM，KVM使用独立的Hyp实现并与Kernel通过EL切换的方式进行通信，叫做nVHE模式，或者Hyp模式。
 
 在ARM平台的KVM的实现中，vhe和nvhe的是两个独立的hyp实现。
 
@@ -78,9 +78,15 @@ VHE和nVHE在不同的地方可能有不同的含义。
 
 5.10 Kernel，需要开启CONFIG_ARM64_VHE=y来让Kernel进入VHE模式
 
-5.15 Kernel，需要kvm-arm.mode=none并在EL2启动Kernel（待验证？）
+5.15 Kernel，不要传入kvm-arm.mode参数，并在EL2启动Kernel（待验证）
 
-另外，kvm-arm.mode=nvhe或者kvm-arm.mode=protected，都会从bootargs传入id_aa64mmfr1.vh=0，禁用掉CPU的VHE Feature，从而禁用Kernel进入VHE的通路。
+kvm-arm.mode=nvhe，会通过bootargs传入id_aa64mmfr1.vh=0，禁用掉CPU的VHE Feature，从而禁止CPU初始化进入VHE，kvm_mode会设置为KVM_MODE_DEFAULT，进入nvhe模式，或叫hyp模式
+
+kvm-arm.mode=protected，会通过bootargs传入id_aa64mmfr1.vh=0，禁用掉CPU的VHE Feature，从而禁止CPU初始化进入VHE，kvm_mode会设置为KVM_MODE_PROTECTED，进入pkvm（protected kvm）模式，或者叫protected nvhe模式。
+
+kvm-arm.mode=none，则kvm_mode会设置为KVM_MODE_NONE，动态禁用掉KVM功能。
+
+kvm-arm.mode不设置，则kvm_mode为默认的KVM_MODE_DEFAULT，从EL2进入会进入VHE模式。
 
 ### Reference
 

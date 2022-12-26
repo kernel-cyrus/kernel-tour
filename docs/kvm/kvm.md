@@ -97,6 +97,29 @@ https://zhuanlan.zhihu.com/p/528599297
 https://www.youtube.com/watch?v=cuXyGkZRUKU
 https://www.youtube.com/watch?v=oF8ydWwEuBI
 
+http://www.linux-kongress.org/2010/slides/KVM-Architecture-LK2010.pdf
+https://developer.ibm.com/articles/cl-hypervisorcompare-kvm/
+https://documentation.suse.com/sles/12-SP4/html/SLES-all/cha-kvm.html
+https://www.linux-kvm.org/page/KVM_Forum_2008
+
+https://developer.arm.com/documentation/102142/0100/Introduction-to-virtualization
+
+
+全虚拟化 vs 半虚拟化
+-----------
+virtio - 半虚拟化
+
+
+
+is_hyp_mode_available - is el2 inited
+
+is_kernel_in_hyp_mode - is kernel in el2
+
+3 kvm mode: vhe, nvhe(hyp), pkvm(protected nvhe)
+
+kvm hyp mode - nvhe mode
+
+
 
 ```
 module_init(arm_init)
