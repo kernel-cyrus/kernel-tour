@@ -1,49 +1,5 @@
 
-KVM framework
-
-
-ARM Exception Levels
-
-
-KVM on ARM
-
-
-Create VM with KVM
-
-
-nVHE vs VHE
-	init flow and el switch
-
-
-Google PKVM
-
-
 # kvm
-
-
-
-
-
-
-
-
-
-
-
-===============================================
-
-
-# kvm
-
-
-kvm-arm.mode =
-	protected: 	KVM_MODE_PROTECTED 	- kernel in el1, protected kvm in el2 (pkvm or protected nvhe mode)
-	nvhe（默认）: 	KVM_MODE_DEFAULT 	- kernel in el1, default kvm in el2 (nvhe or hyp mode)
-						  kernel in el2, kvm is within kernel in el2(vhe mode)
-	none: 		KVM_MODE_NONE 		- kernel in el1 or el2, kvm is disabled(kvm disabled)
-Kernel Boot EL + kvm-arm.mode共同决定最终Kernel EL
-如果kvm-arm.mode对EL无要求（nvhe），则Kernel EL为Boot EL
-如果kvm-arm.mode对Kernel EL有要求（protected），则Kernel会切换EL，为Hyp让出EL。
 
 
 编译时，vhe hyp和nvhe hyp都编译进来了（Makefile中定义的）
