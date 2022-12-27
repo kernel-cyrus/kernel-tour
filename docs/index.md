@@ -132,6 +132,8 @@ virtio
 
 virtio_ring
 
+virtio_mmio
+
 ### amp
 
 remoteproc
