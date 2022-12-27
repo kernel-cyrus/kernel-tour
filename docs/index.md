@@ -128,9 +128,10 @@ tickbroadcast
 
 ### virtio
 
-virtio
+[virtio](/virtio/virtio)
+<label>(virtio device framework)</label>
 
-virtio_ring
+[virtio_ring](/virtio/virtio_ring)
 
 virtio_mmio
 
