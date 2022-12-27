@@ -51,6 +51,10 @@ https://www.youtube.com/watch?v=edqJSzsDRxk
 
 https://mirrors.edge.kernel.org/pub/linux/kernel/people/will/slides/kvmforum-2020-edited.pdf
 
+LWN: KVM for Android
+
+https://lwn.net/Articles/836693/
+
 https://blog.csdn.net/Linux_Everything/article/details/109881719
 
 Fuzzing Host-to Guest Attack Surface in Android Protected KVM- Eugene Rodionov & Will Deacon, Google
