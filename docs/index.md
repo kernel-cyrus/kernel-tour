@@ -124,7 +124,7 @@ tickbroadcast
 <label>(move kernel and hyp to el2 to optimize vm performance)</label>
 
 [pkvm](/kvm/pkvm)
-<label>(enable kvm and virtual machine on android)</label>
+<label>(new kvm hypervisor on android)</label>
 
 ### virtio
 
