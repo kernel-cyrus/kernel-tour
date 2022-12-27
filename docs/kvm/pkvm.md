@@ -43,20 +43,20 @@ pKVM的目的，是提供出Protected Guest VM，将VMM、Kernel从TCB中移出�
 
 Android Virtualization Framework (AVF)
 
-https://source.android.google.cn/docs/core/virtualization?hl=zh-tw
+<https://source.android.google.cn/docs/core/virtualization?hl=zh-tw>
 
 Exposing KVM on Android, Will Deacon
 
-https://www.youtube.com/watch?v=edqJSzsDRxk
+<https://www.youtube.com/watch?v=edqJSzsDRxk>
 
-https://mirrors.edge.kernel.org/pub/linux/kernel/people/will/slides/kvmforum-2020-edited.pdf
+<https://mirrors.edge.kernel.org/pub/linux/kernel/people/will/slides/kvmforum-2020-edited.pdf>
 
 LWN: KVM for Android
 
-https://lwn.net/Articles/836693/
+<https://lwn.net/Articles/836693/>
 
-https://blog.csdn.net/Linux_Everything/article/details/109881719
+<https://blog.csdn.net/Linux_Everything/article/details/109881719>
 
 Fuzzing Host-to Guest Attack Surface in Android Protected KVM- Eugene Rodionov & Will Deacon, Google
 
-https://youtu.be/cJjjlSG6JEA
+<https://youtu.be/cJjjlSG6JEA>

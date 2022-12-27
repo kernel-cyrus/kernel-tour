@@ -92,10 +92,10 @@ kvm-arm.mode不设置，则kvm_mode为默认的KVM_MODE_DEFAULT，从EL2进入�
 
 ARM Virtual Host Extensions
 
-https://developer.arm.com/documentation/102142/0100/Virtualization-Host-Extensions
+<https://developer.arm.com/documentation/102142/0100/Virtualization-Host-Extensions>
 
 To EL2 and beyond, Christoffer Dall from Linaro
 
-https://www.youtube.com/watch?v=j0bp4fnO98w
+<https://www.youtube.com/watch?v=j0bp4fnO98w>
 
-http://events17.linuxfoundation.org/sites/events/files/slides/To%20EL2%20and%20Beyond_0.pdf
+<http://events17.linuxfoundation.org/sites/events/files/slides/To%20EL2%20and%20Beyond_0.pdf>
