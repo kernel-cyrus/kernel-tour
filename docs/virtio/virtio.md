@@ -8,6 +8,8 @@ virtio不仅是kernel中的一个虚拟化设备驱动的框架，同时也成�
 
 virtio device driver框架非常类似于platform device driver框架，供了virtio bus，定义了virtio device和virtio driver，允许device和driver注册到总线上，并通过match来匹配。device可以通过dts定义，各类virtio设备可以实现对应的virtio驱动（比如mmio、keyboard、block等virtio device driver），当compatible match时，用driver probe device，初始化对应设备。
 
+后面会分析如何基于virtio device框架实现virtio mmio device driver（virtio_mmio）
+
 **Full-virtualization vs Para-virtualization**
 
 virtio是一套半虚拟化框架实现。
