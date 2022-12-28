@@ -6,6 +6,8 @@ virtio不仅是kernel中的一个虚拟化设备驱动的框架，同时也成�
 
 这里的Hypervisor指QEMU，并非ARM Trustzone中的Hypervisor。
 
+virtio device driver框架非常类似于platform device driver框架，供了virtio bus，定义了virtio device和virtio driver，允许device和driver注册到总线上，并通过match来匹配。device可以通过dts定义，各类virtio设备可以实现对应的virtio驱动（比如mmio、keyboard、block等virtio device driver），当compatible match时，用driver probe device，初始化对应设备。
+
 **Full-virtualization vs Para-virtualization**
 
 virtio是一套半虚拟化框架实现。
@@ -45,27 +47,49 @@ Virtio driver与Virtio device之间，通过virtio queue、virtio ring完成通�
 /drivers/virtio/virtio.c
 ```
 
+## Variables
+
+`virtio_bus`
+
+virtio设备总线，允许device、driver注册到总线上，并提供出/sys/bus/virtio总线节点，用于生成注册上来的device和driver节点。通过提供match接口，在device和drvier match后，调用probe用匹配driver初始化device。
+
 ## Structures
 
 `virtio_device`
 
+virtio设备
+
 `virtio_driver`
 
+virtio设备驱动，各类virtio device可以实现自己的virtio driver
+
 `virtqueue`
+
+virtio底层消息队列
 
 ## Functions
 
 `virtio_init`
 
+初始化virtio bus。
+
 `register_virtio_device`
+
+简单的初始化virtio device，把创建的device挂到virtio bus下（在/sys/bus/virtio/创建device节点）
+
+如果dts中有这个virtio device的节点，则把np绑定到device上。（``virtio_device_of_init``）
 
 `register_virtio_driver`
 
-`virtio_device_of_init`
+把virtio driver挂到virtio bus上。
 
 `virtio_dev_match`
 
+device、driver都会注册到virtio_bus上，在device和driver match后，调用probe用driver初始化device。
+
 `virtio_dev_probe`
+
+调用virtio driver来初始化virtio device
 
 ## File Nodes
 
