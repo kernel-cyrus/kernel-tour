@@ -61,9 +61,13 @@ virtio设备总线，允许device、driver注册到总线上，并提供出/sys/
 
 virtio设备
 
+其中，config_change, virtio_device_id, virtio_config_ops都是由backend driver提供？front-driver可以直接使用这些接口读取host device的配置。比如获取支持的feature，或者利用config来读写操作decice配置。（不确定）
+
 `virtio_driver`
 
 virtio设备驱动，各类virtio device可以实现自己的virtio driver
+
+driver主要提供probe功能，以及设备端config changed回调。
 
 `virtqueue`
 
@@ -92,6 +96,10 @@ device、driver都会注册到virtio_bus上，在device和driver match后，调�
 `virtio_dev_probe`
 
 调用virtio driver来初始化virtio device
+
+`cread_xxx`、`cwrite_xxx`
+
+使用backend device提供的config ops，来获取或写入device配置。
 
 ## File Nodes
 
