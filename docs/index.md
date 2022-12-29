@@ -132,7 +132,7 @@ tickbroadcast
 <label>(virtio device driver framework)</label>
 
 [virtio_ring](/virtio/virtio_ring)
-<label>(virtio message ring buffer)</label>
+<label>(virtio message queue between front and backend driver)</label>
 
 [virtio_mmio](/virtio/virtio_mmio)
 <label>(mmio virtio device driver)</label>

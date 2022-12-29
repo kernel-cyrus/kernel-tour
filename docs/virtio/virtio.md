@@ -40,7 +40,9 @@ Virtio driver，在Guest OS中实现，也叫做front-driver。Kernel的很多dr
 
 Virtio device，在QEMU中实现，也叫做backend-driver，用于相应driver的请求，在Host OS中完成功能，并回传结果给front-driver。
 
-Virtio driver与Virtio device之间，通过virtio queue、virtio ring完成通信。
+Virtio driver与Virtio device之间，通过virtio queue完成通信。
+
+Device的信息、配置、操作接口，甚至vq，都通过virtio config传递提供给driver。
 
 ## Files
 
