@@ -133,12 +133,12 @@ device、driver都会注册到virtio_bus上，在device和driver match后，调�
 
 Virtio: An I/O virtualization framework for Linux
 
-https://developer.ibm.com/articles/l-virtio/
+<https://developer.ibm.com/articles/l-virtio/>
 
 Introduction to VirtIO (with full example)
 
-https://blogs.oracle.com/linux/post/introduction-to-virtio
+<https://blogs.oracle.com/linux/post/introduction-to-virtio>
 
 virtio 虚拟化系列之一：从 virtio 论文开始
 
-https://zhuanlan.zhihu.com/p/68154666
+<https://zhuanlan.zhihu.com/p/68154666>

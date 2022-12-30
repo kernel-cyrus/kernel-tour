@@ -139,7 +139,7 @@ tickbroadcast
 
 ### amp
 
-remoteproc
+[remoteproc](/amp/remoteproc)
 
 rpmsg
 
