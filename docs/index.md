@@ -129,13 +129,13 @@ tickbroadcast
 ### virtio
 
 [virtio](/virtio/virtio)
-<label>(virtio device driver framework)</label>
+<label>(virtio device, driver and virtio bus, matched by virtio device id)</label>
 
 [virtio_ring](/virtio/virtio_ring)
 <label>(virtio message queue between front and backend driver)</label>
 
 [virtio_mmio](/virtio/virtio_mmio)
-<label>(mmio virtio device driver)</label>
+<label>(create virtio device which is based on mmio)</label>
 
 ### amp
 
