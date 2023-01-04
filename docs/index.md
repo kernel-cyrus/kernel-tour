@@ -137,11 +137,16 @@ tickbroadcast
 [virtio_mmio](/virtio/virtio_mmio)
 <label>(create virtio device which is based on mmio)</label>
 
-### amp
+### rproc
 
-[remoteproc](/amp/remoteproc)
+[firmware](/rproc/firmware)
+<label>(firmware image loader)</label>
 
-rpmsg
+[remoteproc](/rprc/remoteproc)
+<label>(remote processor device lifecycle management)</label>
+
+[rpmsg](/rproc/rpmsg)
+<label>(remote processor communication)</label>
 
 ### mm
 
