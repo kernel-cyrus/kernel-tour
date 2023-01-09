@@ -140,7 +140,7 @@ tickbroadcast
 ### rproc
 
 [firmware](/rproc/firmware)
-<label>(read firmware image into buffer)</label>
+<label>(firmware image reader)</label>
 
 [remoteproc](/rprc/remoteproc)
 <label>(remote processor device lifecycle management)</label>
