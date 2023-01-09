@@ -143,7 +143,7 @@ tickbroadcast
 <label>(firmware image reader)</label>
 
 [remoteproc](/rprc/remoteproc)
-<label>(remote processor device lifecycle management)</label>
+<label>(remote processor lifecycle management)</label>
 
 [rpmsg](/rproc/rpmsg)
 <label>(remote processor communication)</label>
