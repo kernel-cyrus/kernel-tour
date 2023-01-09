@@ -140,7 +140,7 @@ tickbroadcast
 ### rproc
 
 [firmware](/rproc/firmware)
-<label>(firmware image loader)</label>
+<label>(read firmware image into buffer)</label>
 
 [remoteproc](/rprc/remoteproc)
 <label>(remote processor device lifecycle management)</label>
@@ -177,6 +177,8 @@ devfreq
 energy_model
 
 qos
+
+psci
 
 suspend
 
