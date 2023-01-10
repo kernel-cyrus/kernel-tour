@@ -6,7 +6,7 @@ label {
 }
 </style>
 
-### common
+### kernel
 
 [initcall](/kernel/initcall)
 
@@ -240,6 +240,18 @@ memcontrol
 
 [sysfs](/fs/sysfs)
 
+ext4
+
+erofs
+
+fuse
+
+### block
+
+[zram](/block/zram)
+
+ramdisk
+
 ### drivers
 
 clock
@@ -266,11 +278,11 @@ uart
 
 input
 
-### block
+### graphics
 
-[zram](/block/zram)
+framebuffer
 
-ramdisk
+drm/kms
 
 ### libs
 
