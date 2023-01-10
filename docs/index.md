@@ -6,13 +6,11 @@ label {
 }
 </style>
 
-### init
+### common
 
-[initcall](/init/initcall)
+[initcall](/kernel/initcall)
 
-[params](/init/params)
-
-### kernel
+[params](/kernel/params)
 
 [oops, panic](/kernel/oops)
 
@@ -20,7 +18,7 @@ label {
 
 [rwonce](/kernel/rwonce)
 
-[rcu](/kernel/rcu)
+[kobject, ktype, kset, kref](/kernel/kobject)
 
 ### locking
 
@@ -31,6 +29,8 @@ label {
 [semaphore](/locking/semaphore)
 
 [rwsem](/locking/rwsem)
+
+[rcu](/locking/rcu)
 
 [lockdep](/locking/lockdep)
 
@@ -188,6 +188,8 @@ reset
 
 [state](/process/state)
 
+fork
+
 ### sched
 
 stop
@@ -238,15 +240,39 @@ memcontrol
 
 [sysfs](/fs/sysfs)
 
-### device
+### drivers
 
-[kobject, ktype, kset, kref](/device/kobject)
+clock
+
+dma
+
+mailbox
+
+hw-spinlock
+
+pinctrl
+
+gpio
+
+reset
+
+wdt
+
+rtc
+
+timers
+
+uart
+
+input
 
 ### block
 
 [zram](/block/zram)
 
-### lib
+ramdisk
+
+### libs
 
 [sprintf](/lib/sprintf)
 
