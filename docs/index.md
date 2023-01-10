@@ -168,7 +168,15 @@ tickbroadcast
 
 ### power
 
-cpuidle
+[cpuidle](/power/cpuidle)
+
+[psci](/power/psci)
+
+[suspend](/power/suspend)
+
+[cpuhp](/power/cpuhp)
+
+reset
 
 cpufreq
 
@@ -177,12 +185,6 @@ devfreq
 energy_model
 
 qos
-
-psci
-
-suspend
-
-reset
 
 ### process
 
