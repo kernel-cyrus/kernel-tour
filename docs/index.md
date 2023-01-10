@@ -240,9 +240,13 @@ memcontrol
 
 [sysfs](/fs/sysfs)
 
+fat32
+
 ext4
 
 erofs
+
+f2fs
 
 fuse
 
@@ -269,6 +273,8 @@ gpio
 reset
 
 wdt
+
+regulator
 
 rtc
 
