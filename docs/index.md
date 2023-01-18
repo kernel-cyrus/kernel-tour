@@ -12,13 +12,19 @@ label {
 
 [params](/kernel/params)
 
-[oops, panic](/kernel/oops)
+[panic](/kernel/oops)
 
-[kallsyms, stacktrace](/kernel/kallsyms)
+[kallsyms](/kernel/kallsyms)
 
 [rwonce](/kernel/rwonce)
 
 [kobject, ktype, kset, kref](/kernel/kobject)
+
+module
+<label>(kernel module load flow)</label>
+
+printk
+<label>(printk related functions)</label>
 
 ### locking
 
