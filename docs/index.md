@@ -178,6 +178,8 @@ tickbroadcast
 
 [psci](/power/psci)
 
+[spin_table](/power/spin_table)
+
 [suspend](/power/suspend)
 
 [cpuhp](/power/cpuhp)

@@ -24,7 +24,7 @@ PSCI的电源管理框架的层次结构如下图所示：
 
 其中，SMP的框架调用cpu_ops来完成单个CPU的电源操作。
 
-cpu_ops指向了psci的cpu_psci_ops，也就是基于psci实现的cpu_ops。
+cpu_ops（cpu_ops.c）在初始化时，会从dts中读取cpu节点的enable-method，绑定对应的cpu_ops实现（psci或spin table），这里我们只关心基于psci实现的cpu_ops（cpu_psci_ops）
 
 cpu_psci_ops使用psci_ops实现。
 
@@ -80,7 +80,7 @@ psci {
 };
 
 &cpu0 {
-	enable-method = "psci";		// 使用psci控制cpu上下电
+	enable-method = "psci";		// 使用psci控制cpu上下电(cpu_ops use psci)
 };
 ```
 
