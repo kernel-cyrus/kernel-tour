@@ -180,9 +180,11 @@ tickbroadcast
 
 [spin_table](/power/spin_table)
 
-[suspend](/power/suspend)
+[smp](/power/smp)
 
-[cpuhp](/power/cpuhp)
+[cpu_hotplug](/power/cpuhp)
+
+[suspend](/power/suspend)
 
 reset
 
