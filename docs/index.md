@@ -23,6 +23,9 @@ label {
 module
 <label>(kernel module load flow)</label>
 
+driver
+<label>(device driver and probe, async probe)
+
 printk
 <label>(printk related functions)</label>
 
