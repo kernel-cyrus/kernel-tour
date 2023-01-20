@@ -179,6 +179,8 @@ tickbroadcast
 
 [cpuidle](/power/cpuidle)
 
+[cpuidle_governor](/power/cpuidle_governor)
+
 [psci](/power/psci)
 
 [spin_table](/power/spin_table)
