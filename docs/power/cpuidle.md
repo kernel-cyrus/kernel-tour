@@ -94,10 +94,45 @@ do_idle会根据是否注册了cpu_idle device，以及device是否可用，来�
 #8  do_idle () 			at kernel/sched/idle.c:303
 ```
 
+**CPU Idle Governor**
+
+根绝空闲时间，state延迟，决定进入那种state。
+
+governor主要实现了一个select函数，通过state的各种统计来决定要进入的idle state。
+
+在do_idle通路中，会执行cpuidle_select，调用governor的select函数来确定进入的idle state。
+
+govorner可以通过sysfs节点来切换。
+
 ## Sysfs
 
+`/sys/devices/system/cpu/cpuX/cpuidle`
 
+```
+arm_idle_init
+    ...
+    cpuidle_register
+        cpuidle_register_device (for percpu)
+            cpuidle_add_sysfs		# 为每个CPU创建cpuidle目录
+```
 
+- driver：当前cpuidle driver的名字
+- stateX：支持的cpuidle state配置及统计信息（cpuidle_driver.states列表）
+
+以pixcel5为例，支持三个state，C0(wfi)，C1(pc)，C2(rail-pc)
+
+`/sys/devices/system/cpu/cpuidle`
+
+```
+cpuidle_init
+    cpuidle_add_interface		# 创建cpuidle目录
+```
+
+- currerent_driver:当前driver
+- currerent_governor：设置当前governor
+- currerent_governor_ro：当前governor
+
+所有相关实现在drivers/cpuidle/sysfs.c中
 
 ## Files
 
@@ -107,10 +142,9 @@ do_idle会根据是否注册了cpu_idle device，以及device是否可用，来�
 - /drivers/cpuidle/cpuidle-arm.c	# arm cpu idle driver
 - /drivers/cpuidle/dt_idle_states.c	# idle state dts parsing
 - /arch/arm64/kernel/idle.c		# arm wfi idle
-- /arch/arm64/kernel/cpuidle.c		# arm low level idle (psci suspend)
-- /drivers/cpuidle/governor.c		#
-- /drivers/cpuidle/sysfs.c		# sysfs interface
-
+- /arch/arm64/kernel/cpuidle.c		# arm low level idle (psci cpu suspend)
+- /drivers/cpuidle/governor.c		# cpuidle governors
+- /drivers/cpuidle/sysfs.c		# cpuidle sysfs interface
 ```
 
 ## Reference

@@ -177,11 +177,19 @@ tickbroadcast
 
 ### power
 
+[psci](/power/psci)
+
 [cpuidle](/power/cpuidle)
 
-[cpuidle_governor](/power/cpuidle_governor)
+[suspend](/power/suspend)
 
-[psci](/power/psci)
+runtime_suspend
+
+[wakelock](/power/wakelock)
+
+[wakeup](/power/wakeup)
+
+---------------
 
 [spin_table](/power/spin_table)
 
@@ -189,7 +197,11 @@ tickbroadcast
 
 [cpu_hotplug](/power/cpuhp)
 
-[suspend](/power/suspend)
+dpm
+
+domain
+
+poweroff
 
 reset
 
