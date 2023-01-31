@@ -27,7 +27,7 @@ driver
 <label>(device driver and probe, async probe)
 
 printk
-<label>(printk related functions)</label>
+<label>(console and printk)</label>
 
 ### locking
 

@@ -149,4 +149,6 @@ cpuidle_init
 
 ## Reference
 
-https://zhuanlan.zhihu.com/p/539722367
+<https://zhuanlan.zhihu.com/p/539722367>
+
+<https://www.cnblogs.com/LoyenWang/p/11379937.html>
