@@ -14,7 +14,7 @@ disk	（suspend to disk）	CPU、DDR、外设均下电，所有数据进入Disk�
 
 Android Suspend也在用户态通过写节点来触发。
 
-Suspend主要包括4件事：
+Suspend主要包括5件事：
 
 1、冻结进程
 
@@ -28,13 +28,17 @@ Device休眠通过dpm框架来管理，DPM是一个PM设备链表，Device电源
 
 suspend_ops在psci初始化时，通过suspend_set_ops注册。在Platform Suspend阶段，通过PSCI下发给ATF完成CPU及整个系统的Suspend动作。
 
-4、Syscore休眠（Syscore）
+4、Syscore Suspend
 
+syscore允许subsys向suspend过程挂回调，比实现一个pm device，这个量级更轻。
 
+<https://lore.kernel.org/lkml/201103100133.06734.rjw@sisk.pl/>
 
-5、Notify
+5、PM Notifiers
 
+还有一些回调点，需要在suspend前，或resume后完成一些事。这时可以使用PM Notifier，通过register_pm_notifier注册回调。
 
+通过ftrace event可以清楚追踪到这些流程。
 
 ## Files
 
@@ -52,35 +56,41 @@ suspend_ops在psci初始化时，通过suspend_set_ops注册。在Platform Suspe
 ```
 suspend_prepare
 
-	suspend_freeze_processes		# 冻结进程
+	suspend_freeze_processes
+
+		pm_notifier_call_chain_robust	# Notifiers: PM_SUSPEND_PREPARE
+
+		suspend_freeze_processes	# 冻结进程
+
+		pm_notifier_call_chain 		# Notifiers: PM_POST_SUSPEND
 
 suspend_devices_and_enter
 
-	platform_suspend_begin			# suspend_ops->begin
+	platform_suspend_begin			# Platfom:suspend_ops->begin
 
 	suspend_console				# Disable Printk and Console
 
-	dpm_suspend_start			# Suspend all Device
+	dpm_suspend_start			# DPM: Suspend all Device
 
 	suspend_enter
 
-		platform_suspend_prepare	# suspend_ops->prepare
+		platform_suspend_prepare	# Platfom: suspend_ops->prepare
 
-		dpm_suspend_late		# Suspend all Device (late)
+		dpm_suspend_late		# DPM: Suspend all Device (late)
 	
 		platform_suspend_prepare_late
 
-		dpm_suspend_noirq		# Suspend all Device (noirq)
+		dpm_suspend_noirq		# DPM: Suspend all Device (noirq)
 
-		platform_suspend_prepare_noirq	# suspend_ops->prepare_late
+		platform_suspend_prepare_noirq	# Platfom: suspend_ops->prepare_late
 
 		pm_sleep_disable_secondary_cpus
 
-		arch_suspend_disable_irqs	# IRQ Disable
+		arch_suspend_disable_irqs	# 禁中断
 
-		syscore_suspend			# Suspend all syscore callbacks
+		syscore_suspend			# Syscore: Suspend all syscore callbacks
 
-		suspend_ops->enter(state)
+		suspend_ops->enter(state)	# Platfom: enter state
 ```
 
 ## Sysfs
@@ -168,18 +178,10 @@ cat /sys/power/pm_wakeup_irq	# 唤醒源中断号
 cat /proc/interrupt		# 查看中断对应设备名
 ```
 
+## Reference
 
+<https://zhuanlan.zhihu.com/p/542445635>
 
+<https://zhuanlan.zhihu.com/p/568050822>
 
-
-====================================================
-
-driver角度的pm devicesuspend
-
-pm suspend
-
-dpm suspend
-
-pm notify
-
-runtime suspend
+<https://www.cnblogs.com/LoyenWang/p/11372679.html>

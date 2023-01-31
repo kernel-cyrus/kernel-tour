@@ -183,6 +183,8 @@ tickbroadcast
 
 [suspend](/power/suspend)
 
+[dpm](/power/dpm)
+
 runtime_suspend
 
 [wakelock](/power/wakelock)
@@ -196,8 +198,6 @@ runtime_suspend
 [smp](/power/smp)
 
 [cpu_hotplug](/power/cpuhp)
-
-dpm
 
 domain
 
