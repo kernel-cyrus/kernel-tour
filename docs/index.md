@@ -185,13 +185,11 @@ tickbroadcast
 
 [dpm](/power/dpm)
 
-runtime_suspend
+[runtime_suspend](/power/runtime)
 
 [wakelock](/power/wakelock)
 
 [wakeup](/power/wakeup)
-
----------------
 
 [spin_table](/power/spin_table)
 
