@@ -121,6 +121,12 @@ name
 active_time_ms
 ```
 
+控制Device的唤醒源：
+
+在/sys/devices/\<device\>/power、/sys/devices/\<device\>/\<wakeup\>下，会创建wakeup控制节点，可以enable/disable一个device的唤醒源。
+
+当系统被唤醒时，可以通过/sys/power/pm_wakeup_irq查看唤醒源。
+
 ## Reference
 
 <http://www.wowotech.net/pm_subsystem/wakeup_events_framework.html>

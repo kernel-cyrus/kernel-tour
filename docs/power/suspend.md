@@ -1,6 +1,5 @@
 # suspend / resume
 
-
 Linux内核提供了4种Suspend模式:
 
 ```
@@ -95,7 +94,11 @@ suspend_devices_and_enter
 
 ## Sysfs
 
-Tracing suspend/resume
+`/sys/power`
+
+suspend功能节点
+
+**Tracing suspend/resume**
 
 \* 操作需要在USB断开的情况下进行
 
@@ -171,14 +174,40 @@ echo 1 > tracing_on
 
 可以看到suspend/resume的整个框架流程。
 
-查看唤醒源：
+**查看唤醒源：**
 
 ```
 cat /sys/power/pm_wakeup_irq	# 唤醒源中断号
 cat /proc/interrupt		# 查看中断对应设备名
 ```
 
+## Debugfs
+
+`/sys/kernel/debug/suspend_stats`
+
+suspend成功失败次数
+
 ## Reference
+
+Suspend States and Power sysfs interface:
+
+<https://www.kernel.org/doc/html/v5.0/admin-guide/pm/sleep-states.html>
+
+Suspend Flow:
+
+<https://docs.kernel.org/admin-guide/pm/suspend-flows.html>
+
+Suspend Debug:
+
+<https://www.kernel.org/doc/html/v5.7/power/basic-pm-debugging.html#testing-suspend-to-ram-str>
+
+<https://01.org/blogs/rzhang/2015/best-practice-debug-linux-suspend/hibernate-issues>
+
+<https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-power>
+
+<https://wiki.ubuntu.com/DebuggingKernelSuspend>
+
+Others:
 
 <https://zhuanlan.zhihu.com/p/542445635>
 

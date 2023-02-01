@@ -149,6 +149,10 @@ cpuidle_init
 
 ## Reference
 
+<https://www.kernel.org/doc/html/v6.1/driver-api/pm/cpuidle.html>
+
+<https://www.kernel.org/doc/html/v5.0/admin-guide/pm/cpuidle.html>
+
 <https://zhuanlan.zhihu.com/p/539722367>
 
 <https://www.cnblogs.com/LoyenWang/p/11379937.html>
