@@ -120,6 +120,8 @@ Enable / Disable Device Runtime Suspend
 
 ## Reference
 
+<http://www.wowotech.net/pm_subsystem/rpm_overview.html>
+
 <https://www.kernel.org/doc/html/v6.1/driver-api/pm/devices.html#runtime-power-management>
 
 <https://www.kernel.org/doc/html/v6.1/power/runtime_pm.html>
