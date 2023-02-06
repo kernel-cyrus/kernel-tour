@@ -79,3 +79,65 @@ secondary_start_kernel	(arm64/smp.c)
 	-> cpu_startup_entry
 		idle()
 ```
+
+##
+
+`smp_init`
+
+bringup secondary cpus
+
+`call_function_init`
+
+enable call function
+
+`smp_processor_id`
+
+get current process id
+
+`on_each_cpu`
+
+loop for each online cpu
+
+`on_each_cpu_mask`
+
+loop for each cpu in mask
+
+`get_cpu`、`put_cpu`
+
+获取当前CPU ID并关闭抢占，put打开抢占
+
+`smp_call_function`
+
+Run a function on all other CPUs
+
+`smp_call_function_any`
+
+Run a function on any of the given cpus (sync)
+
+`smp_call_function_single_async`
+
+Run a function on a single cpu (async)
+
+## bootargs
+
+`maxcpus`
+
+启动时，bringup N个CPU。
+
+启动后，可以手动启动其他CPU：`echo 1 > /sys/devices/system/cpu/cpuX/online`
+
+`nr_cpus`
+
+设置最大支持的cpu，nr_cpus=1，单核模式
+
+`nosmp`
+
+Disable SMP，等于maxcpus=0
+
+## Files
+
+```
+- /kernel/smp.c			# Kernel SMP Init, SMP Call
+- /include/linux/smp.h		# Kernel SMP Interfaces
+- /arch/arm64/kernel/smp.c	# ARM secondary_start_kernel
+```
