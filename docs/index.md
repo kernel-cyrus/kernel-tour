@@ -325,6 +325,10 @@ drm/kms
 
 [debugobject](/lib/debugobject)
 
+### android
+
+[vendor_hook](/android/vendor_hook)
+
 ### tracing
 
 [tracepoint](/tracing/tracepoint)
