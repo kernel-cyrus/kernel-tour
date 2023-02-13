@@ -237,6 +237,8 @@ eas
 
 isolate
 
+completion
+
 ### cgroup
 
 cgroup
