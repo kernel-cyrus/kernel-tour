@@ -29,6 +29,10 @@ driver
 printk
 <label>(console and printk)</label>
 
+sysctrl
+
+netlink
+
 ### locking
 
 [spinlock](/locking/spinlock)
@@ -201,11 +205,7 @@ tickbroadcast
 
 [cpu_hotplug](/power/cpuhp)
 
-domain
-
-poweroff
-
-reset
+[rebooot](/power/reboot)
 
 cpufreq
 
