@@ -179,6 +179,36 @@ hotplug thread loop func，执行时会判断td->thread_should_run，如果条�
 
 相关文件：`/kernel/smpboot.c`
 
+## CPU Idle vs Suspend vs Runtim Suspend vs CPU Hotplug
+
+**CPU Idle**
+
+CPU空闲，会根据governor决定进入哪个CPU Idle State，底层由PSCI实现
+
+如：C0 WFI，C1 Core Retention，C2 Core Power Down，C3 Cluster Power Down
+
+Idle不会进Suspend，只要有新的任务或中断到来，就会出Idle状态。
+
+**Suspend**
+
+系统只有通过写入文件节点（类似点击休眠或者合盖），来手动操作进入Suspend。
+
+Suspend是全系统的深度休眠，CPU、Device会Suspend下电，CPU下电过程中会通过CPU Hotplug对Secondary CPU下电。
+
+Suspend时，所有在运行的Process都进入Freeze状态暂停运行。
+
+Suspend后，只有唤醒源中断可以唤醒。
+
+**Device Runtime Suspend**
+
+Device空闲时，会自动进入Device Runtime Suspend
+
+**CPU Hotplug**
+
+插拔核同样由手动触发，或者在Suspend过程中执行。
+
+teardown时，会执行Process会进行核迁移，绑核的Thread会进入Park状态。
+
 ## Reference
 
 <https://docs.kernel.org/core-api/cpu_hotplug.html>
