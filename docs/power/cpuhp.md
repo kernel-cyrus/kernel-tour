@@ -31,6 +31,8 @@ CPU hotplug是多核系统的CPU动态插拔核机制。
  smpboot: Booting Node 0 Processor 4 APIC 0x1
 ```
 
+每个CPU的hotplug状态，保存在 `struct cpuhp_cpu_state cpuhp_state` 中。
+
 ## CPU Mask
 
 CPU Mask定义了cpumask_t用来表示cpu的bitmap。
@@ -119,11 +121,13 @@ CPU插拔过程中的所有具体操作，都基于这个链路框架实现，�
 
 **2、Sysfs Online Node**
 
-sysfs提供了以下节点来控制core的插拔：
+`cpu_subsys` bus为CPU提供了online操作节点：
 
 `/sys/devices/system/cpu/cpuX/online`
 
 显示CPU是否online，写0 offline，写1 online。
+
+相关文件： `/drivers/base/cpu.c`
 
 **3、Sysfs Target Node**
 
@@ -139,6 +143,8 @@ sysfs提供了以下节点来控制core的插拔：
 
 显示上次失败的state。
 
+相关文件： `/kernel/cpu.c`
+
 **4、Suspend**
 
 `suspend_enter`
@@ -146,8 +152,6 @@ sysfs提供了以下节点来控制core的插拔：
 调用 `suspend_disable_secondary_cpus` / `suspend_enable_secondary_cpus`
 
 最终执行 `_cpu_up` / `_cpu_down`，完成Secondary CPU的插拔。
-
-相关文件： `/kernel/cpu.c`
 
 ## CPU Hotplug Thread
 
@@ -172,3 +176,11 @@ hotplug thread结构体
 hotplug thread loop func，执行时会判断td->thread_should_run，如果条件满足，则运行td->thread_fn，然后进入Sleep Interruptable状态，等待下次唤醒执行。
 
 相关文件：`/kernel/smpboot.c`
+
+## Reference
+
+<https://docs.kernel.org/core-api/cpu_hotplug.html>
+
+<https://zhuanlan.zhihu.com/p/545550388>
+
+<https://www.cnblogs.com/LoyenWang/p/11397084.html>
