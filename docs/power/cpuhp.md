@@ -97,6 +97,8 @@ CPU插拔过程中的所有具体操作，都基于这个链路框架实现，�
 
 - CPUHP_TEARDOWN_CPU： `takedown_cpu` -> `__cpu_die` --> `cpu_ops->cpu_kill`
 
+最终操作PSCI完成。
+
 有两种方式为state注册回调：
 
 1、静态方式：
