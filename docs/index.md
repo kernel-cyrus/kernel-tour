@@ -94,6 +94,7 @@ tickbroadcast
 ### dma
 
 [dma-engine](/dma/dma-engine)
+<label>(dma device driver framework)</label>
 
 [coherent](/dma/coherent)
 <label>(for non-coherent device: global dma pool & device dma pool)</label>
@@ -117,12 +118,15 @@ tickbroadcast
 <label>(framework for userspace to alloc dma-buf form kernel dma pools)</label>
 
 [dma-buf](/dma/dma-buf)
+<label>(dma buffer management)</label>
 
 ### iommu
 
 [iommu](/iommu/iommu)
+<label>(iommu framework)</label>
 
 [smmu](/iommu/smmu)
+<label>(arm smmu device driver)</label>
 
 ### kvm
 
