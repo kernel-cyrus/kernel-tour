@@ -267,7 +267,8 @@ tickbroadcast
 [rebooot](/power/reboot)
 <label>(system reboot and poweroff)</label>
 
-cpufreq
+[cpufreq](/power/cpufreq)
+<label>(cpu dvfs framework and soc driver)</label>
 
 devfreq
 
