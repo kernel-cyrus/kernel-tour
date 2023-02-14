@@ -14,8 +14,11 @@ label {
 [params](/kernel/params)
 <label>(bootargs and module params)</label>
 
-bootconfig
-<label>()</label>
+[bootconfig](/kernel/bootconfig)
+<label>(extends bootargs with bootconfig file)</label>
+
+[sysctl](/kernel/sysctl)
+<label>(sysctl command for procfs)</label>
 
 [panic](/kernel/oops)
 <label>(kernel oops format and how to trigger it)</label>
@@ -37,9 +40,6 @@ printk
 
 syscall
 <label>(enter into kernel with system call)</label>
-
-sysctrl
-<label>(sysctrl command for procfs)</label>
 
 netlink
 <label>(ipc between user-space and kernel-space with socket)</label>
