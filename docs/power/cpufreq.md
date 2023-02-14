@@ -2,6 +2,12 @@
 
 ## Driver
 
+Driver以db845c使用的qcom-cpufreq-hw为例。
+
+**OPP（Operating Performance Point）**
+
+提供dts的freq-valt-table配置，及获取接口。
+
 ## Policy
 
 `/sys/devices/system/cpu/cpu0/cpufreq/policyX`
