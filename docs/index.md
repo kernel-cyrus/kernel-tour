@@ -35,8 +35,8 @@ label {
 module
 <label>(kernel module load flow)</label>
 
-printk
-<label>(console and printk)</label>
+[printk](/kernel/printk)
+<label>(printk and logs)</label>
 
 syscall
 <label>(enter into kernel with system call)</label>
