@@ -50,3 +50,7 @@ it reaches the target by CPU load, 0->min, 100->max
 uses CPU load as a CPU frequency selection metric
 
 it reaches the target step by step, up_threshold->up, down_threshold->down
+
+## Reference
+
+<https://www.kernel.org/doc/html/latest/admin-guide/pm/cpufreq.html>
