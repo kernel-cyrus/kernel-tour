@@ -9,16 +9,22 @@ label {
 ### kernel
 
 [initcall](/kernel/initcall)
+<label>(module init sections)</label>
 
 [params](/kernel/params)
+<label>(module params)</label>
 
 [panic](/kernel/oops)
+<label>(kernel oops format and how to trigger it)</label>
 
 [kallsyms](/kernel/kallsyms)
+<label>(runtime symbol table embeded in kernel image)</label>
 
 [rwonce](/kernel/rwonce)
+<label>(barriers to make sure the value is read from ddr)</label>
 
 [kobject, ktype, kset, kref](/kernel/kobject)
+<label>(kernel base objects)</label>
 
 module
 <label>(kernel module load flow)</label>
@@ -30,70 +36,99 @@ printk
 <label>(console and printk)</label>
 
 sysctrl
+<label>(sysctrl command for procfs)</label>
 
 netlink
+<label>(ipc between user-space and kernel-space with socket)</label>
 
 ### locking
 
 [spinlock](/locking/spinlock)
+<label>(spin locks)</label>
 
 [mutex](/locking/mutex)
+<label>(locks that can sleep)</label>
 
 [semaphore](/locking/semaphore)
+<label>(just semaphore)</label>
 
 [rwsem](/locking/rwsem)
+<label>(optimize read/write case for semaphore)</label>
 
 [rcu](/locking/rcu)
+<label>(read-write-update mechanism to optimize rw locking)</label>
 
 [lockdep](/locking/lockdep)
+<label>(dead lock detection)</label>
 
 [lockstat](/locking/lockstat)
+<label>(locks statistics)</label>
 
 ### irq
 
 [irqdomain](/irq/irqdomain)
+<label>(irq controller to create hwirq-virq mapping)</label>
 
 [irqdesc](/irq/irqdesc)
+<label>(an virq descriptor)</label>
 
 [irqchip](/irq/irqchip)
+<label>(interrupt controller device, like gic driver)</label>
 
 [manage](/irq/manage)
+<label>(operate an virq)</label>
 
 [exception, fault, traps](/irq/exception)
+<label>(exception handling)</label>
 
 [procfs, debugfs, sysfs](/irq/sysfs)
+<label>(interrupt related filesystem nodes)</label>
 
 [softirq](/irq/softirq)
+<label>(bottom half: softirq handled with irq enable)</label>
 
 [tasklet](/irq/tasklet)
+<label>(bottom half: register bh handler to softirq)</label>
 
 [workqueue](/irq/workqueue)
+<label>(bottom half: workqueue thread to handle bh works)</label>
 
 ### time
 
 [arch_timer](/time/arch_timer)
+<label>(arm arch timer device driver)</label>
 
 [clocksource](/time/clocksource)
+<label>(the backend clock source of timekeeping system)</label>
 
 [timekeeping](/time/timekeeping)
+<label>(various clocks to provide timestamps)</label>
 
 [clockevents](/time/clockevents)
+<label>(a device to gen hw timer interrupt)</label>
 
 [tickdevice](/time/tickdevice)
+<label>(a device to gen ticks)</label>
 
 [jiffies](/time/jiffies)
+<label>(a tick counter)</label>
 
 [timer](/time/timer)
+<label>(legacy soft timer)</label>
 
 [hrtimer](/time/hrtimer)
+<label>(hi-res soft timer)</label>
 
 [tickless](/time/tickless)
+<label>(disable ticks while we don't have any work to do)</label>
 
 tickbroadcast
 
 [delay](/time/delay)
+<label>(delay/sleep functions)</label>
 
 [timer_list](/time/timer_list)
+<label>(timer sysfs nodes and formats)</label>
 
 ### dma
 
@@ -168,44 +203,63 @@ tickbroadcast
 ### mm
 
 [pgtable](/mm/pgtable)
+<label>(page table data structures)</label>
 
 [mmu](/mm/mmu)
+<label>(page table creation)</label>
 
 [pagewalk, ptdump](/mm/pagewalk)
+<label>(interfaces to walk through or dump the page table)</label>
 
 [fixmap](/mm/fixmap)
+<label>(fixed va-pa mapping)</label>
 
 [convert](/mm/convert)
+<label>(va-pa-pfn-page transformation)</label>
 
 [memblock](/mm/memblock)
+<label>(physical memory management)</label>
 
 [tlb](/mm/tlb)
+<label>(translation buffer operations)</label>
 
 [percpu](/mm/percpu)
+<label>(declare private variables for each cpu)</label>
 
 ### power
 
 [psci](/power/psci)
+<label>(put low level power operations into el2/el3)</label>
 
 [cpuidle](/power/cpuidle)
+<label>(run cpu into idle)</label>
 
 [suspend](/power/suspend)
+<label>(system suspend)</label>
 
 [dpm](/power/dpm)
+<label>(device power management)</label>
 
 [runtime_suspend](/power/runtime)
+<label>(put device into low-power mode while not using)</label>
 
 [wakelock](/power/wakelock)
+<label>(locks to prevent system suspend)</label>
 
 [wakeup](/power/wakeup)
+<label>(wakeup source irq)</label>
 
 [spin_table](/power/spin_table)
+<label>(an implementation to boot smp)</label>
 
 [smp](/power/smp)
+<label>(smp boot flow)</label>
 
 [cpu_hotplug](/power/cpuhp)
+<label>(runtime bringup or teardown cpus)</label>
 
 [rebooot](/power/reboot)
+<label>(system reboot and poweroff)</label>
 
 cpufreq
 
@@ -218,6 +272,7 @@ qos
 ### process
 
 [state](/process/state)
+<label>(process states)</label>
 
 fork
 
@@ -254,24 +309,37 @@ memcontrol
 ### fs
 
 [filesystem](/fs/filesystem)
+<label>(register a new filesystem)</label>
 
 [super](/fs/super)
+<label>(a superblock object represents a mounted filesystem)</label>
 
 [inode](/fs/inode)
+<label>(inode is a file or directory of a filesystem)</label>
 
 [dentry](/fs/dentry)
+<label>(path object)</label>
 
 [filemode](/fs/filemode)
+<label>(file permissions)</label>
 
 [ramfs, tmpfs](/fs/ramfs)
+<label>(fs live in ram)</label>
 
 [devtmpfs](/fs/devtmpfs)
+<label>(/dev)</label>
 
 [procfs](/fs/procfs)
+<label>(/proc)</label>
 
 [debugfs](/fs/debugfs)
+<label>(/sys/kernel/debug)</label>
 
 [sysfs](/fs/sysfs)
+<label>(/sys)</label>
+
+initramfs
+<label>(rootfs)</label>
 
 fat32
 
@@ -286,8 +354,10 @@ fuse
 ### block
 
 [zram](/block/zram)
+<label>(ram based block device that can auto compressed)</label>
 
 ramdisk
+<label>(block device based on physical memory)</label>
 
 ### drivers
 
@@ -326,22 +396,29 @@ drm/kms
 ### libs
 
 [sprintf](/lib/sprintf)
+<label>(sprintf interfaces)</label>
 
 [string](/lib/string)
+<label>(string interfaces in kernel)</label>
 
 [debugobject](/lib/debugobject)
+<label>(object life cycle management)</label>
 
 ### android
 
 [vendor_hook](/android/vendor_hook)
+<label>(hooks based on tracepoint for ko to inject code into kernel)</label>
 
 ### tracing
 
 [tracepoint](/tracing/tracepoint)
+<label>(kernel hooks)</label>
 
 [trace_event](/tracing/trace_event)
+<label>(trace event based on tracepoint)</label>
 
 [ftrace](/tracing/ftrace)
+<label>(function trace)</label>
 
 kprobe
 
