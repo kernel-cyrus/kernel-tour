@@ -69,7 +69,7 @@ kernel_restart
 		local_irq_disable
 		smp_send_stop
 		do_kernel_restart
-			call restart_handler_list -> psci
+			call restart_handler_list -> psci_sys_reset_nb
 ```
 
 ```
@@ -91,7 +91,8 @@ kernel_power_off
 		local_irq_disable
 		smp_send_stop
 		do_kernel_power_off
-			call power_off_handler_list
+			add pm_power_off -> power_off_handler_list
+			call power_off_handler_list -> psci_sys_poweroff
 ```
 
 上面流程中，有几个主要的callback list：
@@ -106,11 +107,15 @@ kernel_power_off
 
 `register_restart_handler`、`unregister_restart_handler`
 
-reset驱动用来注册实现reset的流程，比如psci中注册进来的psci_sys_reset_nb
+reset驱动用来注册实现reset的流程，比如psci中注册进来的`psci_sys_reset_nb`
 
 3、power_off_handler_list
 
 `register_sys_off_handler`、`unregister_sys_off_handler`
+
+其中，pm_power_off是一个weak函数，可以由底层实现，如psci的`psci_sys_poweroff`
+
+当设置了pm_power_off后，会使用`legacy_pm_power_off`来作为poweroff的流程，并注册到power_off_handler_list，完成调用。
 
 其他几个list：
 
