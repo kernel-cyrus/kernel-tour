@@ -12,7 +12,10 @@ label {
 <label>(module init sections)</label>
 
 [params](/kernel/params)
-<label>(module params)</label>
+<label>(bootargs and module params)</label>
+
+bootconfig
+<label>()</label>
 
 [panic](/kernel/oops)
 <label>(kernel oops format and how to trigger it)</label>
@@ -29,11 +32,11 @@ label {
 module
 <label>(kernel module load flow)</label>
 
-driver
-<label>(device driver and probe, async probe)
-
 printk
 <label>(console and printk)</label>
+
+syscall
+<label>(enter into kernel with system call)</label>
 
 sysctrl
 <label>(sysctrl command for procfs)</label>
@@ -57,6 +60,9 @@ netlink
 
 [rcu](/locking/rcu)
 <label>(read-write-update mechanism to optimize rw locking)</label>
+
+futex
+<label>(locks for userspace)</label>
 
 [lockdep](/locking/lockdep)
 <label>(dead lock detection)</label>
@@ -360,6 +366,9 @@ ramdisk
 <label>(block device based on physical memory)</label>
 
 ### drivers
+
+driver
+<label>(device driver and probe, async probe)
 
 clock
 
