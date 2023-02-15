@@ -136,6 +136,8 @@ it reaches the target step by step, up_threshold->up, down_threshold->down
 
 <https://www.kernel.org/doc/html/latest/admin-guide/pm/cpufreq.html>
 
+<https://docs.kernel.org/scheduler/schedutil.html>
+
 <http://www.wowotech.net/pm_subsystem/cpufreq_overview.html>
 
 <http://www.wowotech.net/pm_subsystem/cpufreq_driver.html>
