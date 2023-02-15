@@ -249,6 +249,9 @@ tickbroadcast
 [runtime_suspend](/power/runtime)
 <label>(put device into low-power mode while not using)</label>
 
+domain
+<label>power domain management</label>
+
 [wakelock](/power/wakelock)
 <label>(locks to prevent system suspend)</label>
 
@@ -273,8 +276,6 @@ tickbroadcast
 devfreq
 
 energy_model
-
-qos
 
 ### process
 
