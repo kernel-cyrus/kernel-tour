@@ -100,6 +100,8 @@ always highest frequency
 
 uses CPU utilization data from scheduler to determine target frequence
 
+待完成
+
 **userspace**
 
 allow user space set the frequency
