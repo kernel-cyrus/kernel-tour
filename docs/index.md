@@ -288,31 +288,31 @@ fork
 ### sched
 
 start
-<label>very begining to scheduling</label>
+<label>(very begining to scheduling)</label>
 
 stop
-<label>stop schedule class</label>
+<label>(stop schedule class)</label>
 
 deadline
-<label>deadline schedule class</label>
+<label>(deadline schedule class)</label>
 
 rt
-<label>rt schedule class</label>
+<label>(rt schedule class)</label>
 
 fair
-<label>cfs schedule class</label>
+<label>(cfs schedule class)</label>
 
 idle
-<label>idle schedule class</label>
+<label>(idle schedule class)</label>
 
 pelt / walt
-<label>load tracking</label>
+<label>(load tracking)</label>
 
 sched_util
-<label>cpufreq governor</label>
+<label>(cpufreq governor)</label>
 
 eas
-<label>energy aware scheduling</label>
+<label>(energy aware scheduling)</label>
 
 isolate
 
