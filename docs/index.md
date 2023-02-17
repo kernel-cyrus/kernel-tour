@@ -288,7 +288,7 @@ fork
 ### sched
 
 start
-<label>(very begining to scheduling)</label>
+<label>(from the very begining of scheduling)</label>
 
 stop
 <label>(stop schedule class)</label>
