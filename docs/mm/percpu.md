@@ -74,6 +74,14 @@ events/percpu/percpu_create_chunk
 events/percpu/percpu_destroy_chunk
 ```
 
+**View Percpu Variables in GDB**
+
+1. enable gdb script
+
+2. load gdb script in GDB
+
+3. `p $lx_per_cpu("xxx", <cpu>)`
+
 ## Module Test
 
 [test-percpu](https://github.com/kernel-cyrus/kernel-tour/tree/master/tests/test-percpu)
