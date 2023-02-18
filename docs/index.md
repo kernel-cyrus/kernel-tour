@@ -287,7 +287,7 @@ fork
 
 ### sched
 
-start
+[start](/sched/start.md)
 <label>(from the very begining of scheduling)</label>
 
 stop
