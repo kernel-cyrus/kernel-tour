@@ -11,6 +11,13 @@
     {% include head-custom.html %}
   </head>
   <body>
+    <style>
+    label {
+        margin-left: 15px;
+        font-size: 14px;
+        color: gray;
+    }
+    </style>
     <div class="container-lg px-3 my-5 markdown-body">
       {% if site.title and site.title != page.title %}
       <h1><a href="{{ "/" | absolute_url }}">Kernel Tour</a><small class="float-right" style="padding-top:4px; color:#c6cbd1 !important;">内核之旅</small></h1>
