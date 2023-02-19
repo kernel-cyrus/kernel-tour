@@ -1,11 +1,3 @@
-<style>
-label {
-    margin-left: 15px;
-    font-size: 14px;
-    color: gray;
-}
-</style>
-
 ### kernel
 
 [initcall](/kernel/initcall)
