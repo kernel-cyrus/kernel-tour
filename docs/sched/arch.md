@@ -316,8 +316,6 @@ Sleep，Preempt，Interrupt
 
 ## Load Tracking
 
-
-
 ## Debug
 
 **View task_struct from rq in GDB**
@@ -336,3 +334,9 @@ Sleep，Preempt，Interrupt
 ttwu: try to wake up
 
 se: sched entity
+
+## Reference
+
+LoyenWang的系列文章：
+
+<https://www.cnblogs.com/LoyenWang/tag/%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6/>
