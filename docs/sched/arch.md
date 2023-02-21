@@ -473,15 +473,69 @@ schedule的点，也就是下面的所有抢占行为的执行点。
 
 ## The Context Switch
 
+schedule负责找一个task，切换过去继续运行
+
 ```
 __schedule
-...
+
+	cpu_rq			# get rq
+
+	local_irq_disable
+
+	pick_next_task		# get next
+
+	context_switch		# switch prev => next
 ```
+
+pick_next_task负责从几个调度类中找到一个合适的task
+
+```
+pick_next_task (__pick_next_task) (CONFIG_SCHED_CORE=n)
+
+	pick_next_task_fair	# first, get from cfs rq
+
+	for_each_class		# then, get from other rq
+
+		class->pick_next_task
+
+```
+
+context_switch负责从一个task切换到另一个task，切换后继续执行。
 
 ```
 context_switch
-...
+
+	prepare_task_switch
+
+	if to kernel thread
+		...		# don't care about ttbr0
+	elif to user thread
+		__switch_mm	# switch to new ttbr0
+
+	switch_to		# switch to new context (cpu registers)
+		__switch_to
+			cpu_switch_to (entry.S)
+
+	finish_task_switch
 ```
+
+之前理解有个误区，以为switch的时候所有寄存器都换，包括PC，实际context并不包含PC。
+
+Context内容包括：
+
+- task struct (thread info, resources)
+
+- address space (page table)
+
+- running stack (sp)
+
+- cpu general registers
+
+一个进程执行switch，现场就会停在switch这里，换进来的线程，从switch这里开始跑。
+
+相当于PC到这里，外边的context包换掉了，PC带着新的context包继续往下跑。
+
+切换后sp也会改变，所以相当于是回到了老task中继续执行了。
 
 ## Load Tracking
 
