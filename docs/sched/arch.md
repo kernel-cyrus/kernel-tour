@@ -354,15 +354,140 @@ tick...
 
 ## The Switch
 
-Sleep，Preempt，Interrupt
+可以通过调用 `__schedule` 来触发调度，重新选择一个适合的task来执行。
+
+调用 `__schedule` 的位置非常多，你也可以在自己的代码中通过手动调用 `schedule()` 来让出时间片。
+
+大致上，在以下位置会触发调度：
+
+1、tick到期时
+
+`[function: update_process_times] scheduler_tick();`
+
+2、进程主动Sleep
+
+`[function: schedule_timeout] schedule();`
+
+3、中断处理结束
+
+`[function: __el1_irq] arm64_preempt_schedule_irq(); schedule();`
+
+4、返回用户空间
+
+`[function: do_notify_resume] schedule();`
+
+5、其他还有大量的主动调用 `schedule`, `preempt_enable` 让出CPU的位置。
+
+schedule的点，也就是下面的所有抢占行为的执行点。
+
+## The Preeption
+
+抢占，就是在自己线程运行时，被其他线程抢占进来运行。
+
+**用户线程抢占**
+
+`task_struct` -> `thread_info` -> `flags` 中有一个TIF_NEED_RESCHED标记，用于标记当前线程是否需要被重新调度。
+
+在以下位置，线程会调用 `resched_curr` 将自己标记为需要重新调度。
+
+- tick时间片到期 (`resched_curr`)
+
+- sleep, wait for signal (`resched_curr`)
+
+- send signal (`wake_up_process`, `try_to_wake_up`)
+
+- fork (`wake_up_new_task`)
+
+- 调整当前线程nice值 (`set_user_nice`)
+
+用户线程被标记为RESCHED后，并不会立即触发schedule，而是需要等到一个抢占点。
+
+用户线程只会在运行到以下几个位置时触发schedule，执行抢占：
+
+- 异常处理后返回到用户态
+
+- 中断处理后返回到用户态
+
+- 系统调用后返回到用户态
+
+比如，一个进程创建了一个优先级更高的进程，那么在sys_fork中，会被标记RESCHED：
+
+```
+#0  resched_curr () 		at kernel/sched/core.c:1033
+#1  check_preempt_curr () 	at kernel/sched/core.c:2191
+#2  wake_up_new_task ()		at kernel/sched/core.c:4647
+#3  kernel_clone () 		at kernel/fork.c:2679
+#4  __do_sys_clone ()		at kernel/fork.c:2789
+#5  __se_sys_clone ()		at kernel/fork.c:2757
+#6  __arm64_sys_clone () 	at kernel/fork.c:2757
+#7  __invoke_syscall ()		at arch/arm64/kernel/syscall.c:38
+#8  invoke_syscall () 		at arch/arm64/kernel/syscall.c:52
+#9  el0_svc_common ()		at arch/arm64/kernel/syscall.c:142
+#10 do_el0_svc ()		at arch/arm64/kernel/syscall.c:206
+#11 el0_svc () 			at arch/arm64/kernel/entry-common.c:624
+#12 el0t_64_sync_handler ()	at arch/arm64/kernel/entry-common.c:642
+#13 el0t_64_sync () 		at arch/arm64/kernel/entry.S:581
+```
+
+在do_sys_clone返回用户态时，会触发schedule()：
+
+```
+#0  schedule ()
+#1  do_notify_resume ()		at arch/arm64/kernel/signal.c:1090
+#2  prepare_exit_to_user_mode ()at arch/arm64/kernel/entry-common.c:137
+#3  exit_to_user_mode () 	at arch/arm64/kernel/entry-common.c:142
+#4  el0_svc () 			at arch/arm64/kernel/entry-common.c:625
+#5  el0t_64_sync_handler () 	at arch/arm64/kernel/entry-common.c:642
+#6  el0t_64_sync () 		at arch/arm64/kernel/entry.S:581
+```
+
+**内核线程抢占**
+
+内核抢占尽管有三种方式：
+
+- CONFIG_PREEMPT_NONE
+
+- CONFIG_PREEMPT_VOLUNTARY
+
+- CONFIG_PREEMPT
+
+实际上大多数使用的都是CONFIG_PREEMPT，当中断退出后，立即执行任务抢占。
+
+内核线程抢占的触发点与用户线程一样，并且在触发时，也会将flag标记为RESCHED。
+
+而抢占执行点则要比用户线程多的多，总体来说有两大类：
+
+- 在中断执行完毕后 `preempt_schedule_irq`
+
+- 内核代码中主动调用 `preemp_enable` 或 `schedule` 的位置
+
+**preempt_count**
+
+内核通过 `task_struct` -> `thread_info` -> `preempt_count` 来控制抢占的enable和disable。
+
+- preempt_disable(): count += 1
+
+- preempt_enable(): count -= 1 (default: 0, preemptible)
+
+\* 这个变量还用来保存是否处在irq、softirq、nmi上下文，以及是否disable的状态。
 
 ## The Context Switch
+
+```
+__schedule
+...
+```
+
+```
+context_switch
+...
+```
+
+## Load Tracking
 
 ## Load Balance
 
 ## Migration
-
-## Load Tracking
 
 ## Debug
 

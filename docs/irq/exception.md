@@ -49,7 +49,7 @@ sync类型异常主要包括以下几类：（见traps.c:esr_class_str）
 
 ```
 - /arch/arm64/kernel/entry.S		# Exception Vector Table
-- /arch/arm64/kernel/entry-common.c	# Exception Handler
+- /arch/arm64/kernel/entry-common.c	# Exception Handler Implementation
 - /arch/arm64/include/asm/exception.h	# Exception Handler Declaration
 - /arch/arm64/mm/fault.c		# Abort handling
 - /arch/arm64/kernel/traps.c		# Trap handling

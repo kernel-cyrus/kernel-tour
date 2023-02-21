@@ -30,7 +30,7 @@ module
 [printk](/kernel/printk)
 <label>(printk and logs)</label>
 
-syscall
+[syscall](/kernel/syscal)
 <label>(enter into kernel with system call)</label>
 
 netlink
