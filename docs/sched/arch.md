@@ -4,31 +4,130 @@ From the very begining of scheduling
 
 ## Data Structures
 
-![Data Structures]()
+```
+cpu0 - rq - curr   - *task_struct
+          - stop   - *task_struct
+          - idle   - *task_struct
+          - dl_rq  - [sched_entity | sched_entity | ... ]
+          - rt_rq  - [sched_entity | sched_entity | ... ]
+          - cfs_rq - [sched_entity | sched_entity | ... ]
+                           |              |
+                       task_struct        +-- rq [sched_entity...]
+                                          |
+                                          |
+cpu1 - rq ...             sched_entity <--+-- rq [sched_entity...]
+cpu2 - rq ...             sched_entity <--+-- rq [sched_entity...]
+cpu3 - rq ...             sched_entity <--+-- rq [sched_entity...]
+                                          |
+                                     task_group
+```
+
+1、每个cpu有一个rq
+
+2、每个rq包括了stop task、idle task和cfs、rt、dl三个rq（对应五个调度类）
+
+3、cfs_rq、dl_rq的结构是一个rb tree，rt_rq的结构是一个priority list（分级列表）
+
+4、cfs_rq、rt_rq、dl_rq中，分别使用sched_entity、sched_rt_entity、sched_dl_entity来组织调度对象
+
+5、sched_entity可以对应(内嵌在)一个task_struct，也可以对应(内嵌在)一个task_group
+
+6、task_group在每个cpu上都有一个sched_entity，在每个cpu上也有一个独立rq，这个rq的二叉树相当于接到了rq的二叉树上。
+
+调度时，会按照stop - dl - rt - cfs - idle的顺序，遍历五个调度类的数据结构，找一个task来运行。
 
 **Task**
 
 `struct task_struct`
 
+```
+pid			# PID
+comm			# name
+---------------------
+thread_info
+	ttbr0_el1
+thread_struct
+	cpu context
+---------------------
+sched_entity
+sched_rt_entity
+sched_dl_entity
+---------------------
+sched_task_group	-> group belongs to
+---------------------
+list			# all process list ->
+parent			# parent process
+children		# child process
+siblings		# brother process
+```
+
+一个进程有一个task_struct，保存着进程状态和所有相关信息。
+
+其中，进程的地址空间分为用户空间(ttbr0_el1)和内核空间(ttbr1_el1)
+
+有用户空间的线程叫用户线程，没有用户空间的线程叫内核线程(ttbr0_el1)
+
+所有进程共享内核空间(ttbr1_el1)。
+
+entity内嵌在task_struct中，用来组成对应rq的数据结构。
+
 `struct task_group`
+
+```
+---------------------
+sched_entity		# schedulable entities of this group on each CPU
+sched_rt_entity         # 每个CPU一个
+---------------------
+cfs_rq			# runqueue "owned" by this group on each CPU
+rt_rq
+---------------------
+struct rcu_head rcu;
+struct list_head list;	# tasks in this group?
+---------------------
+struct task_group *parent;
+struct list_head siblings;
+struct list_head children;
+```
+
+task_group中包含是一组task，在每个cpu上，都有一个sched_entity，放在这个cpu的rq中。另外，他自己还有一个rq，这个rq相当于插入到了父rq的sched_entity节点中。
+
+task_groups：list of all task groups
+
+root_task_group: default task group
 
 **Entity**
 
 `struct sched_entity`
 
+cfs调度类使用的调度对象，一个entity可以对应一个task_struct，也可以对应一个task_group
+
 `struct sched_dl_entity`
 
+dl调度类使用的调度对象
+
 `struct sched_rt_entity`
+
+dl调度类使用的调度对象
 
 **Runqueue**
 
 `struct rq`
 
+每个cpu一个rq，存放着这个cpu所有task，以及待运行的task。
+
+rq是调度器使用的顶层数据结构。
+
 `struct cfs_rq`
+
+cfs调度了的rq，其中rb_root_cached是整个红黑树的root节点，rb_left_most指向了最左侧节点。
 
 `struct dl_rq`
 
+dl调度了的rq，其中rb_root_cached是整个红黑树的root节点，rb_left_most指向了最左侧节点。
+
 `struct rt_rq`
+
+rt调度了的rq，其中rt_prio_array保存了整个task优先级数组
 
 **Bandwidth**
 
@@ -54,58 +153,7 @@ From the very begining of scheduling
 
 `struct sched_avg`
 
--------------------
-
-```
-
-# for cgroup task scheduling
-
-list: task_groups			# all task groups
-
-struct task_group root_task_group;	# link to task_groups list
-	list -> task_groups
-	children
-	siblings
-
-# percpu run queue
-
-runqueues (percpu) thread that can run! where pick_next get from!
-	cfs
-	rt
-	dl
-	*idle
-	*stop
-	*curr
-	nr_running
-	nr_uninterruptble
-	nr_switches
-
-sched_entity	# object in a rq, embeded in task_struct or task_group
-	parent	# for group scheduling
-	# means a task or a task_group (group of tasks)
-
-task_struct
-	......
-	pid
-	comm			# name
-	thread_intfo
-		ttbr0_el1
-	thread_struct		# tcb
-		cpu context
-	sched_entity
-	sched_rt_entity
-	sched_dl_entity
-	sched_task_group	# group belongs to
-	list
-	parent
-	children
-	siblings
-	resources...
-
-struct task_struct init_task;
-
-```
-
+**Scheduler**
 
 `sched_class`
 
