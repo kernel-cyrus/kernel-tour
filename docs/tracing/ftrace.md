@@ -46,6 +46,12 @@ kprobe设置的详细格式见参考：
 
 https://www.kernel.org/doc/Documentation/trace/kprobetrace.txt
 
+**使能Syscall**
+
+CONFIG_FTRACE_SYSCALLS=y
+
+会在events/创建出syscall目录，否则只能看到raw_syscall
+
 **获取Trace**
 
 ```

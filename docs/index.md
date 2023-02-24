@@ -443,7 +443,8 @@ fprobe
 
 uprobe
 
-perf
+[perf](/tracing/perf)
+<label>(linux performance tool)</label>
 
 ebpf
 
@@ -458,3 +459,7 @@ kernelshark
 flamechart
 
 simpleperf
+
+### scripts
+
+...
