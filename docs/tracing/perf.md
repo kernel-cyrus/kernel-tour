@@ -26,7 +26,14 @@ find . -print0 | cpio --null --create --verbose --format=newc -R root:root | gzi
 **Event statistics**
 
 ```
-simpleperf state -e sched:sched_switch -a --duration 5
+perf stat -e sched:sched_switch -a sleep 5
+```
+
+**Trace Event call stack statistics**
+
+```
+perf record -e sched:pelt_cfs_tp -a -g sleep 1
+perf report -g
 ```
 
 **Kprobe call stack statistics**

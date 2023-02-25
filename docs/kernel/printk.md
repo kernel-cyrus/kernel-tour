@@ -152,6 +152,30 @@ vprintk_store
 - /kernel/printk/printk.c
 ```
 
+## Printk Formats
+
+常用数据类型printk format：
+
+```
+type							format(DEC)		format(HEX)
+--------------------------------------------------------------------------------------------
+char / short int / int					%d			%x
+unsigned char / unsigned short int / unsigned int	%u			%x
+long							%ld			%lx
+unsigned long						%lu			%lx
+long long						%lld			%llx
+unsigned long long					%llu			%llx
+s8 / s16 / s32						%d			%x
+u8 / u16 / u32						%u			%x
+s64							%lld			%llx
+u64							%llu			%llx
+size_t							%zu			%zx
+ssize_t							%zd			%zx
+void*							-			%p
+phys_addr_t						-			%pa[p]
+dma_addr_t						-			%pad
+```
+
 ## Reference
 
 <https://www.kernel.org/doc/html/latest/core-api/printk-basics.html>
