@@ -279,7 +279,7 @@ fork
 
 ### sched
 
-[arch](/sched/arch.md)
+[arch](/sched/arch)
 <label>(from the very begining of scheduling)</label>
 
 stop
@@ -297,14 +297,20 @@ fair
 idle
 <label>(idle schedule class)</label>
 
-pelt / walt
-<label>(load tracking)</label>
+[pelt](/sched/pelt)
+<label>(per-entity load tracking)</label>
+
+walt
+<label>(window-asist load tracking)</label>
 
 sched_util
 <label>(cpufreq governor)</label>
 
 eas
 <label>(energy aware scheduling)</label>
+
+task_group
+<label>(task group scheduling)</label>
 
 isolate
 
