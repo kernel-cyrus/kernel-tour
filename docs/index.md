@@ -34,7 +34,10 @@ module
 <label>(enter into kernel with system call)</label>
 
 netlink
-<label>(ipc between user-space and kernel-space with socket)</label>
+<label>(communication between userspace and kernel with socket)</label>
+
+[uevent](/kernel/uevent)
+<lable>(send event form kernel to userspce)</lable>
 
 ### locking
 
@@ -305,6 +308,9 @@ walt
 
 sched_util
 <label>(cpufreq governor)</label>
+
+load_balance
+<label>load balancing</label>
 
 eas
 <label>(energy aware scheduling)</label>

@@ -539,7 +539,19 @@ Context内容包括：
 
 ## Load Tracking
 
+经常的，内核需要知道一个task有多大（多占用CPU），或者一个rq有多大（多busy），用来决定是否需要调频，或者task是否需要迁核，或者做负载均衡。
+
+内核提供了`struct sched_avg`来记录对应se或者rq的负载情况，供其他调度子系统做决策使用。
+
+关于负载这个变量的计算方式，内核历史上经过了多轮的变更，目前使用的是per-entity load tracking（PELT）的方式，高通使用window-assist load tracking（WALT）的方式，来计算负载。
+
+这些计算方法都包括了对task处在running的时间和处在runqueue的时间的统计。在task进出队列，运行状态发生变更时，完成对task负载信息的更新。
+
+详细描述见pelt、walt文章。
+
 ## Load Balance
+
+
 
 ## Migration
 
