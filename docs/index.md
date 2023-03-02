@@ -33,11 +33,11 @@ module
 [syscall](/kernel/syscall)
 <label>(enter into kernel with system call)</label>
 
-netlink
+[netlink](/kernel/netlink)
 <label>(communication between userspace and kernel with socket)</label>
 
 [uevent](/kernel/uevent)
-<lable>(send event form kernel to userspce)</lable>
+<label>(send event form kernel to userspce)</label>
 
 ### locking
 
