@@ -47,9 +47,11 @@ struct cpu_topology {
 
 **Sched Domain 初始化**
 
-调度域（sched_domain）的拓扑结构基于CPU拓扑结构，如开头的CPU Topology图所示，系统有三层调度域：DIE、MC、SMT。每一级调度域下，都挂了一组调度组，每个调度组对应了一个CPU。
+调度域（sched_domain）的拓扑结构基于CPU拓扑结构，如开头的CPU Topology图所示，系统有三层调度域：DIE、MC、SMT。
 
-某个CPU在做负载均衡的时候，会优先尝试在第一级调度域的调度组列表中做均衡，如果失败，则向更高一级调度域做尝试。
+每一级调度域下，都挂了一组调度组（sched_group），每个调度组对应了一个CPU。
+
+一个CPU在做负载均衡的时候，实际就是在其最近的一个调度域的调度组间做均衡，如果不行，就尝试更高的调度域。
 
 下图展示了sched_domain, sched_group及cpu topology间的关系：
 
