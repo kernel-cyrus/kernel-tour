@@ -49,24 +49,23 @@ struct cpu_topology {
 
 调度域（sched_domain）的拓扑结构基于CPU拓扑结构，如开头的CPU Topology图所示，系统有三层调度域：DIE、MC、SMT。
 
-每一级调度域下，都挂了一组调度组（sched_group），每个调度组对应了一个CPU。
+每一级调度域下，都挂了一组调度组（sched_group），sched_group是一组CPU，根据调度域层次不同，可以是一个Cluster的CPU组或者一个独立CPU。
 
-一个CPU在做负载均衡的时候，实际就是在其最近的一个调度域的调度组间做均衡，如果不行，就尝试更高的调度域。
+一个CPU在做负载均衡的时候，实际就是在其最近的一个调度域中，以调度组为粒度，做调度组间的均衡。
 
 下图展示了sched_domain, sched_group及cpu topology间的关系：
 
 ```
 DIE	|                  sched_domain(DIE)                   |
+	|       sched_group        |       sched_group         |
 
 MC	|     sched_domain(MC)     |      sched_domain(MC)     |
-
 	|sched_group | sched_group | sched_group | sched_group |
+
 CPU	|    CPU0    |     CPU1    |    CPU2     |    CPU3     |
 ```
 
-站在CPU的视角，每个CPU，对应一个sched_group，分别挂在两个sched_domain上，每个domain下面，维护了一个sched_group的链表，表示挂在该domain下的group。
-
-以上图为例，CPU0挂在两个调度域中：domain0（MC），domain1（DIE）（见 `/sys/kernel/debug/sched/domains`）
+以上图为例，CPU0挂在两个调度域中：domain0（MC），domain1（DIE）（见 `/sys/kernel/debug/sched/domains`），MC域的sched_group中包括一个独立CPU，而DIE域的sched_group中包括一组CPU（一个cluster）。
 
 topology在`build_sched_domains`时被初始化，保存在`sched_domain_topology`中：
 

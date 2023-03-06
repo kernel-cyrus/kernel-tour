@@ -551,9 +551,55 @@ Context内容包括：
 
 ## Load Balance
 
+调度时，为了使各个CPU的负载达到均衡，避免出现一核有难，多核围观的情况，调度器需要定期或适时对各个核做负载均衡，将繁忙CPU上的任务迁移到不繁忙的CPU。
 
+**负载、均衡**
+
+负载，是CPU使用上面load tracking计算得到CPU load。均衡，需要考虑不同CPU的capcity（能力）差异，本着能者多劳的原则，尽量让核间维持一致的load/capcity比。
+
+**调度域、调度组**
+
+负载均衡的基础是cpu的topology，因为cluster内部做任务迁移的代价和cluster间做迁移的代价是不同的，这主要考虑到cache不共享导致清空的问题。另外CPU间也存在性能差异（CPU能力在DTS中描述），为能力不同的CPU安排相同的负载显然是不合理的。
+
+根据CPU的topology，调度器会创建出DIE、MC两级调度域（sched domain），每级调度域下创建一组调度组（sched group），每个调度组根据其所挂的调度域级别，里面包含一组CPU（DIE）或者一个独立CPU（MC）。详细结构见topology.md。
+
+**负载均衡的过程**
+
+负载均衡是一个当前运行的CPU从其他繁忙CPU拉任务过来的过程。Linux只允许CPU从其他CPU拉任务，而不允许从当前CPU向其他CPU放置任务。
+
+在做负载均衡时，会先从最下层的调度域来判断调度域内部的调度组间是否均衡，找到一个最繁忙的调度组（调度组内所有CPU负载之和），如果繁忙差异足够大，则从这个调度组往当前的调度组拉一些“合适大小”的任务过来。完成一层调度域后，会继续向上层调度域做均衡。
+
+负载均衡并没有那么精确和计时，它允许核间负载存在一定的容忍度（threshold），并且尽量不那么频繁地去运行。同时他也允许设置一些特殊的任务（misfit task），让某些核尽快把这个“特殊”任务拉走。
+
+**负载均衡的时机**
+
+大体上，负载均衡的动作会在以下三类时机触发：
+
+1、负载均衡
+
+- 在tick中触发load balance（"tick load balance" or "periodic load balance"）
+
+- 在pick_next为空，进入idle前触发load balance（"new idle load balance"）
+
+- 当前CPU负载过重，通过IPI将其他idle的CPU唤醒执行load balance（"idle load banlance"）
+
+2、任务放置
+
+- 唤醒一个新fork的线程
+
+- Exec一个线程的时候
+
+- 唤醒一个阻塞的进程
+
+3、主动均衡
 
 ## Migration
+
+负载均衡时，需要将线程从一个核的rq迁移到另一个核的rq中，这个迁移的过程叫做process migration。
+
+内核为每个CPU创建了一个在stop调度类中运行的绑核的migration线程(smp_hotplug_thread)，专门负责执行在核间对cfs的rq进行搬运。（见：stop_machine.c）
+
+`load_balance` 会调用 `stop_one_cpu_nowait` 将 `active_load_balance_cpu_stop` 添加到stop中，完成迁核过程。
 
 ## Debug
 
