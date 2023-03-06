@@ -12,14 +12,14 @@ cpu0 - rq - curr   - *task_struct
           - rt_rq  - [sched_entity | sched_entity | ... ]
           - cfs_rq - [sched_entity | sched_entity | ... ]
                            |              |
-                       task_struct        +-- rq [sched_entity...]
-                                          |
-                                          |
-cpu1 - rq ...             sched_entity <--+-- rq [sched_entity...]
-cpu2 - rq ...             sched_entity <--+-- rq [sched_entity...]
-cpu3 - rq ...             sched_entity <--+-- rq [sched_entity...]
-                                          |
-                                     task_group
+                       task_struct    task_group--rq [sched_entity | sched_entity | ...]
+                                          \
+cpu1 - rq ...                              +--sched_entity--rq [sched_entity | sched_entity | ...]
+         \__________________________________\______/
+cpu2 - rq ...                                +--sched_entity--rq [sched_entity | sched_entity | ...]
+         \____________________________________\______/
+cpu3 - rq ...                                  +--sched_entity--rq [sched_entity | sched_entity | ...]
+         \____________________________________________/
 ```
 
 1、每个cpu有一个rq

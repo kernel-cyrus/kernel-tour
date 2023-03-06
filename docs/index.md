@@ -288,8 +288,8 @@ fork
 [topology](/sched/topology)
 <label>(cpu topology, sched domain, sched groups)</label>
 
-stop
-<label>(stop schedule class)</label>
+[stop](/sched/stop)
+<label>(stop schedule class and stop machine)</label>
 
 deadline
 <label>(deadline schedule class)</label>

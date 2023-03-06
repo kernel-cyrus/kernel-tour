@@ -161,6 +161,8 @@ CPU插拔过程中的所有具体操作，都基于这个链路框架实现，�
 
 park类似freeze，是绑核线程的一种暂停状态。
 
+这么做是因为非绑核线程在cpu hotplug时会被迁出，而绑核线程因为不能迁出，所以允许这些线程执行自己的"freeze"(park/unpark)流程。
+
 `struct smp_hotplug_thread`
 
 hotplug thread结构体
