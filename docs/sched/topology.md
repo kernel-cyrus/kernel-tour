@@ -119,6 +119,22 @@ runqueues (CPU0)
 
 `/sys/devices/system/cpu/<cpu>/topology`
 
+```
+- cluster_cpus:01		cpu id
+- cluster_cpus_list:0		cpu id
+- cluster_id:-1			-1
+- core_cpus:01			cpu id
+- core_cpus_list:0
+- core_id:0			cluster内部的cpu id（每个cluster从0开始计数）
+- core_siblings:0f		cluster内部cpumask
+- core_siblings_list:0-3	cluster内部cpu id
+- package_cpus:0f		cluster内部cpumask
+- package_cpus_list:0-3		cluster内部cpu id
+- physical_package_id:0		cluster id
+- thread_siblings:01
+- thread_siblings_list:0
+```
+
 每个CPU在cpu-map中的描述信息
 
 ## Files
