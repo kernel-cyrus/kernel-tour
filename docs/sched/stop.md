@@ -22,13 +22,16 @@ Stop Machine的核心是实现了一个stop task，绑定在每个CPU上，这�
 
 ```
 cpu_stop_threads ("migration/<cpu>")
+	store -> cpu_stopper->thread (pointer to smp hotplug thread of this cpu)
 	create -> sched_set_stop_task -> add to rq->stop
 	thread_fn -> cpu_stopper_thread (stop线程主函数)
 ```
 
 percpu绑核的smp_hotplug_thread，名字是"migration/\<cpu\>"。
 
-创建时绑定在每个CPU对应的rq->stop上。
+smp_hotplug_thread会为每个cpu创建出一个绑核的thread，并将每个核的thread指针返回给cpu_stopper->thread保存起来。
+
+线程创建后，会调用create回调，将线程移到stop调度器上。(rq->stop)
 
 `cpu_stop_thread`
 
