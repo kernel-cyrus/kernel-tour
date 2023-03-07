@@ -285,6 +285,9 @@ fork
 [arch](/sched/arch)
 <label>(from the very begining of scheduling)</label>
 
+flow
+<label>(sched core flows)</label>
+
 [topology](/sched/topology)
 <label>(cpu topology, sched domain, sched groups)</label>
 
