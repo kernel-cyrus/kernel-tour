@@ -1,45 +1,69 @@
-# stop sched class
+# stop
 
 **Stop Class**
 
+`/kernel/sched/stop_task.c`
+
 stop调度类是优先级最高的调度类，允许以最高优先级运行一个stop task，这个task不能会被抢占，会一直运行到task结束或者主动让出CPU。
+
+这个调度类的核心，是在rq上增加了一个stop的task struct指针，有stop task时，就以最高优先级执行。每个rq只有一个stop task。
+
+（task_group可以有stop task吗？不能，因为没有添加接口。）
+
+每个CPU rq的stop task可以通过 `sched_set_stop_task` 添加。
 
 **Stop Machine**
 
-目前stop task只有stop machine机制在使用（实现了一个stop task）。
+`/kernel/stop_machine.c`
 
-stop machine机制用于启动一个stop task，这个task会终止掉所有调度行为，直到运行结束。
+Stop Machine是基于stop task实现的，它在每个CPU对应一个单个stop task的基础上，实现了一个stop works的work链表，允许异步方式添加stop work。
 
-stop machine提供了两个创建stop task的接口：
+Stop Machine的核心是实现了一个stop task，绑定在每个CPU上，这个task的loop中会遍历执行stop works。
 
-`stop_machine`
+```
+cpu_stop_threads ("migration/<cpu>")
+	create -> sched_set_stop_task -> add to rq->stop
+	thread_fn -> cpu_stopper_thread (stop线程主函数)
+```
 
-将所有核的调度停止，
+percpu绑核的smp_hotplug_thread，名字是"migration/\<cpu\>"。
 
-`stop_cpus`
+创建时绑定在每个CPU对应的rq->stop上。
 
-queue_stop_cpus_work
-	&stopper->works
+`cpu_stop_thread`
 
-stop multiple cpus, Execute @fn(@arg) on online cpus in @cpumask
+stop task 主线程，会loop所有cpu_stoper->works并执行
 
+`cpu_stopper`
+
+Stop Machine的全局变量，主要包括了stop thread，和works链表。
+
+**Stop Interface**
+
+Stop Machine提供了以下接口可以添加Stop任务：
+
+`stop_one_cpu`
+
+为当前CPU添加stop work，同步等待执行结束。
 
 `stop_one_cpu_nowait`
 
+为当前CPU添加stop work，不等待结束直接返回。
 
-一般来说, 内核会在如下情况下使用stop_machine技术
-module install and remove，cpu hotplug，memory hotplug，ftrace，hwlat_detector，Kernel Hotpatch
-stop machine在系统启动时，会在每个cpu上创建一个smp_hotplug_thread，这些线程最终会对应为kthread，名字是migration/cpuid。这些kthread会被smp_hotplug_thread.create回调在创建时添加到STOP调度器rq中。这些kthread的统一线程函数是kthreadd - smpboot_thread - cpu_stopper_thread（套了3层warpper），最终，线程函数实现了一个looper，来处理work list中的work，没有work则休眠。
-stop_one_cpu或stop_machine会将待执行函数加入到work list中，然后唤醒kthread，由于kthread是在STOP中，实现了最高优先级执行，也就是停止所有CPU工作，执行用户函数的功能。
+`stop_two_cpu`
 
-smp hotplug thread
-smpboot.h / smpboot.c
-smp_hotpplug_thread是支持hotplug的kthread，他是在kthreadd线程warpper函数外，再套了一层smpboot_thread warpper，在kthread原有功能外，实现了自定义park/unpark的功能。在cpu offline和online时，除了调用kthread正常park/unpark外，自定义的park/unpark函数也会被调用。除了park/unpark外，还有一些其他的自定义回调函数，可以查看smpboot.h中这些接口的说明。
-kthread所对应的task struct，会储存到.store中。
+为当前CPU和另一个CPU添加stop work，同步等待执行结束。
 
+`stop_machine`
 
+为所有CPU添加stop work，同步等待执行结束。
 
-stop中目前只有migration kthread，用来执行stop_one_cpu或stop_machine指定的work。
+**使用场景**
 
+一般来说, 内核会在如下情况下使用到stop_machine：
 
-Stop Machine
+- load balance
+- module install/remove
+- cpu hotplug
+- memory hotplug
+- hotpatch
