@@ -291,16 +291,16 @@ fork
 [stop](/sched/stop)
 <label>(stop schedule class and stop machine)</label>
 
-deadline
+[dl](/sched/dl)
 <label>(deadline schedule class)</label>
 
-rt
+[rt](/sched/rt)
 <label>(rt schedule class)</label>
 
-fair
+[fair](/sched/fair)
 <label>(cfs schedule class)</label>
 
-idle
+[idle](/sched/idle)
 <label>(idle schedule class)</label>
 
 [pelt](/sched/pelt)
