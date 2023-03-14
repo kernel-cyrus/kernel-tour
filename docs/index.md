@@ -324,7 +324,8 @@ eas
 task_group
 <label>(task group scheduling)</label>
 
-isolate
+[isolate](/sched/isolate)
+<label>(cpu isolation)</label>
 
 completion
 
