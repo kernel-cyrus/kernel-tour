@@ -1,4 +1,4 @@
-# sched architecture
+# schedule overview
 
 From the very begining of scheduling
 

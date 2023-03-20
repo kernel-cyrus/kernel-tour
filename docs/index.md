@@ -282,11 +282,8 @@ fork
 
 ### sched
 
-[arch](/sched/arch)
+[overview](/sched/overview)
 <label>(from the very begining of scheduling)</label>
-
-flow
-<label>(sched core flows)</label>
 
 [topology](/sched/topology)
 <label>(cpu topology, sched domain, sched groups)</label>
@@ -306,28 +303,28 @@ flow
 [idle](/sched/idle)
 <label>(idle schedule class)</label>
 
+balance
+<label>cases of load balancing</label>
+
 [pelt](/sched/pelt)
 <label>(per-entity load tracking)</label>
 
 walt
 <label>(window-asist load tracking)</label>
 
-sched_util
+schedutil
 <label>(cpufreq governor)</label>
-
-load_balance
-<label>cases of load balancing</label>
 
 eas
 <label>(energy aware scheduling)</label>
 
-task_group
-<label>(task group scheduling)</label>
+group
+<label>(group scheduling)</label>
 
 [isolate](/sched/isolate)
 <label>(cpu isolation)</label>
 
-completion
+[completion](/sched/completion)
 
 psi
 
