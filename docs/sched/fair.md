@@ -43,3 +43,6 @@ https://www.kernel.org/doc/Documentation/scheduler/sched-design-CFS.txt
 https://blog.csdn.net/yangcs2009/article/details/38796429
 https://www.cnblogs.com/mfrbuaa/p/4641240.html
 http://linuxperf.com/?p=42
+
+
+newidle_balance!

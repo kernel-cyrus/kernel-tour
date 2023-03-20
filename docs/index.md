@@ -316,7 +316,7 @@ sched_util
 <label>(cpufreq governor)</label>
 
 load_balance
-<label>load balancing</label>
+<label>cases of load balancing</label>
 
 eas
 <label>(energy aware scheduling)</label>
