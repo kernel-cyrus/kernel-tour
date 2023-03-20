@@ -23,16 +23,16 @@ completion机制用于多核间的代码协同执行，是一种建立在调度�
 ## 典型样例
 
 ```
-	CPU#1					CPU#2
-
-	struct completion setup_done;
-
-	init_completion(&setup_done);
-	initialize_work(...,&setup_done,...);
-
-	/* run non-dependent code */		/* do setup */
-
-	wait_for_completion(&setup_done);	complete(setup_done);
+CPU#1					|	CPU#2
+					|
+struct completion setup_done;		|
+					|
+init_completion(&setup_done);		|
+initialize_work(..., &setup_done, ...);	|
+					|
+/* run non-dependent code */		|	/* do setup */
+					|
+wait_for_completion(&setup_done);	|	complete(setup_done);
 ```
 
 ## 参考资料
