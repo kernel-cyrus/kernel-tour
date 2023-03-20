@@ -40,6 +40,12 @@ Linux内核中没有线程概念，或者说没有任何线程相关的数据结
 
 进程正在被debugger调试，比如ptrace。
 
+#### (I) Idle (TASK_UINTERRUPTIBLE + TASK_NOLOAD)
+
+Task Idle可以简单认为就是Task Uninterruptble。
+
+\* (I)表示Idle
+
 ### Exit State
 
 进程退出态保存在 `tsk->exit_state` 中，在 `sched.h` 文件中定义
@@ -89,9 +95,16 @@ R    running or runnable (on run queue)
 S    interruptible sleep (waiting for an event to complete)
 T    stopped by job control signal
 t    stopped by debugger during the tracing
-W    paging (not valid since the 2.6.xx kernel)
 X    dead (should never be seen)
 Z    defunct ("zombie") process, terminated but not reaped by its parent
+P    Parked
+W    paging (not valid since the 2.6.xx kernel)
+```
+
+通过sched debug查看
+
+```
+cat /sys/kernel/debug/sched/debug
 ```
 
 ### Stop a Process
