@@ -318,13 +318,11 @@ schedutil
 eas
 <label>(energy aware scheduling)</label>
 
-group
-<label>(group scheduling)</label>
-
 [isolate](/sched/isolate)
 <label>(cpu isolation)</label>
 
 [completion](/sched/completion)
+<label>(multi-core excution synchronize mechanism)</label>
 
 psi
 
