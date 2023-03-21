@@ -284,21 +284,21 @@ TASK_ZOMBIE -> TASK_DEAD : 进程完全退出
 
 task_struct->prio取值范围是0～139，值越小，优先级越高。
 
-- STOP不使用优先级，绝对占用CPU
+- STOP不涉及优先级（prio=0），绝对占用CPU
 
-- DL不使用优先级，完全依赖EDF算法（early deadline first）
+- DL不涉及优先级（prio=0），完全依赖EDF算法（early deadline first）
 
-- RT优先级为0～99，按照优先级进行调度
+- RT优先级为1～99，按照优先级进行调度
 
 - CFS优先级为100～139，其中CFS的默认值为120，nice值取值范围为-20～19，CFS的最终动态优先级为priority+nice，工具中显示的，就是这个最终的优先级。
 
-- Idle也没有优先级
+- Idle也没有优先级（prio=0）
 
 Priority在不同tools的显示不同，原因未知：
 
 - 在proc/pid/sched中，对应0～139，默认120（task_struct原始值）静态priority
 
-- 在top中，对应-100～39，默认20（这样比较好区分RT和CFS）动态priority（叠加了nice后的值）
+- 在top中，对应-100～39，默认20（这样比较好区分RT和CFS）动态priority（叠加了nice后的值），当原始prio=0时显示为RT。
 
 - 在ps -l中，对应-40～99，默认80（可能因为兼容unix现实）动态priority（叠加了nice后的值）
 
