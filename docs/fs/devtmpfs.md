@@ -12,6 +12,8 @@ devtmpfs基于tmpfs或者ramfs（在没有开启tmpfs的情况下），也是一
 
 关系上，可以认为devtmpfs是内核设备框架实现的一个子系统，用于可视化展示device node并对用户空间提供device的操作接口。
 
+devtmpfs相当于一个在device创建时自动mknod的过程，如果没有devtmpfs，可以手动mknode
+
 ## Files
 
 ```
@@ -31,3 +33,13 @@ devtmpfs 内核线程，用于handle create/remove request
 `devtmpfs_create_node`, `devtmpfs_delete_node`
 
 对外暴露的节点添加删除接口，主要由 `device_add` `device_del` 使用。
+
+## Kconfig
+
+`DEVTMPFS`
+
+控制devtmpfs功能编译
+
+`DEVTMPFS_MOUNT`
+
+启动时自动mount devtmpfs到/dev
