@@ -1,21 +1,28 @@
 # cfs
 
-CFS sched class
+## 基本原理
 
-思想
-在CFS调度器中，每个线程，有自己的vruntime，这个vruntime的核心思想，是表示线程的运行时间，CFS的理想目标，是达到在任意时刻的所有task vruntime值相同，以做到“绝对公平”。CFS的runqueue是一棵vruntime排序的红黑树。（time-ordered rbtree），pick next task会从rbtree中选最左边的节点（vruntime最小）作为下一个调度对象。所以，CFS的调度行为大致是，每次从rq选择一个vruntime最小的执行，直到vruntime增长到不是最小，然后再次选择一个最小任务执行。
-CFS只依赖与vruntime，使用时间单位，不依赖与jiffies或HZ，所以他感知不到任何时间片的信息。
-CFS在/proc/sys/kernel/有sched节点，可以配置参数
+CFS，Completely Fair Schedule，如其名字，希望建立一个对所有线程确定公平的虚拟并行环境。
 
-调度周期
-sched_latency_ns（6ms），保证了所有进程，在这个时间内，按weight划分各自执行时间，这个周期保证了所有线程在一个周期内都会被调度一次，因此保证了所有线程的实时性。存在的问题是如果线程数量过多，那么每个周期内线程能分配的时间就会很短，这会大幅增加上下文切换的次数，降低执行效率，所以，调度周期并不是一个固定值，在线程数大于8时，调度周期=nr_running * sched_min_granularity_ns（0.75ms）。见__sched_period()函数。sched_min_granularity_ns为线程运行的最小时间，这个值保证了线程至少要运行这个时间才会被切换。也就是说，线程数小于8时，按照weight分配时间，而线程数大雨8时，大家都是sched_min_granularity_ns运行时间。
-sched_latency_ns / sched_min_granularity_ns可以在/proc/sys/kernel/设置
-另外还有一个参数：sched_wakeup_granularity_ns
-这个参数限定了一个唤醒进程要抢占当前进程之前必须满足的条件：只有当该唤醒进程的vruntime比当前进程的vruntime小、并且两者差距(vdiff)大于sched_wakeup_granularity_ns的情况下，才可以抢占，否则不可以。这个参数越大，发生唤醒抢占就越不容易。
+CFS中的线程，用vruntime来记录其执行时间。CFS的理想目标，是达到在任意时刻的所有task vruntime值相同，以做到“绝对公平”。
 
-vruntime / weight计算
-vruntime = (wall_time * NICE0_TO_weight) / weight（权重越大，vruntime越小，越会被执行）
+cfs_rq是一个红黑树（`rb_root_cached`: `cfs_rq->tasks_timeline`），pick_next_task总是会选取最左侧节点（vruntime最小）作为下一个调度对象。
+
+所以，CFS的调度行为大致是，每次从rq选择一个vruntime最小的执行，直到vruntime增长到不是最小，然后再次选择一个最小任务执行。
+
+CFS的调度，只依赖于vruntime，使用时间单位，他不依赖jiffies或HZ，所以他感知不到任何时间片的信息。
+
+Reference: <https://www.kernel.org/doc/Documentation/translations/zh_CN/scheduler/sched-design-CFS.rst>
+
+## vruntime / weight 计算
+
+`vruntime = (wall_time * NICE_TO_weight) / weight`
+
+权重越大，vruntime越小，执行机会越大
+
 以下是40个nice值对应的weight，weight = 1024 / (1.25 ^ nice)，weight每档相差1.25倍
+
+```
 const int sched_prio_to_weight[40] = {
  /* -20 */     88761,     71755,     56483,     46273,     36291,
  /* -15 */     29154,     23254,     18705,     14949,     11916,
@@ -26,23 +33,100 @@ const int sched_prio_to_weight[40] = {
  /*  10 */       110,        87,        70,        56,        45,
  /*  15 */        36,        29,        23,        18,        15,
 };
+```
+
 当前进程CPU时间的分配占比 = weight / 全部进程weight求和，也就是说，时间占比由weight决定，而weight有nice决定，nice每改变1，cpu时间改变10%。
 
-vruntime的一些问题
-1. 新入线程的vruntime会按照rq中的min vruntime来计算出。
-2. 睡眠唤醒后，vruntime会按照min vruntime来进行补偿
+## 组调度（group scheduling）
 
-sched features
-sched_features是控制调度器特性的开关，每个bit表示调度器的一个特性。在sched_features.h文件中记录了全部的特性。这些特性改变着vruntime的补偿行为，几唤醒线程优先执行的一些特性。
-这些配置可以在sysfs节点修改：/sys/kernel/debug/sched_features
+**背景**
 
-遗留问题：给进程分配的执行时间是如何控制的？需要搞清楚schedule的tick机制。
+从前CFS没有task group，在多用户共享一台服务器的情况下，CFS针对task的绝对公平，会导致用户间的不公平。
 
-参考
-https://www.kernel.org/doc/Documentation/scheduler/sched-design-CFS.txt
-https://blog.csdn.net/yangcs2009/article/details/38796429
-https://www.cnblogs.com/mfrbuaa/p/4641240.html
-http://linuxperf.com/?p=42
+比如Alice运行了1个进程，而Bob运行了99个进程，Alice实际只能得到1%的运行时间。
 
+为了解决这个问题，CFS提出后不久，就有人提出了group tasking的解决方案。
 
-newidle_balance!
+**实现**
+
+这个方案增加了sched_entity作为调度对象，用来表示“一个可以被调度的东西”，这个东西既可以是一个task_struct，也可以是一个task_group，而task_group是一个task_struct的组合。
+
+每个task_group有自己独立的rq，这样如图，多级rq组成了分层结构：
+
+```
+CPU 0: rq
+	|-- dl_rq
+	|-- rt_rq
+	|-- cfs_rq
+		|--- sched_entity -- sched_entity
+                     (task_struct)    (task_group)
+                                          |-- cfs_rq
+                                                 |-- sched_entity -- sched_entity
+```
+
+在选取下一个任务时，会自顶向上安层找到最终底层rq中vruntime最小的节点。
+
+有了这样一个结构，管理员就可以为Alice和Bob分别创建两个task_group，然后往各自的group下创建task，CFS会保证主rq的绝对公平，这样Alice和Bob都可以得到50%的运行时间。
+
+组调度的实现如图所示：
+
+```
+                CPU rq
+                   | enqueue
+task_group  - sched_entity        rq
+                   | parent       | enqueue
+task_group  - sched_entity -------+   rq
+                   | parent           | enqueue
+task_struct - sched_entity -----------+ (start to run)
+```
+
+task在创建时，就关联到了对应的task_group，通过sched_entity.parent来记录这个所属关系。
+
+task未运行时，这个关系记录在sched_entity.parent中。
+
+task运行时，进行enqueue操作，在使能group scheduling功能后，这个enqueue动作会自底向上分层enqueue。
+
+每一层enqueue，将自己的sched entity入队到其所绑定的rq中（父entity的rq），最上层的sched entity入队到CPU主rq，完成整个enqueue操作。
+
+这里需要注意一点，sched_entity在进程创建时创建，在进程运行时enqueue，不运行时不在rq中。
+
+组调度在实现时分为三层：
+
+1、sched/core中实现了所有task group的操作接口（create group，add task等），并基于cgroup实现了一个cgroup subsys（`cpu_cgrp_subsys`）
+
+2、cgroup使用sched/core注册进来的subsys，为用户空间创建出操作接口
+
+3、sched/fair，sched/rt中，实现了各自调度类对task group这类sched entity的支持。
+
+CFS、RT都支持task group调度（FAIR_GROUP_SCHED，RT_GROUP_SCHED），STOP、DL、IDLE不支持。
+
+**使用**
+
+```
+# mount -t tmpfs cgroup_root /sys/fs/cgroup
+# mkdir /sys/fs/cgroup/cpu
+# mount -t cgroup -ocpu none /sys/fs/cgroup/cpu
+# cd /sys/fs/cgroup/cpu
+
+# mkdir multimedia	# 创建 "multimedia" 任务组
+# mkdir browser		# 创建 "browser" 任务组
+
+# #配置multimedia组，令其获得browser组两倍CPU带宽
+
+# echo 2048 > multimedia/cpu.shares
+# echo 1024 > browser/cpu.shares
+
+# firefox &	# 启动firefox并把它移到 "browser" 组
+# echo <firefox_pid> > browser/tasks
+
+# #启动gmplayer（或者你最喜欢的电影播放器）
+# echo <movie_player_pid> > multimedia/tasks
+```
+
+Reference: <https://lwn.net/Articles/240474/>
+
+## CFS Bandwidth Control
+
+`COFNIG_CFS_BANDWIDTH`
+
+Reference: <https://docs.kernel.org/scheduler/sched-bwc.html>
