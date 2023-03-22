@@ -39,6 +39,9 @@ module
 [uevent](/kernel/uevent)
 <label>(send event form kernel to userspce)</label>
 
+[irqwork](/kernel/irqwork)
+<label>(enqueueing and running callbacks in hardirq context)</label>
+
 ### locking
 
 [spinlock](/locking/spinlock)
@@ -312,7 +315,7 @@ balance
 walt
 <label>(window-asist load tracking)</label>
 
-schedutil
+[schedutil](/sched/schedutil)
 <label>(cpufreq governor)</label>
 
 eas

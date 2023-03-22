@@ -1,6 +1,6 @@
 # smp
 
-本文主要记录多核启动流程，包括主核（Primary CPU）和从核（Secondary CPU）。
+本文主要记录多核启动流程，包括主核（Primary CPU）和从核（Secondary CPU），以及IPI通信支持。
 
 ## Primary CPU Boot Flow
 
@@ -80,7 +80,48 @@ secondary_start_kernel	(arm64/smp.c)
 		idle()
 ```
 
-##
+## IPI Support (inter-processor call)
+
+smp实现了IPI支持（CPU内部核间通信），定义了以下IPI Message类型：
+
+```
+enum ipi_msg_type {
+	IPI_RESCHEDULE,		# 0号中断, 重新调度进程,scheduler_ipi()
+	IPI_CALL_FUNC,		# 1号中断, 调用generic_smp_call_function_interrupt()（smp_call）
+	IPI_CPU_STOP,		# 2号中断，调用local_cpu_stop(), 使处理器停止
+	IPI_CPU_CRASH_STOP,	# 3号中断，调用ipi_cpu_crash_stop(),使处理器停止
+	IPI_TIMER,		# 4号中断，调用tick_receive_broadcast(),广播时钟事件
+	IPI_IRQ_WORK,		# 5号中断，调用irq_work_run()（irq_work.h，允许在硬中断中执行回调）
+	IPI_WAKEUP,		# 6号中断，调用acpi_parking_protocol_valid(cpu), 唤醒处理器
+	NR_IPI
+};
+```
+
+IPI的每个类型都实现了一种通信机制，或者说每个IPI通讯机制都定义了自己独立的msg type。
+
+IPI中断通过`smp_cross_call`发送，通过`do_handle_IPI`Handle。
+
+IPI是linux定义的虚拟中断类型，在ARM上以SGI实现。
+
+`smp_cross_call`
+
+发送（raise）一个ipi_msg_type类型的IPI中断给某个CPU（cpu_mask）
+
+`smp_call_function`
+
+Run a function on all other CPUs
+
+`smp_call_function_any`
+
+Run a function on any of the given cpus (sync)
+
+`smp_call_function_single_async`
+
+Run a function on a single cpu (async)
+
+Reference: <https://blog.csdn.net/weixin_42135087/article/details/123191551>
+
+## smp functions
 
 `smp_init`
 
@@ -105,18 +146,6 @@ loop for each cpu in mask
 `get_cpu`、`put_cpu`
 
 获取当前CPU ID并关闭抢占，put打开抢占
-
-`smp_call_function`
-
-Run a function on all other CPUs
-
-`smp_call_function_any`
-
-Run a function on any of the given cpus (sync)
-
-`smp_call_function_single_async`
-
-Run a function on a single cpu (async)
 
 ## bootargs
 
