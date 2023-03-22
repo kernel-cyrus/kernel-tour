@@ -49,7 +49,9 @@ Core部分核心文件是 `/drivers/cpufreq/cpufreq.c`
 
 `cpufreq_policy_alloc` (cpufreq_policy* PERCPU:cpufreq_cpu_data)
 
-`cpufreq_policy` 是一个调频实体，一个cluster对应一个policy，这个结构保存了每个CPU调频相关的所有私有信息。同时，他作为调频操作的句柄，cpufreq顶层操作接口使用policy来对一个调频实体进行操作。
+`cpufreq_policy` 是一个调频实体，一个cluster对应一个policy，这个结构保存了每个调频实体（通常是一个cluster）调频相关的所有私有信息。同时，他作为调频操作的句柄，cpufreq顶层操作接口使用policy来对一个调频实体进行操作。
+
+每个CPU有一个percpu的指针指向其所属的policy，cluster中的多个CPU共享一个policy。（`cpufreq_cpu_data`）
 
 Mainflow：
 
