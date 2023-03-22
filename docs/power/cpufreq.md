@@ -49,13 +49,13 @@ Core部分核心文件是 `/drivers/cpufreq/cpufreq.c`
 
 `cpufreq_policy_alloc` (cpufreq_policy* PERCPU:cpufreq_cpu_data)
 
-`cpufreq_policy` 是顶层调频管理和操作的PERCPU对象，这个结构保存了每个CPU调频相关的所有私有信息，供各类操作接口使用。
+`cpufreq_policy` 是一个调频实体，一个cluster对应一个policy，这个结构保存了每个CPU调频相关的所有私有信息。同时，他作为调频操作的句柄，cpufreq顶层操作接口使用policy来对一个调频实体进行操作。
 
 Mainflow：
 
 1、cpufreq driver注册
 
-2、governor注册
+2、governor注册（每个policy初始化自己的governor）
 
 3、cpu hotplug state: "cpufreq:online"，`cpuhp_cpufreq_online`、`cpuhp_cpufreq_offline`，创建出percpu policy，绑定driver、governor
 
