@@ -134,6 +134,17 @@ vprintk_store
 
 调用console driver，向console打印log出来。
 
+## Printk Console Switch
+
+开机阶段，在uart初始化结束后，我们会看到printk打出console从earlycon到console的切换log：
+
+```
+printk: console [tty0] enabled
+printk: bootconsole [pl11] disabled
+```
+
+这个log是在earlycon结束后，uart driver框架`uart_configure_port`调用`register_console`，向printk注册自己打出来的。
+
 ## Log Format
 
 `CONFIG_PRINTK_CALLER`
