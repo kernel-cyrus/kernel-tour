@@ -366,6 +366,8 @@ memcontrol
 [debugfs](/fs/debugfs)
 <label>(/sys/kernel/debug)</label>
 
+configfs
+
 [sysfs](/fs/sysfs)
 <label>(/sys)</label>
 
@@ -393,7 +395,7 @@ ramdisk
 ### drivers
 
 driver
-<label>(device driver and probe, async probe)
+<label>(device driver and probe, async probe)</label>
 
 clock
 
@@ -417,7 +419,7 @@ rtc
 
 timers
 
-uart
+tty/uart
 
 input
 
@@ -469,14 +471,42 @@ coresight
 
 ### tools
 
-perfetto
+trace-cmd
 
 kernelshark
 
-flamechart
+perfetto
 
 simpleperf
 
-### scripts
+flamechart
 
-...
+atrace
+
+strace
+
+### benchmarks
+
+hackbench
+
+tbench
+
+netperf
+
+unixbench
+
+reaim
+
+schbench
+
+stream
+
+rt-app
+
+sysbench
+
+### other
+
+linux system tools
+
+binutils collection
