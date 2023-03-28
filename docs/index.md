@@ -445,6 +445,10 @@ drm/kms
 [vendor_hook](/android/vendor_hook)
 <label>(hooks based on tracepoint for ko to inject code into kernel)</label>
 
+binder
+
+kinfo
+
 ### tracing
 
 [tracepoint](/tracing/tracepoint)
