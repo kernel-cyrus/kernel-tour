@@ -321,7 +321,7 @@ walt
 [schedutil](/sched/schedutil)
 <label>(cpufreq governor)</label>
 
-eas
+[eas](/sched/eas)
 <label>(energy aware scheduling)</label>
 
 [isolate](/sched/isolate)
