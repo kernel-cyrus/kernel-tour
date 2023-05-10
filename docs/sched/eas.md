@@ -101,7 +101,7 @@ Reference: Documentation/scheduler/sched-energy.rst
 
 ## Load Balance
 
-EAS只在中低负载场景下生效，当CPU平均负载大于80%时，整个域会被标记为overutilized状态，禁用EAS。
+EAS只在中低负载场景下生效，当CPU平均负载大于80%时，整个域会被标记为overutilized状态，禁用EAS，切换为SMP负载均衡算法。
 
 ## Schedutil
 
