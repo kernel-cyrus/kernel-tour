@@ -233,6 +233,18 @@ tickbroadcast
 [percpu](/mm/percpu)
 <label>(declare private variables for each cpu)</label>
 
+page allocate
+<label>(buddy, slab)</label>
+
+vmalloc
+<label>(virtual memory management)</label>
+
+mmap
+<label>(mmap, kmap, vmap, ioremap)</label>
+
+page swap / reclaim
+<label>(kswapd, compaction, oom_killer)</label>
+
 ### power
 
 [psci](/power/psci)
