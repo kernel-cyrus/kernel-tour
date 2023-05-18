@@ -529,3 +529,11 @@ sysbench
 linux system tools
 
 binutils collection
+
+<hr>
+
+### My other projects
+
+[tracecat](https://tracecat.kernel-tour.org/): A generic kernel trace analysis framework
+
+[lightbox](https://lightbox.kernel-tour.org/): Arch64 qemu based kernel running and debug environment
