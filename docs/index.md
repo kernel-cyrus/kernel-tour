@@ -488,6 +488,8 @@ ebpf
 
 coresight
 
+streamline
+
 ### tools
 
 trace-cmd
