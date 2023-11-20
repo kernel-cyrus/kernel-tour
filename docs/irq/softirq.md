@@ -10,6 +10,8 @@ softirq会在三个地方触发执行，一个是在硬中断执行结束后，�
 
 软中断在多核上是并行的，所以软中断回调函数都是会被重入的（包括多核重入和中断重入），必须用spinlock来保护临界区。
 
+软中断的其他一些特点：软中断不会迁核触发，哪个核raise的软中断，就在哪个核触发，包括在softirqd中。
+
 ## Files
 
 ```
@@ -102,3 +104,5 @@ static void __el1_irq()
 <https://www.oreilly.com/library/view/understanding-the-linux/0596002130/ch04s07.html>
 
 <https://blog.csdn.net/oqqYuJi12345678/article/details/99771140>
+
+<https://lwn.net/Articles/520076/>（软中断的实时性）
