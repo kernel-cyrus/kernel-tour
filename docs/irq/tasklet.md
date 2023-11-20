@@ -1,6 +1,6 @@
 # tasklet
 
-tasklet是一种软中断，准确说，tasklet使用了两个软中断（HI_SOFTIRQ / TASKLET_SOFTIRQ），来允许用户注册自己的中断下半部处理函数到软中断中。
+tasklet是一种软中断，准确说，tasklet使用了两个软中断（HI_SOFTIRQ / TASKLET_SOFTIRQ），来允许用户注册自己的中断下半部处理函数到软中断中，两个类型的区别只是在softirq的类型数组中的执行顺序的区别，HI会在所有softirq的第一顺序执行。
 
 tasklet在设计上，不同类型tasklet（不同的tasklet对象）允许多核并行，同一类型采用了多核串行的方式（同一个tasklet对象），不需要考虑多核并行重入的问题，这就避免像softirq一样，必须要为多核并行上锁，导致下半部处理函数变得更加复杂。
 
