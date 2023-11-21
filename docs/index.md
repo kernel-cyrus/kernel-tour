@@ -59,8 +59,8 @@ module
 [rcu](/locking/rcu)
 <label>(read-write-update mechanism to optimize rw locking)</label>
 
-futex
-<label>(locks for userspace)</label>
+[futex](/locking/futex)
+<label>(basic lock for userspace)</label>
 
 [lockdep](/locking/lockdep)
 <label>(dead lock detection)</label>
