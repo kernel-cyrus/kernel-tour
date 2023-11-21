@@ -1,0 +1,11 @@
+# futex
+
+futex是内核提供的用户空间锁。
+
+futex是用户空间通过内核建立并发critical section的唯一方式，c库中的pthread_mutex就是基于futex实现，用户空间的spinlock是真spin。
+
+futex只能保证critical section不被其他线程重入，不能保证不被其他线程抢占，用户空间没有任何接口可以避免抢占的发生。
+
+用户空间c库的pthread类spinlock、mutex、semphore是基于真spin或者futex来实现，与内核的spinlock、mutex、semphore完全不是一个范畴的概念，也没有任何关系，不要混淆。
+
+futex在非竞争状态下，不需要陷入内核，开销仅为用户态的一个地址原子操作。在竞争状态下，等锁线程会入队，解锁线程会出队，这两类操作均需要陷入内核态完成。
