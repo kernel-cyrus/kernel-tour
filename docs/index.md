@@ -198,7 +198,7 @@ tickbroadcast
 [firmware](/rproc/firmware)
 <label>(firmware image reader)</label>
 
-[remoteproc](/rprc/remoteproc)
+[remoteproc](/rproc/remoteproc)
 <label>(remote processor lifecycle management)</label>
 
 [rpmsg](/rproc/rpmsg)
