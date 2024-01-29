@@ -45,6 +45,47 @@ sync类型异常主要包括以下几类：（见traps.c:esr_class_str）
 
 除此之外，traps机制还为各种traps类型提供了hook，允许其他机制监控和处理各类异常，或在异常发生时打印出额外信息。
 
+## exception handlers
+
+**entry.S**
+
+```
+/*
+ * Exception vectors.
+ */
+	kernel_ventry	1, sync				// Synchronous EL1h
+	kernel_ventry	1, irq				// IRQ EL1h
+	kernel_ventry	1, fiq_invalid			// FIQ EL1h
+	kernel_ventry	1, error			// Error EL1h
+  ...
+```
+
+其中，1代表el1，sync是entry.S中内部定义的函数名，通过kernel_ventry最终转换出来的函数名为el1_sync。
+
+```
+SYM_CODE_START_LOCAL_NOALIGN(el1_sync)
+	kernel_entry 1
+	mov	x0, sp
+	bl	el1_sync_handler
+	kernel_exit 1
+SYM_CODE_END(el1_sync)
+```
+
+可以看到，el1_sync中，最终跳入el1_sync_handler
+
+完整的handler table如下：
+
+```
+el0 sync:    el0_sync_handler     (entry-common.c)
+el0 irq:     gic_handle_irq       (irq-gic-v3.c)
+el0 fiq:     bad_mode (INVALID)   (traps.c)
+el0 error:   do_serror            (traps.c)
+el1 sync:    el1_sync_handler     (entry-common.c)
+el1 irq:     gic_handle_irq       (irq-gic-v3.c)
+el1 fiq:     bad_mode (INVALID)   (traps.c)
+el1 error:   do_serror            (traps.c)
+```
+
 ## Files
 
 ```
