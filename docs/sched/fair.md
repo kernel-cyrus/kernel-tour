@@ -18,7 +18,7 @@ Reference: <https://www.kernel.org/doc/Documentation/translations/zh_CN/schedule
 
 `vruntime = (wall_time * NICE_TO_weight) / weight`
 
-权重越大，vruntime越小，执行机会越大
+权重越大，vruntime就增长越慢，墙上执行时间就越长。
 
 以下是40个nice值对应的weight，weight = 1024 / (1.25 ^ nice)，weight每档相差1.25倍
 
@@ -36,6 +36,24 @@ const int sched_prio_to_weight[40] = {
 ```
 
 当前进程CPU时间的分配占比 = weight / 全部进程weight求和，也就是说，时间占比由weight决定，而weight有nice决定，nice每改变1，cpu时间改变10%。
+
+**vruntime的更新**
+
+vruntime是一个64bit的数，task的vruntime在其创建后只要运行过就会不断增长，这就会导致两个执行历史不一样的任务，在同时进入rq时，其vruntime并不一致，导致不公平。
+
+所以，rq维护了一个队列min vruntime的值，在每一个task入队时，会将task的vruntime设置为队列的min vruntime，从而保证任务在进入rq时，任务有一直的绝对vruntime。
+
+cfs在调度时，只考虑rq中任务的vruntime的相对值，所以在vruntime增长到一定程度后，会将所有rq任务的vruntime减掉min vruntime，将所有task在rq中的基准vruntime清零。
+
+task的vruntime可以在/sys/kernel/debug/sched/debug中查看。
+
+## 调度周期、调度粒度
+
+调度周期用于保证在一个周期内，所有线程都能至少得到一次调度，保障线程的最大调度延迟。
+
+调度粒度用于调度周期的计算，当rq中的线程数少于8时，调度周期使用固定设置值（/proc/sys/kernel/sched_latency_ns），当rq中线程数大于8时，调度周期为粒度乘以rq中的线程数（粒度：/proc/sys/kernel/sched_min_granularity_ns）
+
+这么计算的原因是避免线程多时，固定的调度周期被切分到太细，导致线程抢占过于频繁发生，影响整体吞吐量。
 
 ## 组调度（group scheduling）
 
