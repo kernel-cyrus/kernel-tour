@@ -82,6 +82,12 @@ events/percpu/percpu_destroy_chunk
 
 3. `p $lx_per_cpu("xxx", <cpu>)`
 
+**Culculate Percpu Variable Address**
+
+this_cpu_ptr = (uint64_t)(__per_cpu_offset\[CPU_ID\] + var_ptr)
+
+\* 注意，这里计算后后超过64bit，最高位需要截断
+
 ## Module Test
 
 [test-percpu](https://github.com/kernel-cyrus/kernel-tour/tree/master/tests/test-percpu)
