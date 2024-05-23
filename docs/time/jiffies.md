@@ -63,3 +63,13 @@ jiffies在能够被周期更新的基础上，被实现为一个clock source，�
 [    0.140935] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
 [    0.385832] clocksource: Switched to clocksource arch_sys_counter
 ```
+
+**CONFIG_HZ vs USER_HZ**
+
+除了CONFIG_HZ定义的内核态jiffies以外，用户态还有一个USER_HZ定义的用户态jiffies，USER_HZ默认静态定义为100，也就是一个jiffies 10ms。
+
+通过系统调用拿到的jiffies，都是用户态jiffies，这样不论内核CONFIG_HZ定义为多少，用户态USER_HZ都保持不变。
+
+USER_HZ可以通过getconf CLK_TCK：100获得。
+
+如/proc/stat中的jiffies，就是用户jiffies，按照10ms一次计算。
