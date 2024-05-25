@@ -1,4 +1,4 @@
-# wakeup
+![img_v3_02b7_ff240546-b3ff-4af5-a9a2-8f5dd20bfb8g](https://github.com/kernel-cyrus/kernel-tour/assets/70213512/349c88cd-22a3-450b-a30d-a4d5e481a69f)# wakeup
 
 wakeup source（唤醒源），就是在系统下电后（suspend to ram），可以将系统重新唤醒上电的中断。
 
@@ -102,6 +102,26 @@ event0      	4540		4540		0		0		0		27995		277		258270184		0
 eventpoll   	40688		54176		0		0		0		217		5		537054822		0
 NETLINK     	2175		2175		0		0		0		16960		59		537058523		0
 ```
+
+···
+root@AGX-Orin:/sys/class/wakeup# ls -l
+total 0
+lrwxrwxrwx 1 root root 0 Mar 15  2023 wakeup1 -> ../../devices/platform/c2a0000.rtc/wakeup/wakeup1
+lrwxrwxrwx 1 root root 0 Mar 15  2023 wakeup10 -> ../../devices/platform/3400000.sdhci/wakeup/wakeup10
+lrwxrwxrwx 1 root root 0 Mar 15  2023 wakeup11 -> ../../devices/platform/3610000.xhci/usb1/1-4/1-4.4/wakeup/wakeup11
+lrwxrwxrwx 1 root root 0 Mar 15  2023 wakeup12 -> ../../devices/platform/gpio-keys/wakeup/wakeup12
+lrwxrwxrwx 1 root root 0 May 25 14:04 wakeup13 -> ../../devices/platform/c240000.i2c/i2c-1/1-0008/wakeup/wakeup13
+lrwxrwxrwx 1 root root 0 May 25 14:04 wakeup14 -> ../../devices/platform/c240000.i2c/i2c-1/1-0008/power_supply/ucsi-source-psy-1-00081/wakeup14
+lrwxrwxrwx 1 root root 0 May 25 15:17 wakeup15 -> ../../devices/platform/c240000.i2c/i2c-1/1-0008/power_supply/ucsi-source-psy-1-00082/wakeup15
+lrwxrwxrwx 1 root root 0 Mar 15  2023 wakeup2 -> ../../devices/platform/c2a0000.rtc/rtc/rtc1/alarmtimer.0.auto/wakeup/wakeup2
+lrwxrwxrwx 1 root root 0 Mar 15  2023 wakeup3 -> ../../devices/platform/bpmp/bpmp:i2c/i2c-4/4-003c/nvvrs-pseq-rtc/wakeup/wakeup3
+lrwxrwxrwx 1 root root 0 Mar 15  2023 wakeup4 -> ../../devices/platform/efuse-burn/wakeup/wakeup4
+lrwxrwxrwx 1 root root 0 Mar 15  2023 wakeup5 -> ../../devices/platform/3610000.xhci/usb1/wakeup/wakeup5
+lrwxrwxrwx 1 root root 0 Mar 15  2023 wakeup6 -> ../../devices/platform/3610000.xhci/usb2/wakeup/wakeup6
+lrwxrwxrwx 1 root root 0 Mar 15  2023 wakeup7 -> ../../devices/platform/3610000.xhci/wakeup/wakeup7
+lrwxrwxrwx 1 root root 0 Mar 15  2023 wakeup8 -> ../../devices/virtual/wakeup/wakeup8
+lrwxrwxrwx 1 root root 0 Mar 15  2023 wakeup9 -> ../../devices/virtual/wakeup/wakeup9
+···
 
 所有唤醒源绑定的device列表（/drivers/base/power/wakeup_stats.c）
 
