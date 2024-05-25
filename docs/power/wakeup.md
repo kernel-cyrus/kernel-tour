@@ -1,5 +1,3 @@
-![img_v3_02b7_ff240546-b3ff-4af5-a9a2-8f5dd20bfb8g](https://github.com/kernel-cyrus/kernel-tour/assets/70213512/349c88cd-22a3-450b-a30d-a4d5e481a69f)# wakeup
-
 wakeup source（唤醒源），就是在系统下电后（suspend to ram），可以将系统重新唤醒上电的中断。
 
 唤醒机制是ARM提供的，Kernel看，就是一个被配置了wake的irq。
@@ -103,7 +101,7 @@ eventpoll   	40688		54176		0		0		0		217		5		537054822		0
 NETLINK     	2175		2175		0		0		0		16960		59		537058523		0
 ```
 
-···
+```
 root@AGX-Orin:/sys/class/wakeup# ls -l
 total 0
 lrwxrwxrwx 1 root root 0 Mar 15  2023 wakeup1 -> ../../devices/platform/c2a0000.rtc/wakeup/wakeup1
@@ -121,7 +119,7 @@ lrwxrwxrwx 1 root root 0 Mar 15  2023 wakeup6 -> ../../devices/platform/3610000.
 lrwxrwxrwx 1 root root 0 Mar 15  2023 wakeup7 -> ../../devices/platform/3610000.xhci/wakeup/wakeup7
 lrwxrwxrwx 1 root root 0 Mar 15  2023 wakeup8 -> ../../devices/virtual/wakeup/wakeup8
 lrwxrwxrwx 1 root root 0 Mar 15  2023 wakeup9 -> ../../devices/virtual/wakeup/wakeup9
-···
+```
 
 所有唤醒源绑定的device列表（/drivers/base/power/wakeup_stats.c）
 
