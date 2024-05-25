@@ -1,3 +1,5 @@
+# Wakeup
+
 wakeup source（唤醒源），就是在系统下电后（suspend to ram），可以将系统重新唤醒上电的中断。
 
 唤醒机制是ARM提供的，Kernel看，就是一个被配置了wake的irq。
