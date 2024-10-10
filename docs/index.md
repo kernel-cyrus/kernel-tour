@@ -321,7 +321,7 @@ fork
 [idle](/sched/idle)
 <label>(idle schedule class)</label>
 
-balance
+[balance](/sched/balance)
 <label>cases of load balancing</label>
 
 [pelt](/sched/pelt)
