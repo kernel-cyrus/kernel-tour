@@ -1,5 +1,3 @@
-![test_svg](未命名绘图.drawio.svg)
-
 ### kernel
 
 [initcall](/kernel/initcall)
