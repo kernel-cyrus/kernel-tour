@@ -1,236 +1,236 @@
 ### kernel
 
-[initcall](/kernel/initcall)
+[initcall](/archives/kernel/initcall)
 <label>(module init sections)</label>
 
-[params](/kernel/params)
+[params](/archives/kernel/params)
 <label>(bootargs and module params)</label>
 
-[bootconfig](/kernel/bootconfig)
+[bootconfig](/archives/kernel/bootconfig)
 <label>(extends bootargs with bootconfig file)</label>
 
-[sysctl](/kernel/sysctl)
+[sysctl](/archives/kernel/sysctl)
 <label>(sysctl command for procfs)</label>
 
-[panic](/kernel/oops)
+[panic](/archives/kernel/oops)
 <label>(kernel oops format and how to trigger it)</label>
 
-[kallsyms](/kernel/kallsyms)
+[kallsyms](/archives/kernel/kallsyms)
 <label>(runtime symbol table embeded in kernel image)</label>
 
-[rwonce](/kernel/rwonce)
+[rwonce](/archives/kernel/rwonce)
 <label>(barriers to make sure the value is read from ddr)</label>
 
-[kobject, ktype, kset, kref](/kernel/kobject)
+[kobject, ktype, kset, kref](/archives/kernel/kobject)
 <label>(kernel base objects)</label>
 
 module
 <label>(kernel module load flow)</label>
 
-[printk](/kernel/printk)
+[printk](/archives/kernel/printk)
 <label>(printk and logs)</label>
 
-[syscall](/kernel/syscall)
+[syscall](/archives/kernel/syscall)
 <label>(enter into kernel with system call)</label>
 
-[netlink](/kernel/netlink)
+[netlink](/archives/kernel/netlink)
 <label>(communication between userspace and kernel with socket)</label>
 
-[uevent](/kernel/uevent)
+[uevent](/archives/kernel/uevent)
 <label>(send event form kernel to userspce)</label>
 
-[irqwork](/kernel/irqwork)
+[irqwork](/archives/kernel/irqwork)
 <label>(enqueueing and running callbacks in hardirq context)</label>
 
 ### locking
 
-[spinlock](/locking/spinlock)
+[spinlock](/archives/locking/spinlock)
 <label>(spin locks)</label>
 
-[mutex](/locking/mutex)
+[mutex](/archives/locking/mutex)
 <label>(locks that can sleep)</label>
 
-[semaphore](/locking/semaphore)
+[semaphore](/archives/locking/semaphore)
 <label>(just semaphore)</label>
 
-[rwsem](/locking/rwsem)
+[rwsem](/archives/locking/rwsem)
 <label>(optimize read/write case for semaphore)</label>
 
-[rcu](/locking/rcu)
+[rcu](/archives/locking/rcu)
 <label>(read-write-update mechanism to optimize rw locking)</label>
 
-[futex](/locking/futex)
+[futex](/archives/locking/futex)
 <label>(basic lock for userspace)</label>
 
-[lockdep](/locking/lockdep)
+[lockdep](/archives/locking/lockdep)
 <label>(dead lock detection)</label>
 
-[lockstat](/locking/lockstat)
+[lockstat](/archives/locking/lockstat)
 <label>(locks statistics)</label>
 
 ### irq
 
-[irqdomain](/irq/irqdomain)
+[irqdomain](/archives/irq/irqdomain)
 <label>(irq controller to create hwirq-virq mapping)</label>
 
-[irqdesc](/irq/irqdesc)
+[irqdesc](/archives/irq/irqdesc)
 <label>(an virq descriptor)</label>
 
-[irqchip](/irq/irqchip)
+[irqchip](/archives/irq/irqchip)
 <label>(interrupt controller device, like gic driver)</label>
 
-[manage](/irq/manage)
+[manage](/archives/irq/manage)
 <label>(operate an virq)</label>
 
-[exception, fault, traps](/irq/exception)
+[exception, fault, traps](/archives/irq/exception)
 <label>(exception handling)</label>
 
-[procfs, debugfs, sysfs](/irq/sysfs)
+[procfs, debugfs, sysfs](/archives/irq/sysfs)
 <label>(interrupt related filesystem nodes)</label>
 
-[softirq](/irq/softirq)
+[softirq](/archives/irq/softirq)
 <label>(bottom half: softirq handled with irq enable)</label>
 
-[tasklet](/irq/tasklet)
+[tasklet](/archives/irq/tasklet)
 <label>(bottom half: register bh handler to softirq)</label>
 
-[workqueue](/irq/workqueue)
+[workqueue](/archives/irq/workqueue)
 <label>(bottom half: workqueue thread to handle bh works)</label>
 
 ### time
 
-[arch_timer](/time/arch_timer)
+[arch_timer](/archives/time/arch_timer)
 <label>(arm arch timer device driver)</label>
 
-[clocksource](/time/clocksource)
+[clocksource](/archives/time/clocksource)
 <label>(the backend clock source of timekeeping system)</label>
 
-[timekeeping](/time/timekeeping)
+[timekeeping](/archives/time/timekeeping)
 <label>(various clocks to provide timestamps)</label>
 
-[clockevents](/time/clockevents)
+[clockevents](/archives/time/clockevents)
 <label>(a device to gen hw timer interrupt)</label>
 
-[tickdevice](/time/tickdevice)
+[tickdevice](/archives/time/tickdevice)
 <label>(a device to gen ticks)</label>
 
-[jiffies](/time/jiffies)
+[jiffies](/archives/time/jiffies)
 <label>(a tick counter)</label>
 
-[timer](/time/timer)
+[timer](/archives/time/timer)
 <label>(legacy soft timer)</label>
 
-[hrtimer](/time/hrtimer)
+[hrtimer](/archives/time/hrtimer)
 <label>(hi-res soft timer)</label>
 
-[tickless](/time/tickless)
+[tickless](/archives/time/tickless)
 <label>(disable ticks while we don't have any work to do)</label>
 
 tickbroadcast
 
-[delay](/time/delay)
+[delay](/archives/time/delay)
 <label>(delay/sleep functions)</label>
 
-[timer_list](/time/timer_list)
+[timer_list](/archives/time/timer_list)
 <label>(timer sysfs nodes and formats)</label>
 
 ### dma
 
-[dma-engine](/dma/dma-engine)
+[dma-engine](/archives/dma/dma-engine)
 <label>(dma device driver framework)</label>
 
-[coherent](/dma/coherent)
+[coherent](/archives/dma/coherent)
 <label>(for non-coherent device: global dma pool & device dma pool)</label>
 
-[contiguous](/dma/contiguous)
+[contiguous](/archives/dma/contiguous)
 <label>(global cma pool & device cma pool)</label>
 
-[atomic pool](/dma/pool)
+[atomic pool](/archives/dma/pool)
 <label>(dynamic global dma pool)</label>
 
-[direct](/dma/direct)
+[direct](/archives/dma/direct)
 <label>(for no iommu, direct_alloc)</label>
 
-[dma-mapping](/dma/dma-mapping)
+[dma-mapping](/archives/dma/dma-mapping)
 <label>(main dma allocation interface)</label>
 
-[dma-pool](/dma/dma-pool)
+[dma-pool](/archives/dma/dma-pool)
 <label>(create a pool for small dma buffers)</label>
 
-[dma-heap](/dma/dma-heap)
+[dma-heap](/archives/dma/dma-heap)
 <label>(framework for userspace to alloc dma-buf form kernel dma pools)</label>
 
-[dma-buf](/dma/dma-buf)
+[dma-buf](/archives/dma/dma-buf)
 <label>(dma buffer management)</label>
 
 ### iommu
 
-[iommu](/iommu/iommu)
+[iommu](/archives/iommu/iommu)
 <label>(iommu framework)</label>
 
-[smmu](/iommu/smmu)
+[smmu](/archives/iommu/smmu)
 <label>(arm smmu device driver)</label>
 
 ### kvm
 
-[kvm](/kvm/kvm)
+[kvm](/archives/kvm/kvm)
 <label>(kernel virtual machine and it's arm implementation)</label>
 
-[vhe](/kvm/vhe)
+[vhe](/archives/kvm/vhe)
 <label>(move kernel and hyp to el2 to optimize vm performance)</label>
 
-[pkvm](/kvm/pkvm)
+[pkvm](/archives/kvm/pkvm)
 <label>(new security model based on kvm for android)</label>
 
 ### virtio
 
-[virtio](/virtio/virtio)
+[virtio](/archives/virtio/virtio)
 <label>(virtio device, driver and virtio bus, matched by virtio device id)</label>
 
-[virtio_ring](/virtio/virtio_ring)
+[virtio_ring](/archives/virtio/virtio_ring)
 <label>(virtio message queue between front and backend driver)</label>
 
-[virtio_mmio](/virtio/virtio_mmio)
+[virtio_mmio](/archives/virtio/virtio_mmio)
 <label>(create virtio device which is based on mmio)</label>
 
 ### rproc
 
-[firmware](/rproc/firmware)
+[firmware](/archives/rproc/firmware)
 <label>(firmware image reader)</label>
 
-[remoteproc](/rproc/remoteproc)
+[remoteproc](/archives/rproc/remoteproc)
 <label>(remote processor lifecycle management)</label>
 
-[rpmsg](/rproc/rpmsg)
+[rpmsg](/archives/rproc/rpmsg)
 <label>(remote processor communication)</label>
 
 ### mm
 
-[overview](/mm/overview)
+[overview](/archives/mm/overview)
 <label>(memory management overview)</label>
 
-[pgtable](/mm/pgtable)
+[pgtable](/archives/mm/pgtable)
 <label>(page table data structures)</label>
 
-[mmu](/mm/mmu)
+[mmu](/archives/mm/mmu)
 <label>(page table creation)</label>
 
-[pagewalk, ptdump](/mm/pagewalk)
+[pagewalk, ptdump](/archives/mm/pagewalk)
 <label>(interfaces to walk through or dump the page table)</label>
 
-[fixmap](/mm/fixmap)
+[fixmap](/archives/mm/fixmap)
 <label>(fixed va-pa mapping)</label>
 
-[convert](/mm/convert)
+[convert](/archives/mm/convert)
 <label>(va-pa-pfn-page transformation)</label>
 
-[memblock](/mm/memblock)
+[memblock](/archives/mm/memblock)
 <label>(physical memory management)</label>
 
-[tlb](/mm/tlb)
+[tlb](/archives/mm/tlb)
 <label>(translation buffer operations)</label>
 
-[percpu](/mm/percpu)
+[percpu](/archives/mm/percpu)
 <label>(declare private variables for each cpu)</label>
 
 page allocate
@@ -247,43 +247,43 @@ page swap / reclaim
 
 ### power
 
-[psci](/power/psci)
+[psci](/archives/power/psci)
 <label>(put low level power operations into el2/el3)</label>
 
-[cpuidle](/power/cpuidle)
+[cpuidle](/archives/power/cpuidle)
 <label>(run cpu into idle)</label>
 
-[suspend](/power/suspend)
+[suspend](/archives/power/suspend)
 <label>(system suspend)</label>
 
-[dpm](/power/dpm)
+[dpm](/archives/power/dpm)
 <label>(device power management)</label>
 
-[runtime_suspend](/power/runtime)
+[runtime_suspend](/archives/power/runtime)
 <label>(put device into low-power mode while not using)</label>
 
 domain
 <label>power domain management</label>
 
-[wakelock](/power/wakelock)
+[wakelock](/archives/power/wakelock)
 <label>(locks to prevent system suspend)</label>
 
-[wakeup](/power/wakeup)
+[wakeup](/archives/power/wakeup)
 <label>(wakeup source irq)</label>
 
-[spin_table](/power/spin_table)
+[spin_table](/archives/power/spin_table)
 <label>(an implementation to boot smp)</label>
 
-[smp](/power/smp)
+[smp](/archives/power/smp)
 <label>(smp boot flow)</label>
 
-[cpu_hotplug](/power/cpuhp)
+[cpu_hotplug](/archives/power/cpuhp)
 <label>(runtime bringup or teardown cpus)</label>
 
-[rebooot](/power/reboot)
+[rebooot](/archives/power/reboot)
 <label>(system reboot and poweroff)</label>
 
-[cpufreq](/power/cpufreq)
+[cpufreq](/archives/power/cpufreq)
 <label>(cpu dvfs framework and soc driver)</label>
 
 devfreq
@@ -293,53 +293,53 @@ energy_model
 
 ### process
 
-[state](/process/state)
+[state](/archives/process/state)
 <label>(process states)</label>
 
 fork
 
 ### sched
 
-[overview](/sched/overview)
+[overview](/archives/sched/overview)
 <label>(from the very begining of scheduling)</label>
 
-[topology](/sched/topology)
+[topology](/archives/sched/topology)
 <label>(cpu topology, sched domain, sched groups)</label>
 
-[stop](/sched/stop)
+[stop](/archives/sched/stop)
 <label>(stop schedule class and stop machine)</label>
 
-[dl](/sched/dl)
+[dl](/archives/sched/dl)
 <label>(deadline schedule class)</label>
 
-[rt](/sched/rt)
+[rt](/archives/sched/rt)
 <label>(rt schedule class)</label>
 
-[fair](/sched/fair)
+[fair](/archives/sched/fair)
 <label>(cfs schedule class)</label>
 
-[idle](/sched/idle)
+[idle](/archives/sched/idle)
 <label>(idle schedule class)</label>
 
-[balance](/sched/balance)
+[balance](/archives/sched/balance)
 <label>cases of load balancing</label>
 
-[pelt](/sched/pelt)
+[pelt](/archives/sched/pelt)
 <label>(per-entity load tracking)</label>
 
 walt
 <label>(window-asist load tracking)</label>
 
-[schedutil](/sched/schedutil)
+[schedutil](/archives/sched/schedutil)
 <label>(cpufreq governor)</label>
 
-[eas](/sched/eas)
+[eas](/archives/sched/eas)
 <label>(energy aware scheduling)</label>
 
-[isolate](/sched/isolate)
+[isolate](/archives/sched/isolate)
 <label>(cpu isolation)</label>
 
-[completion](/sched/completion)
+[completion](/archives/sched/completion)
 <label>(multi-core excution synchronize mechanism)</label>
 
 psi
@@ -354,36 +354,36 @@ memcontrol
 
 ### fs
 
-[filesystem](/fs/filesystem)
+[filesystem](/archives/fs/filesystem)
 <label>(register a new filesystem)</label>
 
-[super](/fs/super)
+[super](/archives/fs/super)
 <label>(a superblock object represents a mounted filesystem)</label>
 
-[inode](/fs/inode)
+[inode](/archives/fs/inode)
 <label>(inode is a file or directory of a filesystem)</label>
 
-[dentry](/fs/dentry)
+[dentry](/archives/fs/dentry)
 <label>(path object)</label>
 
-[filemode](/fs/filemode)
+[filemode](/archives/fs/filemode)
 <label>(file permissions)</label>
 
-[ramfs, tmpfs](/fs/ramfs)
+[ramfs, tmpfs](/archives/fs/ramfs)
 <label>(fs live in ram)</label>
 
-[devtmpfs](/fs/devtmpfs)
+[devtmpfs](/archives/fs/devtmpfs)
 <label>(/dev)</label>
 
-[procfs](/fs/procfs)
+[procfs](/archives/fs/procfs)
 <label>(/proc)</label>
 
-[debugfs](/fs/debugfs)
+[debugfs](/archives/fs/debugfs)
 <label>(/sys/kernel/debug)</label>
 
 configfs
 
-[sysfs](/fs/sysfs)
+[sysfs](/archives/fs/sysfs)
 <label>(/sys)</label>
 
 initramfs
@@ -401,7 +401,7 @@ fuse
 
 ### block
 
-[zram](/block/zram)
+[zram](/archives/block/zram)
 <label>(ram based block device that can auto compressed)</label>
 
 ramdisk
@@ -446,18 +446,18 @@ drm/kms
 
 ### libs
 
-[sprintf](/lib/sprintf)
+[sprintf](/archives/lib/sprintf)
 <label>(sprintf interfaces)</label>
 
-[string](/lib/string)
+[string](/archives/lib/string)
 <label>(string interfaces in kernel)</label>
 
-[debugobject](/lib/debugobject)
+[debugobject](/archives/lib/debugobject)
 <label>(object life cycle management)</label>
 
 ### android
 
-[vendor_hook](/android/vendor_hook)
+[vendor_hook](/archives/android/vendor_hook)
 <label>(hooks based on tracepoint for ko to inject code into kernel)</label>
 
 binder
@@ -466,13 +466,13 @@ kinfo
 
 ### tracing
 
-[tracepoint](/tracing/tracepoint)
+[tracepoint](/archives/tracing/tracepoint)
 <label>(kernel hooks)</label>
 
-[trace_event](/tracing/trace_event)
+[trace_event](/archives/tracing/trace_event)
 <label>(trace event based on tracepoint)</label>
 
-[ftrace](/tracing/ftrace)
+[ftrace](/archives/tracing/ftrace)
 <label>(function trace)</label>
 
 kprobe
@@ -481,7 +481,7 @@ fprobe
 
 uprobe
 
-[perf](/tracing/perf)
+[perf](/archives/tracing/perf)
 <label>(linux performance tool)</label>
 
 ebpf
