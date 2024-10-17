@@ -1,1 +1,3 @@
-# Hello
+Kernel-Tour文档重新整理中...
+
+原版文章：[旧版入口](/archives/)
