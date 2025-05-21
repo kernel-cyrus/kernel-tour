@@ -44,7 +44,7 @@ DMA提供了几个DMA Buffer Pool。根据Device是否coherent（自己能保证
 
 - Global Atomic Pool
 
-	通过启动参数动态初始化的一个Global Pool，内存来源于CMA或者Buddy物理页映射，，Non-Cacheable？（coherent_pool=size）
+	通过启动参数动态初始化的一个Global Pool，page来源于CMA或者Buddy，Non-Cacheable（coherent_pool=size）
 
 - IOMMU Page Mapping
 
@@ -84,7 +84,7 @@ dma_alloc_coherent（dma_alloc_attrs）
 		dma_direct_alloc
 			
 			# For non-coherent device
-			dma_alloc_from_global_coherent	（Global Coherent Pool）
+			dma_alloc_from_global_coherent	（Global DMA Pool）
 				alloc from global dma pool
 			dma_direct_alloc_from_pool	（Global Atomic Pool）
 				alloc from 3 dynamic pool
