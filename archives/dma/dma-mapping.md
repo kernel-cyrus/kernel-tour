@@ -36,7 +36,9 @@ DMA提供了几个DMA Buffer Pool。根据Device是否coherent（自己能保证
 
 - Global CMA Pool
 
-	DTS中Reserved Memory中静态声明的一个Global Pool，Non-Cacaable？（linux,cma-default）
+	DTS中Reserved Memory中静态声明的一个Global Pool（linux,cma-default）
+
+	通过dma_alloc_coherent申请的cma pages被映射为Non-Cacheable，通过dma_alloc_noncoherent申请到的cma page被映射为Cacheable
 
 	允许Device通过这个共享Pool动态申请DMA Buffer，在不使用时允许在这里申请Movable Page，避免内存浪费。
 
