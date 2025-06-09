@@ -67,6 +67,7 @@ Kernel-Tour文档重新整理中...
 12. CPU Frequency Scaling <label>(schedutil)</label>
 13. Energy Aware Scheduling <label>(EM/EAS)</label>
 14. CPU Isolation
+15. Preempt RT
 
 # memory
 
@@ -92,6 +93,10 @@ Kernel-Tour文档重新整理中...
 4.  EXT4
 5.  F2FS
 6.  EROFS
+7.  FUSEBPF
+8.  aio
+9.  io_uring
+10. select / pool / epoll
 
 # block
 
@@ -107,7 +112,8 @@ Kernel-Tour文档重新整理中...
 4.  rwsem
 5.  rcu
 6.  futex
-7.  lock debug <label>(lockdep, lockstat)</label>
+7.  rt mutex
+8.  lock debug <label>(lockdep, lockstat)</label>
 
 # time
 
@@ -170,6 +176,7 @@ Kernel-Tour文档重新整理中...
 7.  bootconfig
 8.  kallsyms
 9.  irqwork
+10.  wakeup <label>(wait queue / swait / rcuwait / completion)</label>
 
 # drivers
 
@@ -184,6 +191,7 @@ Kernel-Tour文档重新整理中...
 5.  strace
 6.  uftrace
 7.  pstack
+8.  bootchart
 
 # benchmarks
 
@@ -207,9 +215,19 @@ Kernel-Tour文档重新整理中...
 18. dbench
 19. iperf3
 
+# build system
+
+1. kbuild/kconfig
+2. buildroot
+3. yocto
+4. debootstrap, multistrap
+5. qemu-aarch64-static
+6. distcc & icecream
+
 # development
 
 1.  Build Linux Kernel
 2.  Run and Debug Kernel with QEMU & GDB <label>(lightbox)</label>
 3.  Read Linux Source with Sublime
-4.  Some Skills to Exporing the Linux Kernel
+4.  Skills to Exporing the Linux Kernel
+5.  Tracing Skills
