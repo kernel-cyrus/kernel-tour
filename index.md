@@ -1,5 +1,7 @@
 Kernel-Tour文档重新整理中...
 
+旧版文章见：(https://github.com/kernel-cyrus/kernel-tour)[https://github.com/kernel-cyrus/kernel-tour]
+
 # cpu
 
 1.  CPU Overview
